@@ -53,21 +53,22 @@ This function should only modify configuration layer settings."
       ;;                 auto-completion-enable-sort-by-usage nil)
      ;; latex
      xclipboard
+     osx
+     (chinese :variables
+            chinese-enable-avy-pinyin nil)
      better-defaults
      ;; emacs-lisp
      evil-better-jumper
      git
-     ;; helm
      (helm :variables
            helm-use-fuzzy 'source)
-     ;; ivy
-     ;; lsp
      (lsp :variables
           lsp-ui-doc-enable nil
      )
      ;; rust
      markdown
      multiple-cursors
+     ;;restructuredtext
      org
      (shell :variables
              shell-default-height 30
@@ -75,12 +76,10 @@ This function should only modify configuration layer settings."
              shell-default-shell 'vterm
              close-window-with-terminal t
              shell-default-full-span nil)
-     ;; spell-checking
      syntax-checking
      version-control
      dap
      cmake
-     ;; c-c++
      (c-c++ :variables
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-clangd
@@ -273,7 +272,7 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 10.0
+                               :size 16.0
                                :weight normal
                                :width normal)
 
@@ -402,7 +401,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil unicode symbols are displayed in the mode line.
    ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
-   dotspacemacs-mode-line-unicode-symbols nil
+   dotspacemacs-mode-line-unicode-symbols t
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
@@ -580,7 +579,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;;(setq reftex-default-bibliography '("/Users/apple/MegaAsync/MEGA/MyScholarship/note/library.bib"))
-  (setq-default cursor-type 'bar)
+  ;;(setq-default cursor-type 'bar)
   ;;(setq evil-emacs-state-cursor '("SkyBlue2" bar))
   ;;(setq dotspacemacs-mode-line-unicode-symbols nil)
   ;;(define-key evil-motion-state-map (kbd "c-s-o") 'evil-jump-forward)
@@ -607,8 +606,68 @@ before packages are loaded."
   (kbd "C-p") #'evil-mc-skip-and-goto-prev-cursor
   (kbd "C-q") #'evil-mc-undo-all-cursors)
 
-)
+(define-key evil-insert-state-map (kbd "S-<up>")
+  (lambda ()
+    (interactive)
+    (evil-visual-char)
+    (previous-line)))
 
+(define-key evil-insert-state-map (kbd "S-<down>")
+  (lambda ()
+    (interactive)
+    (evil-visual-char)
+    (next-line)))
+
+(define-key evil-insert-state-map (kbd "S-<left>")
+  (lambda ()
+    (interactive)
+    (evil-visual-char)
+    (backward-char)))
+
+(define-key evil-insert-state-map (kbd "S-<right>")
+  (lambda ()
+    (interactive)
+    (evil-visual-char)
+    (forward-char)))
+
+(define-key evil-normal-state-map (kbd "S-<up>")
+  (lambda ()
+    (interactive)
+    (evil-visual-char)
+  (previous-line)))
+
+(define-key evil-normal-state-map (kbd "S-<down>")
+  (lambda ()
+    (interactive)
+    (evil-visual-char)
+    (next-line)))
+
+(define-key evil-normal-state-map (kbd "S-<left>")
+  (lambda ()
+    (interactive)
+    (evil-visual-char)
+    (backward-char)))
+
+(define-key evil-normal-state-map (kbd "S-<right>")
+  (lambda ()
+    (interactive)
+    (evil-visual-char)
+    (forward-char)))
+
+(define-key evil-visual-state-map (kbd "S-<up>")
+  #'previous-line)
+
+(define-key evil-visual-state-map (kbd "S-<down>")
+  #'next-line)
+
+(define-key evil-visual-state-map (kbd "S-<left>")
+  #'backward-char)
+
+(define-key evil-visual-state-map (kbd "S-<right>")
+  #'forward-char)
+
+(spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
