@@ -609,24 +609,30 @@ before packages are loaded."
 (define-key evil-insert-state-map (kbd "S-<up>")
   (lambda ()
     (interactive)
+    (evil-force-normal-state)
     (evil-visual-char)
     (previous-line)))
 
 (define-key evil-insert-state-map (kbd "S-<down>")
   (lambda ()
     (interactive)
+    (evil-force-normal-state)
     (evil-visual-char)
     (next-line)))
 
 (define-key evil-insert-state-map (kbd "S-<left>")
   (lambda ()
     (interactive)
+    (forward-char)
+    (evil-force-normal-state)
     (evil-visual-char)
     (backward-char)))
 
 (define-key evil-insert-state-map (kbd "S-<right>")
   (lambda ()
     (interactive)
+    (forward-char)
+    (evil-force-normal-state)
     (evil-visual-char)
     (forward-char)))
 
@@ -666,7 +672,8 @@ before packages are loaded."
 (define-key evil-visual-state-map (kbd "S-<right>")
   #'forward-char)
 
-(spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16)
+(if (display-graphic-p)
+(spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
