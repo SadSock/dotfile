@@ -636,29 +636,29 @@ before packages are loaded."
     (evil-visual-char)
     (forward-char)))
 
-(define-key evil-normal-state-map (kbd "S-<up>")
-  (lambda ()
-    (interactive)
-    (evil-visual-char)
-  (previous-line)))
-
-(define-key evil-normal-state-map (kbd "S-<down>")
-  (lambda ()
-    (interactive)
-    (evil-visual-char)
-    (next-line)))
-
-(define-key evil-normal-state-map (kbd "S-<left>")
-  (lambda ()
-    (interactive)
-    (evil-visual-char)
-    (backward-char)))
-
-(define-key evil-normal-state-map (kbd "S-<right>")
-  (lambda ()
-    (interactive)
-    (evil-visual-char)
-    (forward-char)))
+;(define-key evil-normal-state-map (kbd "S-<up>")
+;  (lambda ()
+;    (interactive)
+;    (evil-visual-char)
+;  (previous-line)))
+;
+;(define-key evil-normal-state-map (kbd "S-<down>")
+;  (lambda ()
+;    (interactive)
+;    (evil-visual-char)
+;    (next-line)))
+;
+;(define-key evil-normal-state-map (kbd "S-<left>")
+;  (lambda ()
+;    (interactive)
+;    (evil-visual-char)
+;    (backward-char)))
+;
+;(define-key evil-normal-state-map (kbd "S-<right>")
+;  (lambda ()
+;    (interactive)
+;    (evil-visual-char)
+;    (forward-char)))
 
 (define-key evil-visual-state-map (kbd "S-<up>")
   #'previous-line)
@@ -671,6 +671,36 @@ before packages are loaded."
 
 (define-key evil-visual-state-map (kbd "S-<right>")
   #'forward-char)
+
+(with-eval-after-load 'org
+  ;; here goes your Org config :
+(with-eval-after-load 'org-superstar
+ ;;(setq org-superstar-headline-bullets-list '("✸" "✸" "✸" "✸"))
+ ;; Org Headline Bullet Style (From Level 0 to Level 20)
+ (setq org-superstar-headline-bullets-list '("⓪" "①" "②" "③"
+                                 "④" "⑤" "⑥" "⑦"
+                                 "⑧" "⑨" "⑩" "⑪"
+                                 "⑫" "⑬" "⑭"
+                                 "⑮" "⑯" "⑰"
+                                 "⑱" "⑲" "⑳"))
+ ;;(setq org-superstar-bullet-list '("*" "*" "*" "*"))
+ ;;(setq org-superstar-item-bullet-alist
+ ;;       '((?* . ?•)
+ ;;         (?+ . ?➤)
+ ;;         (?- . ?•)))
+  ;;(setq org-superstar-headline-bullets-list '(?\s))
+  ;;(setq org-superstar-special-todo-items t)
+  ;;(setq org-superstar-remove-leading-stars t)
+  ;; Enable custom bullets for TODO items
+  ;;(setq org-superstar-todo-bullet-alist
+  ;;      '(("TODO" . ?☐)
+  ;;        ("NEXT" . ?✒)
+  ;;        ("HOLD" . ?✰)
+  ;;        ("WAITING" . ?☕)
+  ;;        ("CANCELLED" . ?✘)
+  ;;        ("DONE" . ?✔)))
+  (org-superstar-restart))
+)
 
 (if (display-graphic-p)
 (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
