@@ -66,16 +66,17 @@ This function should only modify configuration layer settings."
           lsp-ui-doc-enable nil
      )
      ;; rust
-     markdown
+     ;; markdown
      multiple-cursors
      ;;restructuredtext
      org
+     python
      (shell :variables
-             shell-default-height 30
-             shell-default-position 'bottom
-             shell-default-shell 'vterm
-             close-window-with-terminal t
-             shell-default-full-span nil)
+            shell-default-height 30
+            shell-default-position 'bottom
+            shell-default-shell 'vterm
+            close-window-with-terminal t
+            shell-default-full-span t)
      syntax-checking
      version-control
      dap
@@ -101,7 +102,10 @@ This function should only modify configuration layer settings."
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(
+                                    eyebrowse
+                                    fancy-battery
+                                    coffee-mode)
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -401,7 +405,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil unicode symbols are displayed in the mode line.
    ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols nil
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
@@ -553,7 +557,6 @@ See the header of this file for more information."
   (spacemacs/load-spacemacs-env))
 
 (defun dotspacemacs/user-init ()
-  ;;(setq-default evil-escape-key-sequence "jk")
   ;;(setq configuration-layer-elpa-archives
   ;;    '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
   ;;      ("org-cn"   . "http://elpa.emacs-china.org/org/")
@@ -579,9 +582,6 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
   ;;(setq reftex-default-bibliography '("/Users/apple/MegaAsync/MEGA/MyScholarship/note/library.bib"))
-  ;;(setq-default cursor-type 'bar)
-  ;;(setq evil-emacs-state-cursor '("SkyBlue2" bar))
-  ;;(setq dotspacemacs-mode-line-unicode-symbols nil)
   ;;(define-key evil-motion-state-map (kbd "c-s-o") 'evil-jump-forward)
   (setq  projectile-indexing-method 'alien
          projectile-generic-command "fd . -0 --type f --color=never"
