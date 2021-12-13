@@ -38,39 +38,38 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
      ;; `M-m f e R' (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;;(
+     (
       auto-completion
-      ;; :variables
-      ;;                 auto-completion-return-key-behavior 'complete
-      ;;                 auto-completion-tab-key-behavior 'cycle
-      ;;                 auto-completion-complete-with-key-sequence nil
-      ;;                 auto-completion-complete-with-key-sequence-delay 0.1
-      ;;                 auto-completion-idle-delay 0.2
-      ;;                 auto-completion-private-snippets-directory nil
-      ;;                 auto-completion-enable-snippets-in-popup t
-      ;;                 auto-completion-enable-help-tooltip t
-      ;;                 auto-completion-use-company-box t
-      ;;                 auto-completion-enable-sort-by-usage nil)
+       :variables
+                       auto-completion-return-key-behavior 'complete
+                       auto-completion-tab-key-behavior 'cycle
+                       auto-completion-complete-with-key-sequence nil
+                       auto-completion-complete-with-key-sequence-delay 0.1
+                       auto-completion-idle-delay 0.2
+                       auto-completion-private-snippets-directory nil
+                       auto-completion-enable-snippets-in-popup t
+                       auto-completion-enable-help-tooltip t
+                       auto-completion-use-company-box t
+                       auto-completion-enable-sort-by-usage nil)
      ;; latex
      xclipboard
      osx
      (chinese :variables
             chinese-enable-avy-pinyin nil)
      better-defaults
-     ;; emacs-lisp
+     emacs-lisp
      evil-better-jumper
      git
      (helm :variables
            helm-use-fuzzy 'source)
      (lsp :variables
           lsp-ui-doc-enable nil
-     )
+          lsp-lens-enable t)
      ;; rust
-     ;; markdown
+     markdown
      multiple-cursors
      ;;restructuredtext
      org
-     python
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -85,6 +84,7 @@ This function should only modify configuration layer settings."
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-clangd
             c-c++-lsp-enable-semantic-highlight 'rainbow
+            c-c++-enable-clang-format-on-save t
             )
      )
 
@@ -105,7 +105,23 @@ This function should only modify configuration layer settings."
    dotspacemacs-excluded-packages '(
                                     eyebrowse
                                     fancy-battery
-                                    coffee-mode)
+                                    coffee-mode
+                                    browse-at-remote
+                                    helm-ag
+                                    symbol-overlay
+                                    uuidgen
+                                    ccls
+                                    company-rtags
+                                    company-ycmd
+                                    dumb-jump
+                                    flycheck-rtags
+                                    flycheck-ycmd
+                                    helm-rtags
+                                    avy
+                                    rtags
+                                    ycmd
+                                    auto-complete
+                                    )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -209,7 +225,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 'random
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -405,7 +421,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil unicode symbols are displayed in the mode line.
    ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
-   dotspacemacs-mode-line-unicode-symbols nil
+   dotspacemacs-mode-line-unicode-symbols t
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
@@ -601,10 +617,6 @@ before packages are loaded."
     (cons (expand-file-name "~/Config/emacs/tablegen") load-path))
   (require 'llvm-mode)
 
-  ;; multiple cursors
-(evil-define-key '(normal visual) evil-mc-key-map
-  (kbd "C-p") #'evil-mc-skip-and-goto-prev-cursor
-  (kbd "C-q") #'evil-mc-undo-all-cursors)
 
 (define-key evil-insert-state-map (kbd "S-<up>")
   (lambda ()
@@ -702,8 +714,41 @@ before packages are loaded."
   (org-superstar-restart))
 )
 
+(setq-default org-download-image-dir "~/Org/assets/")
+(setq org-image-actual-width nil)
 (if (display-graphic-p)
 (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
+
+;; multiple cursors
+(use-package evil-mc
+  :commands evil-mc-mode
+  :init
+  :config
+  (evil-define-key '(normal visual) evil-mc-key-map
+    (kbd "C-p") #'evil-mc-undo-last-added-cursor
+    ;;(kbd "C-q") #'evil-mc-undo-all-cursors
+    )
+  (evil-define-key '(insert normal visual) evil-mc-key-map
+    (kbd "C-g") (lambda () (interactive) (evil-normal-state)(evil-mc-undo-all-cursors))
+    )
+  )
+
+(use-package evil-escape
+  :commands evil-escape-mode
+  :init
+  (setq evil-escape-excluded-states '(normal visual emacs motion multiedit)
+        evil-escape-excluded-major-modes '(neotree-mode)
+        evil-escape-key-sequence "jk"
+        evil-escape-delay 0.25)
+  (add-hook 'after-init-hook #'evil-escape-mode)
+  :config
+  ;; no `evil-escape' in minibuffer
+  (cl-pushnew #'minibufferp evil-escape-inhibit-functions :test #'eq)
+
+  (define-key evil-insert-state-map  (kbd "C-g") #'evil-escape)
+  (define-key evil-replace-state-map (kbd "C-g") #'evil-escape)
+  (define-key evil-visual-state-map  (kbd "C-g") #'evil-escape)
+  (define-key evil-operator-state-map (kbd "C-g") #'evil-escape))
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
