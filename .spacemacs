@@ -682,7 +682,7 @@ before packages are loaded."
 
 (define-key evil-visual-state-map (kbd "S-<right>")
   #'forward-char)
-
+(setq display-line-numbers-width-start t)
 (with-eval-after-load 'org
   ;; here goes your Org config :
 (with-eval-after-load 'org-superstar
@@ -717,7 +717,7 @@ before packages are loaded."
 (setq org-image-actual-width nil)
 (if (display-graphic-p)
 (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
-(setq display-line-numbers-width-start t)
+
 ;; multiple cursors
 (use-package evil-mc
   :commands evil-mc-mode
@@ -730,6 +730,27 @@ before packages are loaded."
   (evil-define-key '(insert normal visual) evil-mc-key-map
     (kbd "C-g") (lambda () (interactive) (evil-normal-state)(evil-mc-undo-all-cursors))
     )
+  )
+
+
+(with-eval-after-load 'ox-latex
+  ;; http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export
+  ;; latexmk runs pdflatex/xelatex (whatever is specified) multiple times
+  ;; automatically to resolve the cross-references.
+  ;;(setq org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
+  (add-to-list 'org-latex-classes
+               '("texpadcn"
+                 "\\documentclass[lang=cn,11pt,a4paper]{article}
+                 [NO-DEFAULT-PACKAGES]
+                 [PACKAGES]
+                 [EXTRA]"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+  ;;(setq org-latex-listings 'minted)
+  ;;(add-to-list 'org-latex-packages-alist '("" "minted"))
   )
 
 (use-package evil-escape
