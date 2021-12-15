@@ -107,7 +107,6 @@ This function should only modify configuration layer settings."
                                     fancy-battery
                                     coffee-mode
                                     browse-at-remote
-                                    helm-ag
                                     symbol-overlay
                                     uuidgen
                                     ccls
@@ -713,12 +712,12 @@ before packages are loaded."
   ;;        ("DONE" . ?✔)))
   (org-superstar-restart))
 )
-
+(setq lsp-headerline-breadcrumb-icons-enable nil)
 (setq-default org-download-image-dir "~/Org/assets/")
 (setq org-image-actual-width nil)
 (if (display-graphic-p)
 (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
-
+(setq display-line-numbers-width-start t)
 ;; multiple cursors
 (use-package evil-mc
   :commands evil-mc-mode
