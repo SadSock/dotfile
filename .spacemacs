@@ -29,7 +29,7 @@ This function should only modify configuration layer settings."
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
-
+   
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
@@ -45,17 +45,16 @@ This function should only modify configuration layer settings."
                        auto-completion-tab-key-behavior 'cycle
                        auto-completion-complete-with-key-sequence nil
                        auto-completion-complete-with-key-sequence-delay 0.1
-                       auto-completion-idle-delay 0.2
+                       auto-completion-idle-delay nil
                        auto-completion-private-snippets-directory nil
-                       auto-completion-enable-snippets-in-popup t
+                       auto-completion-enable-snippets-in-popup nil
                        auto-completion-enable-help-tooltip t
                        auto-completion-use-company-box t
-                       auto-completion-enable-sort-by-usage nil)
+                       auto-completion-enable-sort-by-usage t)
      ;; latex
      xclipboard
-     osx
      (chinese :variables
-            chinese-enable-avy-pinyin nil)
+              chinese-enable-avy-pinyin nil)
      better-defaults
      emacs-lisp
      evil-better-jumper
@@ -64,9 +63,10 @@ This function should only modify configuration layer settings."
            helm-use-fuzzy 'source)
      (lsp :variables
           lsp-ui-doc-enable nil
+          lsp-ui-sideline-show-diagnostics nil
           lsp-lens-enable t)
      ;; rust
-     markdown
+     ;;markdown
      multiple-cursors
      ;;restructuredtext
      org
@@ -78,7 +78,7 @@ This function should only modify configuration layer settings."
             shell-default-full-span t)
      syntax-checking
      version-control
-     dap
+     ;;dap
      cmake
      (c-c++ :variables
             c-c++-adopt-subprojects t
@@ -87,7 +87,6 @@ This function should only modify configuration layer settings."
             c-c++-enable-clang-format-on-save t
             )
      )
-
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
    ;; loaded using load/require/use-package in the user-config section below in
@@ -96,18 +95,18 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '()
-
+   dotspacemacs-additional-packages '(key-chord)
+   
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
-
+   
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
+                                    highlight-symbol
                                     eyebrowse
                                     fancy-battery
                                     coffee-mode
                                     browse-at-remote
-                                    symbol-overlay
                                     uuidgen
                                     ccls
                                     company-rtags
@@ -121,7 +120,7 @@ This function should only modify configuration layer settings."
                                     ycmd
                                     auto-complete
                                     )
-
+   
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and deletes any unused
@@ -601,7 +600,7 @@ before packages are loaded."
   (setq  projectile-indexing-method 'alien
          projectile-generic-command "fd . -0 --type f --color=never"
          projectile-enable-caching t)
-  ;;(setq-default evil-escape-key-sequence "fd")
+  ;;(setq-default evil-escape-key-sequence "jk")
   (setq-default evil-escape-delay 0.2)
   (spacemacs/set-leader-keys
     "pf"  'projectile-find-file
@@ -712,12 +711,19 @@ before packages are loaded."
   ;;        ("DONE" . ?✔)))
   (org-superstar-restart))
 )
+(global-set-key (kbd "C-g") '(lambda ()
+                               (interactive)
+                               (spacemacs/evil-search-clear-highlight)
+                               (evil-ex-nohighlight)
+                               (keyboard-quit)
+                               ))
+(setq flycheck-navigation-minimum-level 'error)
 (setq lsp-headerline-breadcrumb-icons-enable nil)
 (setq-default org-download-image-dir "~/Org/assets/")
 (setq org-image-actual-width nil)
 (if (display-graphic-p)
-(spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
-
+    (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
+(setq display-line-numbers-width-start t)
 ;; multiple cursors
 (use-package evil-mc
   :commands evil-mc-mode
@@ -725,10 +731,13 @@ before packages are loaded."
   :config
   (evil-define-key '(normal visual) evil-mc-key-map
     (kbd "C-p") #'evil-mc-undo-last-added-cursor
-    ;;(kbd "C-q") #'evil-mc-undo-all-cursors
     )
   (evil-define-key '(insert normal visual) evil-mc-key-map
-    (kbd "C-g") (lambda () (interactive) (evil-normal-state)(evil-mc-undo-all-cursors))
+    (kbd "C-g") (lambda ()
+                  (interactive)
+                  (evil-normal-state)
+                  (evil-mc-undo-all-cursors)
+                  )
     )
   )
 
@@ -753,22 +762,80 @@ before packages are loaded."
   ;;(add-to-list 'org-latex-packages-alist '("" "minted"))
   )
 
+(use-package expand-region
+  :config
+  (progn
+    (define-key evil-visual-state-map (kbd "v")
+      (lambda ()
+        (interactive)
+        (er/expand-region 1)
+        ;;(goto-char (region-end))
+        )
+      )
+    )
+)
+(use-package company
+  :ensure t
+  :config
+  ;(define-key company-mode-map [remap indent-for-tab-command] #'company-indent-or-complete-common)
+  (evil-define-key '(insert) company-mode-map [remap indent-for-tab-command] #'company-indent-or-complete-common
+    )
+  (evil-define-key '(insert) company-mode-map [remap c-indent-line-or-region] #'company-indent-or-complete-common
+    )
+
+  )
+(use-package evil
+  :ensure t
+  :config
+  ;;(define-key evil-insert-state-map"jk" 'save-buffer)
+  )
+
+(use-package key-chord
+  :config
+  (progn
+    (key-chord-mode 1)
+    ;;(key-chord-define-global "jk" 'save-buffer)
+    (key-chord-define evil-normal-state-map "fd" 'save-buffer)
+    (key-chord-define evil-mc-key-map "fd"
+                      (lambda ()
+                        (interactive)
+                        (evil-normal-state)
+                        (evil-mc-undo-all-cursors)
+                        )
+                      )
+    )
+  )
+(use-package symbol-overlay
+  :ensure t
+  :config
+  (progn
+    (define-key symbol-overlay-map (kbd "C-g") #'symbol-overlay-remove-all)
+    )
+  )
+(use-package auto-highlight-symbol
+  :ensure t
+  :config
+  (progn
+    (define-key auto-highlight-symbol-mode-map (kbd "C-g") #'spacemacs//ahs-ts-on-exit)
+   )
+ )
 (use-package evil-escape
   :commands evil-escape-mode
   :init
-  (setq evil-escape-excluded-states '(normal visual emacs motion multiedit)
+  (setq evil-escape-excluded-states '(normal visual emacs motion multiedit evil-mc)
         evil-escape-excluded-major-modes '(neotree-mode)
-        evil-escape-key-sequence "jk"
+       ;; evil-escape-key-sequence "jk"
         evil-escape-delay 0.25)
+  (setq evil-escape-inhibit-functions '((lambda () evil-mc-cursor-state)))
   (add-hook 'after-init-hook #'evil-escape-mode)
   :config
   ;; no `evil-escape' in minibuffer
   (cl-pushnew #'minibufferp evil-escape-inhibit-functions :test #'eq)
-
   (define-key evil-insert-state-map  (kbd "C-g") #'evil-escape)
   (define-key evil-replace-state-map (kbd "C-g") #'evil-escape)
   (define-key evil-visual-state-map  (kbd "C-g") #'evil-escape)
-  (define-key evil-operator-state-map (kbd "C-g") #'evil-escape))
+  (define-key evil-operator-state-map (kbd "C-g") #'evil-escape)
+  )
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
