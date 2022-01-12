@@ -42,9 +42,9 @@ This function should only modify configuration layer settings."
       auto-completion
        :variables
                        auto-completion-return-key-behavior 'complete
-                       auto-completion-tab-key-behavior 'cycle
-                       auto-completion-complete-with-key-sequence nil
-                       auto-completion-complete-with-key-sequence-delay 0.1
+                       auto-completion-tab-key-behavior 'complete
+                       auto-completion-complete-with-key-sequence "fd"
+                       auto-completion-complete-with-key-sequence-delay 2.5
                        auto-completion-idle-delay nil
                        auto-completion-private-snippets-directory nil
                        auto-completion-enable-snippets-in-popup nil
@@ -55,9 +55,9 @@ This function should only modify configuration layer settings."
      xclipboard
      (chinese :variables
               chinese-enable-avy-pinyin nil)
-     better-defaults
+     ;;better-defaults
      emacs-lisp
-     evil-better-jumper
+     ;;evil-better-jumper
      git
      (helm :variables
            helm-use-fuzzy 'source)
@@ -78,8 +78,6 @@ This function should only modify configuration layer settings."
             shell-default-full-span t)
      syntax-checking
      version-control
-     ;;dap
-     cmake
      (c-c++ :variables
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-clangd
@@ -114,11 +112,38 @@ This function should only modify configuration layer settings."
                                     dumb-jump
                                     flycheck-rtags
                                     flycheck-ycmd
+                                    helm-gtags
                                     helm-rtags
+                                    helm-company
+                                    helm-c-yasnippet
                                     avy
                                     rtags
+                                    gtags
                                     ycmd
                                     auto-complete
+                                    auto-yasnippet
+                                    ac-ispell
+                                    yasnippet
+                                    yasnippet-snippets
+                                    disaster
+                                    gdb-mi
+                                    google-c-style
+                                    helm-cscope
+                                    realgud
+                                    xcscope
+                                    dap-mode
+                                    counsel-gtags
+                                    ivy-rtags
+                                    emacsql
+                                    emacsql-sqlite
+                                    forge
+                                    ghub
+                                    gnuplot
+                                    iedit
+                                    multi-line
+                                    pyim
+                                    cpp-auto-include
+                                    gendoxy
                                     )
    
    ;; Defines the behaviour of Spacemacs when installing packages.
@@ -795,6 +820,7 @@ before packages are loaded."
   (progn
     (key-chord-mode 1)
     ;;(key-chord-define-global "jk" 'save-buffer)
+    (setq key-chord-two-keys-delay 2.5)
     (key-chord-define evil-normal-state-map "fd" 'save-buffer)
     (key-chord-define evil-mc-key-map "fd"
                       (lambda ()
