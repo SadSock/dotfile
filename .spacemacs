@@ -144,6 +144,31 @@ This function should only modify configuration layer settings."
                                     pyim
                                     cpp-auto-include
                                     gendoxy
+                                    aggressive-indent
+                                    eval-sexp-fu
+                                    hungry-delete
+                                    link-hint
+                                    lorem-ipsum
+                                    origami
+                                    password-generator
+                                    smartparens
+                                    string-inflection
+                                    persistent-scratch
+                                    unkillable-scratch
+                                    string-edit
+                                    dumb-jump
+                                    define-word
+                                    desktop
+                                    zoom-frm
+                                    google-translate
+                                    evil-args
+                                    evil-number
+                                    evil-nerd-commenter
+                                    evil-lion
+                                    evil-indent-plus
+                                    evil-tutor
+                                    evil-easymotion
+                                    evil-vimish-fold
                                     )
    
    ;; Defines the behaviour of Spacemacs when installing packages.
