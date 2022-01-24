@@ -43,8 +43,8 @@ This function should only modify configuration layer settings."
        :variables
                        auto-completion-return-key-behavior 'complete
                        auto-completion-tab-key-behavior 'complete
-                       auto-completion-complete-with-key-sequence "fd"
-                       auto-completion-complete-with-key-sequence-delay 2.5
+                       auto-completion-complete-with-key-sequence "fj"
+                       auto-completion-complete-with-key-sequence-delay 2.0
                        auto-completion-idle-delay nil
                        auto-completion-private-snippets-directory nil
                        auto-completion-enable-snippets-in-popup nil
@@ -94,12 +94,27 @@ This function should only modify configuration layer settings."
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
    dotspacemacs-additional-packages '(key-chord)
-   
+
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
-   
+
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
+                                    Ace-Pinyin
+                                    Ace-Pinyin-Global
+                                    rainbow-delimiters
+                                    symon
+                                    smeargle
+                                    quickrun
+                                    htmlize
+                                    flx-ido
+                                    find-by-pinyin-dired
+                                    elisp-slime-nav
+                                    editorconfig
+                                    drag-stuff
+                                    column-enforce-mode
+                                    chinese-conv
+                                    ace-pinyin
                                     highlight-symbol
                                     eyebrowse
                                     fancy-battery
@@ -149,7 +164,6 @@ This function should only modify configuration layer settings."
                                     hungry-delete
                                     link-hint
                                     lorem-ipsum
-                                    origami
                                     password-generator
                                     smartparens
                                     string-inflection
@@ -169,8 +183,14 @@ This function should only modify configuration layer settings."
                                     evil-tutor
                                     evil-easymotion
                                     evil-vimish-fold
+                                    org-mime
+                                    org-pomodoro
+                                    org-present
+                                    orgit
+                                    org-projectile
+                                    org-rich-yank
                                     )
-   
+
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and deletes any unused
@@ -311,7 +331,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, `kill-buffer' on *scratch* buffer
    ;; will bury it instead of killing.
-   dotspacemacs-scratch-buffer-unkillable nil
+   dotspacemacs-scratch-buffer-unkillable t
 
    ;; Initial message in the scratch buffer, such as "Welcome to Spacemacs!"
    ;; (default nil)
@@ -320,7 +340,9 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(monokai
+                         doom-one
+                         spacemacs-dark
                          spacemacs-light)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -330,7 +352,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(vim-powerline :separator wave :separator-scale 1.5)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -339,8 +361,9 @@ It should only modify the values of Spacemacs settings."
    ;; Default font or prioritized list of fonts. The `:size' can be specified as
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 16.0
+   ;;dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("FantasqueSansMono Nerd Font Mono"
+                               :size 18.0
                                :weight normal
                                :width normal)
 
@@ -502,7 +525,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
-   dotspacemacs-folding-method 'evil
+   dotspacemacs-folding-method 'origami
 
    ;; If non-nil and `dotspacemacs-activate-smartparens-mode' is also non-nil,
    ;; `smartparens-strict-mode' will be enabled in programming modes.
@@ -525,7 +548,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server nil
+   dotspacemacs-enable-server t
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -577,7 +600,7 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
+   dotspacemacs-whitespace-cleanup 'changed
 
    ;; If non-nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfere with mode specific
@@ -610,7 +633,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-home-shorten-agenda-source nil
 
    ;; If non-nil then byte-compile some of Spacemacs files.
-   dotspacemacs-byte-compile nil))
+   dotspacemacs-byte-compile t))
 
 (defun dotspacemacs/user-env ()
   "Environment variables setup.
@@ -645,6 +668,72 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+
+
+(defun er--expand-region-1-sadsock ()
+  "Increase selected region by semantic units.
+Basically it runs all the mark-functions in `er/try-expand-list'
+and chooses the one that increases the size of the region while
+moving point or mark as little as possible."
+  (let* ((p1 (point))
+         (p2 (if (use-region-p) (mark) (point)))
+         (start (min p1 p2))
+         (end (max p1 p2))
+         (try-list er/try-expand-list)
+         (best-start (point-min))
+         (best-end (point-max))
+         (set-mark-default-inactive nil))
+
+    ;; add hook to clear history on buffer changes
+    (unless er/history
+      (add-hook 'after-change-functions 'er/clear-history t t))
+
+    ;; remember the start and end points so we can contract later
+    ;; unless we're already at maximum size
+    (unless (and (= start best-start)
+                 (= end best-end))
+      (push (cons p1 p2) er/history))
+
+    (when (and expand-region-skip-whitespace
+               (er--point-is-surrounded-by-white-space)
+               (= start end))
+      (skip-chars-forward er--space-str)
+      (setq start (point)))
+
+    (while try-list
+      (er--save-excursion
+       (ignore-errors
+         (funcall (car try-list))
+         (when (and (region-active-p)
+                    (er--this-expansion-is-better start end best-start best-end))
+           (setq best-start (point))
+           (setq best-end (mark))
+           (when (and er--show-expansion-message (not (minibufferp)))
+             (message "%S" (car try-list))))))
+      (setq try-list (cdr try-list)))
+
+    (setq deactivate-mark nil)
+    ;; if smart cursor enabled, decide to put it at start or end of region:
+    (if (and expand-region-smart-cursor
+             (not (= start best-start)))
+        (progn (goto-char best-end)
+               (set-mark best-start))
+      (goto-char best-end)
+      (set-mark best-start))
+
+    (er--copy-region-to-register)
+
+    (when (and (= best-start (point-min))
+               (= best-end (point-max))) ;; We didn't find anything new, so exit early
+      'early-exit)))
+
+;;  (defun something-fixed ()
+
+;;    )
+(advice-add 'er--expand-region-1 :override #'er--expand-region-1-sadsock)
+
+(setq baud-rate 2400)
+
   ;;(setq reftex-default-bibliography '("/Users/apple/MegaAsync/MEGA/MyScholarship/note/library.bib"))
   ;;(define-key evil-motion-state-map (kbd "c-s-o") 'evil-jump-forward)
   (setq  projectile-indexing-method 'alien
@@ -733,25 +822,36 @@ before packages are loaded."
   #'forward-char)
 (setq display-line-numbers-width-start t)
 (with-eval-after-load 'org
+  (setq org-startup-numerated t)
+  (setq org-startup-folded 'content)
+  (setq org-image-actual-width nil)
   ;; here goes your Org config :
-(with-eval-after-load 'org-superstar
+;;(with-eval-after-load 'org-superstar
  ;;(setq org-superstar-headline-bullets-list '("✸" "✸" "✸" "✸"))
  ;; Org Headline Bullet Style (From Level 0 to Level 20)
- (setq org-superstar-headline-bullets-list '("⓪" "①" "②" "③"
-                                 "④" "⑤" "⑥" "⑦"
-                                 "⑧" "⑨" "⑩" "⑪"
-                                 "⑫" "⑬" "⑭"
-                                 "⑮" "⑯" "⑰"
-                                 "⑱" "⑲" "⑳"))
+;; (setq org-superstar-headline-bullets-list '("⓪" "①" "②" "③"
+;;                                 "④" "⑤" "⑥" "⑦"
+;;                                 "⑧" "⑨" "⑩" "⑪"
+;;                                 "⑫" "⑬" "⑭"
+;;                                 "⑮" "⑯" "⑰"
+;;                                 "⑱" "⑲" "⑳"))
  ;;(setq org-superstar-bullet-list '("*" "*" "*" "*"))
- ;;(setq org-superstar-item-bullet-alist
- ;;       '((?* . ?•)
- ;;         (?+ . ?➤)
- ;;         (?- . ?•)))
-  ;;(setq org-superstar-headline-bullets-list '(?\s))
-  ;;(setq org-superstar-special-todo-items t)
-  ;;(setq org-superstar-remove-leading-stars t)
-  ;; Enable custom bullets for TODO items
+ (setq org-superstar-item-bullet-alist
+        '((?* . ?•)
+          (?+ . ?➤)
+          (?- . ?•)))
+
+
+ ;; This is usually the default, but keep in mind it must be nil
+ (setq org-hide-leading-stars t)
+ ;; This line is necessary.
+ (setq org-superstar-headline-bullets-list '(?\s))
+ ;; If you use Org Indent you also need to add this, otherwise the
+ ;; above has no effect while Indent is enabled.
+ (setq org-indent-mode-turns-on-hiding-stars nil)
+ (setq org-superstar-remove-leading-stars t)
+ (setq org-superstar-special-todo-items t)
+  ; Enable custom bullets for TODO items
   ;;(setq org-superstar-todo-bullet-alist
   ;;      '(("TODO" . ?☐)
   ;;        ("NEXT" . ?✒)
@@ -759,7 +859,6 @@ before packages are loaded."
   ;;        ("WAITING" . ?☕)
   ;;        ("CANCELLED" . ?✘)
   ;;        ("DONE" . ?✔)))
-  (org-superstar-restart))
 )
 (global-set-key (kbd "C-g") '(lambda ()
                                (interactive)
@@ -770,7 +869,6 @@ before packages are loaded."
 (setq flycheck-navigation-minimum-level 'error)
 (setq lsp-headerline-breadcrumb-icons-enable nil)
 (setq-default org-download-image-dir "~/Org/assets/")
-(setq org-image-actual-width nil)
 (if (display-graphic-p)
     (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
 (setq display-line-numbers-width-start t)
@@ -815,11 +913,11 @@ before packages are loaded."
 (use-package expand-region
   :config
   (progn
+    ;;(setq expand-region-smart-cursor t)
     (define-key evil-visual-state-map (kbd "v")
       (lambda ()
         (interactive)
         (er/expand-region 1)
-        ;;(goto-char (region-end))
         )
       )
     )
@@ -834,6 +932,17 @@ before packages are loaded."
     )
 
   )
+
+(use-package helm-ag
+  :ensure t
+  :config
+  ;;(define-key evil-insert-state-map"jk" 'save-buffer)
+  ;;(define-key helm-ag-map (kbd "C-j") #'backward-char)
+  (define-key helm-ag-map (kbd "<left>") #'backward-char)
+  ;;(define-key helm-ag-map (kbd "C-k") #'forward-char)
+  (define-key helm-ag-map (kbd "<right>") #'forward-char)
+)
+
 (use-package evil
   :ensure t
   :config
@@ -845,9 +954,9 @@ before packages are loaded."
   (progn
     (key-chord-mode 1)
     ;;(key-chord-define-global "jk" 'save-buffer)
-    (setq key-chord-two-keys-delay 2.5)
-    (key-chord-define evil-normal-state-map "fd" 'save-buffer)
-    (key-chord-define evil-mc-key-map "fd"
+    (setq key-chord-two-keys-delay 0.2)
+    (key-chord-define evil-normal-state-map "fj" 'save-buffer)
+    (key-chord-define evil-mc-key-map "fj"
                       (lambda ()
                         (interactive)
                         (evil-normal-state)
@@ -875,8 +984,8 @@ before packages are loaded."
   :init
   (setq evil-escape-excluded-states '(normal visual emacs motion multiedit evil-mc)
         evil-escape-excluded-major-modes '(neotree-mode)
-       ;; evil-escape-key-sequence "jk"
-        evil-escape-delay 0.25)
+       evil-escape-key-sequence "fj"
+        evil-escape-delay 0.2)
   (setq evil-escape-inhibit-functions '((lambda () evil-mc-cursor-state)))
   (add-hook 'after-init-hook #'evil-escape-mode)
   :config
@@ -891,3 +1000,9 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+)
