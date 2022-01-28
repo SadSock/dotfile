@@ -29,7 +29,7 @@ This function should only modify configuration layer settings."
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
-   
+
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
@@ -57,7 +57,7 @@ This function should only modify configuration layer settings."
               chinese-enable-avy-pinyin nil)
      ;;better-defaults
      emacs-lisp
-     ;;evil-better-jumper
+     evil-better-jumper
      git
      (helm :variables
            helm-use-fuzzy 'source)
@@ -70,12 +70,12 @@ This function should only modify configuration layer settings."
      multiple-cursors
      ;;restructuredtext
      org
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom
-            shell-default-shell 'vterm
-            close-window-with-terminal t
-            shell-default-full-span t)
+     ;;(shell :variables
+     ;;       shell-default-height 30
+     ;;       shell-default-position 'bottom
+     ;;       shell-default-shell 'vterm
+     ;;       close-window-with-terminal t
+     ;;       shell-default-full-span t)
      syntax-checking
      version-control
      (c-c++ :variables
@@ -189,6 +189,10 @@ This function should only modify configuration layer settings."
                                     orgit
                                     org-projectile
                                     org-rich-yank
+                                    vi-tilde-fringe
+                                    Ido-Vertical
+                                    writeroom-mode
+                                    Powerline
                                     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
@@ -340,10 +344,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
-                         doom-one
-                         spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(monokai)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -352,7 +353,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(vim-powerline :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -534,7 +535,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil smartparens-mode will be enabled in programming modes.
    ;; (default t)
-   dotspacemacs-activate-smartparens-mode t
+   dotspacemacs-activate-smartparens-mode nil
 
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc...
@@ -564,7 +565,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
    ;; (default '("rg" "ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("rg")
 
    ;; Format specification for setting the frame title.
    ;; %a - the `abbreviated-file-name', or `buffer-name'
@@ -607,7 +608,7 @@ It should only modify the values of Spacemacs settings."
    ;; indent handling like has been reported for `go-mode'.
    ;; If it does deactivate it here.
    ;; (default t)
-   dotspacemacs-use-clean-aindent-mode t
+   dotspacemacs-use-clean-aindent-mode nil
 
    ;; Accept SPC as y for prompts if non-nil. (default nil)
    dotspacemacs-use-SPC-as-y nil
@@ -925,7 +926,6 @@ moving point or mark as little as possible."
 (use-package company
   :ensure t
   :config
-  ;(define-key company-mode-map [remap indent-for-tab-command] #'company-indent-or-complete-common)
   (evil-define-key '(insert) company-mode-map [remap indent-for-tab-command] #'company-indent-or-complete-common
     )
   (evil-define-key '(insert) company-mode-map [remap c-indent-line-or-region] #'company-indent-or-complete-common
@@ -936,7 +936,6 @@ moving point or mark as little as possible."
 (use-package helm-ag
   :ensure t
   :config
-  ;;(define-key evil-insert-state-map"jk" 'save-buffer)
   ;;(define-key helm-ag-map (kbd "C-j") #'backward-char)
   (define-key helm-ag-map (kbd "<left>") #'backward-char)
   ;;(define-key helm-ag-map (kbd "C-k") #'forward-char)
