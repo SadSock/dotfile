@@ -48,23 +48,40 @@ This function should only modify configuration layer settings."
                        auto-completion-idle-delay nil
                        auto-completion-private-snippets-directory nil
                        auto-completion-enable-snippets-in-popup nil
-                       auto-completion-enable-help-tooltip t
-                       auto-completion-use-company-box t
+                       auto-completion-enable-help-tooltip nil
+                       auto-completion-use-company-box nil
                        auto-completion-enable-sort-by-usage t)
      ;; latex
      xclipboard
      (chinese :variables
               chinese-enable-avy-pinyin nil)
-     ;;better-defaults
      emacs-lisp
      evil-better-jumper
      git
      (helm :variables
            helm-use-fuzzy 'source)
      (lsp :variables
+          lsp-navigation 'both
+          lsp-modeline-diagnostics-enable t
+          lsp-ui-sideline-show-hover t
+          lsp-ui-sidine-symbol t
+          lsp-enable-imenu t
+          lsp-ui-flycheck-enable t
+          lsp-lens-enable nil
+          lsp-ui-sideline-enable nil
           lsp-ui-doc-enable nil
-          lsp-ui-sideline-show-diagnostics nil
-          lsp-lens-enable t)
+          lsp-ui-doc-display nil
+          lsp-headerline-breadcrumb-enable t
+          lsp-headerline-breadcrumb-icons-enable nil
+          lsp-log-max nil
+          lsp-enable-on-type-formatting t
+          lsp-enable-symbol-highlighting nil
+          lsp-enable-indentation nil
+          lsp-ui-flycheck-live-reporting nil
+          lsp-before-save-edits t
+          lsp-modeline-diagnostics-scope 'file
+          lsp-file-watch-threshold 30000
+          )
      ;; rust
      ;;markdown
      multiple-cursors
@@ -77,11 +94,13 @@ This function should only modify configuration layer settings."
      ;;       close-window-with-terminal t
      ;;       shell-default-full-span t)
      syntax-checking
-     version-control
+     (version-control :variables
+                      version-control-diff-tool 'git-gutter+
+                      version-control-global-margin t)
      (c-c++ :variables
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-clangd
-            c-c++-lsp-enable-semantic-highlight 'rainbow
+            ;;c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-clang-format-on-save t
             )
      )
@@ -101,6 +120,7 @@ This function should only modify configuration layer settings."
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
                                     Ace-Pinyin
+                                    ace-pinyin
                                     Ace-Pinyin-Global
                                     rainbow-delimiters
                                     symon
@@ -114,14 +134,12 @@ This function should only modify configuration layer settings."
                                     drag-stuff
                                     column-enforce-mode
                                     chinese-conv
-                                    ace-pinyin
                                     highlight-symbol
                                     eyebrowse
                                     fancy-battery
                                     coffee-mode
                                     browse-at-remote
                                     uuidgen
-                                    ccls
                                     company-rtags
                                     company-ycmd
                                     dumb-jump
@@ -157,7 +175,7 @@ This function should only modify configuration layer settings."
                                     iedit
                                     multi-line
                                     pyim
-                                    cpp-auto-include
+                                    ;;cpp-auto-include
                                     gendoxy
                                     aggressive-indent
                                     eval-sexp-fu
@@ -297,7 +315,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'random
+   dotspacemacs-startup-banner 'official
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -309,8 +327,9 @@ It should only modify the values of Spacemacs settings."
    ;; pair of numbers, e.g. `(recents-by-project . (7 .  5))', where the first
    ;; number is the project limit and the second the limit on the recent files
    ;; within a project.
-   dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+   dotspacemacs-startup-lists '((bookmarks . 10)
+                                (recents . 5)
+                                (projects . 5))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -335,7 +354,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, `kill-buffer' on *scratch* buffer
    ;; will bury it instead of killing.
-   dotspacemacs-scratch-buffer-unkillable t
+   dotspacemacs-scratch-buffer-unkillable nil
 
    ;; Initial message in the scratch buffer, such as "Welcome to Spacemacs!"
    ;; (default nil)
@@ -344,7 +363,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai)
+   dotspacemacs-themes '(doom-one)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -424,7 +443,7 @@ It should only modify the values of Spacemacs settings."
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
-   dotspacemacs-auto-save-file-location 'cache
+   dotspacemacs-auto-save-file-location 'nil
 
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
@@ -526,7 +545,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
    ;; (default 'evil)
-   dotspacemacs-folding-method 'origami
+   dotspacemacs-folding-method 'evil
 
    ;; If non-nil and `dotspacemacs-activate-smartparens-mode' is also non-nil,
    ;; `smartparens-strict-mode' will be enabled in programming modes.
@@ -549,7 +568,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server t
+   dotspacemacs-enable-server nil
 
    ;; Set the emacs server socket location.
    ;; If nil, uses whatever the Emacs default is, otherwise a directory path
@@ -645,15 +664,21 @@ See the header of this file for more information."
   (spacemacs/load-spacemacs-env))
 
 (defun dotspacemacs/user-init ()
-  ;;(setq configuration-layer-elpa-archives
-  ;;    '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
-  ;;      ("org-cn"   . "http://elpa.emacs-china.org/org/")
-  ;;      ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
   "Initialization for user code:
 This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
-If you are unsure, try setting them in `dotspacemacs/user-config' first.")
+If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (setq configuration-layer-elpa-archives
+        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+  ;;(setq initial-frame-alist '((height . 50) (width . 90)))
+  (add-to-list 'initial-frame-alist '(height . 50))
+  (add-to-list 'initial-frame-alist '(width . 85))
+  (add-to-list 'default-frame-alist '(height . 50))
+  (add-to-list 'default-frame-alist '(width . 85))
+)
 
 
 (defun dotspacemacs/user-load ()
@@ -669,71 +694,72 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-
-
-(defun er--expand-region-1-sadsock ()
-  "Increase selected region by semantic units.
+  (global-hl-line-mode -1)
+  ;;(setq indent-guide-recursive t)
+  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+  (defun er--expand-region-1-sadsock ()
+    "Increase selected region by semantic units.
 Basically it runs all the mark-functions in `er/try-expand-list'
 and chooses the one that increases the size of the region while
 moving point or mark as little as possible."
-  (let* ((p1 (point))
-         (p2 (if (use-region-p) (mark) (point)))
-         (start (min p1 p2))
-         (end (max p1 p2))
-         (try-list er/try-expand-list)
-         (best-start (point-min))
-         (best-end (point-max))
-         (set-mark-default-inactive nil))
+    (let* ((p1 (point))
+           (p2 (if (use-region-p) (mark) (point)))
+           (start (min p1 p2))
+           (end (max p1 p2))
+           (try-list er/try-expand-list)
+           (best-start (point-min))
+           (best-end (point-max))
+           (set-mark-default-inactive nil))
 
-    ;; add hook to clear history on buffer changes
-    (unless er/history
-      (add-hook 'after-change-functions 'er/clear-history t t))
+      ;; add hook to clear history on buffer changes
+      (unless er/history
+        (add-hook 'after-change-functions 'er/clear-history t t))
 
-    ;; remember the start and end points so we can contract later
-    ;; unless we're already at maximum size
-    (unless (and (= start best-start)
-                 (= end best-end))
-      (push (cons p1 p2) er/history))
+      ;; remember the start and end points so we can contract later
+      ;; unless we're already at maximum size
+      (unless (and (= start best-start)
+                   (= end best-end))
+        (push (cons p1 p2) er/history))
 
-    (when (and expand-region-skip-whitespace
-               (er--point-is-surrounded-by-white-space)
-               (= start end))
-      (skip-chars-forward er--space-str)
-      (setq start (point)))
+      (when (and expand-region-skip-whitespace
+                 (er--point-is-surrounded-by-white-space)
+                 (= start end))
+        (skip-chars-forward er--space-str)
+        (setq start (point)))
 
-    (while try-list
-      (er--save-excursion
-       (ignore-errors
-         (funcall (car try-list))
-         (when (and (region-active-p)
-                    (er--this-expansion-is-better start end best-start best-end))
-           (setq best-start (point))
-           (setq best-end (mark))
-           (when (and er--show-expansion-message (not (minibufferp)))
-             (message "%S" (car try-list))))))
-      (setq try-list (cdr try-list)))
+      (while try-list
+        (er--save-excursion
+         (ignore-errors
+           (funcall (car try-list))
+           (when (and (region-active-p)
+                      (er--this-expansion-is-better start end best-start best-end))
+             (setq best-start (point))
+             (setq best-end (mark))
+             (when (and er--show-expansion-message (not (minibufferp)))
+               (message "%S" (car try-list))))))
+        (setq try-list (cdr try-list)))
 
-    (setq deactivate-mark nil)
-    ;; if smart cursor enabled, decide to put it at start or end of region:
-    (if (and expand-region-smart-cursor
-             (not (= start best-start)))
-        (progn (goto-char best-end)
-               (set-mark best-start))
-      (goto-char best-end)
-      (set-mark best-start))
+      (setq deactivate-mark nil)
+      ;; if smart cursor enabled, decide to put it at start or end of region:
+      (if (and expand-region-smart-cursor
+               (not (= start best-start)))
+          (progn (goto-char best-end)
+                 (set-mark best-start))
+        (goto-char best-end)
+        (set-mark best-start))
 
-    (er--copy-region-to-register)
+      (er--copy-region-to-register)
 
-    (when (and (= best-start (point-min))
-               (= best-end (point-max))) ;; We didn't find anything new, so exit early
-      'early-exit)))
+      (when (and (= best-start (point-min))
+                 (= best-end (point-max))) ;; We didn't find anything new, so exit early
+        'early-exit)))
 
-;;  (defun something-fixed ()
+  ;;  (defun something-fixed ()
 
-;;    )
-(advice-add 'er--expand-region-1 :override #'er--expand-region-1-sadsock)
+  ;;    )
+  (advice-add 'er--expand-region-1 :override #'er--expand-region-1-sadsock)
 
-(setq baud-rate 2400)
+  ;;(setq baud-rate 2400)
 
   ;;(setq reftex-default-bibliography '("/Users/apple/MegaAsync/MEGA/MyScholarship/note/library.bib"))
   ;;(define-key evil-motion-state-map (kbd "c-s-o") 'evil-jump-forward)
@@ -749,252 +775,268 @@ moving point or mark as little as possible."
     ;;"fF"  'projectile-find-file-in-directory
     )
   (setq load-path
-    (cons (expand-file-name "~/Config/emacs/tablegen") load-path))
+        (cons (expand-file-name "~/Config/emacs/tablegen") load-path))
   (require 'tablegen-mode)
-    (setq load-path
-    (cons (expand-file-name "~/Config/emacs/tablegen") load-path))
+  (setq load-path
+        (cons (expand-file-name "~/Config/emacs/tablegen") load-path))
   (require 'llvm-mode)
 
 
-(define-key evil-insert-state-map (kbd "S-<up>")
-  (lambda ()
-    (interactive)
-    (evil-force-normal-state)
-    (evil-visual-char)
-    (previous-line)))
+  (define-key evil-insert-state-map (kbd "S-<up>")
+    (lambda ()
+      (interactive)
+      (evil-force-normal-state)
+      (evil-visual-char)
+      (previous-line)))
 
-(define-key evil-insert-state-map (kbd "S-<down>")
-  (lambda ()
-    (interactive)
-    (evil-force-normal-state)
-    (evil-visual-char)
-    (next-line)))
+  (define-key evil-insert-state-map (kbd "S-<down>")
+    (lambda ()
+      (interactive)
+      (evil-force-normal-state)
+      (evil-visual-char)
+      (next-line)))
 
-(define-key evil-insert-state-map (kbd "S-<left>")
-  (lambda ()
-    (interactive)
-    (forward-char)
-    (evil-force-normal-state)
-    (evil-visual-char)
-    (backward-char)))
+  (define-key evil-insert-state-map (kbd "S-<left>")
+    (lambda ()
+      (interactive)
+      (forward-char)
+      (evil-force-normal-state)
+      (evil-visual-char)
+      (backward-char)))
 
-(define-key evil-insert-state-map (kbd "S-<right>")
-  (lambda ()
-    (interactive)
-    (forward-char)
-    (evil-force-normal-state)
-    (evil-visual-char)
-    (forward-char)))
+  (define-key evil-insert-state-map (kbd "S-<right>")
+    (lambda ()
+      (interactive)
+      (forward-char)
+      (evil-force-normal-state)
+      (evil-visual-char)
+      (forward-char)))
 
-;(define-key evil-normal-state-map (kbd "S-<up>")
-;  (lambda ()
-;    (interactive)
-;    (evil-visual-char)
-;  (previous-line)))
-;
-;(define-key evil-normal-state-map (kbd "S-<down>")
-;  (lambda ()
-;    (interactive)
-;    (evil-visual-char)
-;    (next-line)))
-;
-;(define-key evil-normal-state-map (kbd "S-<left>")
-;  (lambda ()
-;    (interactive)
-;    (evil-visual-char)
-;    (backward-char)))
-;
-;(define-key evil-normal-state-map (kbd "S-<right>")
-;  (lambda ()
-;    (interactive)
-;    (evil-visual-char)
-;    (forward-char)))
+                                        ;(define-key evil-normal-state-map (kbd "S-<up>")
+                                        ;  (lambda ()
+                                        ;    (interactive)
+                                        ;    (evil-visual-char)
+                                        ;  (previous-line)))
+                                        ;
+                                        ;(define-key evil-normal-state-map (kbd "S-<down>")
+                                        ;  (lambda ()
+                                        ;    (interactive)
+                                        ;    (evil-visual-char)
+                                        ;    (next-line)))
+                                        ;
+                                        ;(define-key evil-normal-state-map (kbd "S-<left>")
+                                        ;  (lambda ()
+                                        ;    (interactive)
+                                        ;    (evil-visual-char)
+                                        ;    (backward-char)))
+                                        ;
+                                        ;(define-key evil-normal-state-map (kbd "S-<right>")
+                                        ;  (lambda ()
+                                        ;    (interactive)
+                                        ;    (evil-visual-char)
+                                        ;    (forward-char)))
 
-(define-key evil-visual-state-map (kbd "S-<up>")
-  #'previous-line)
+  (define-key evil-visual-state-map (kbd "S-<up>")
+    #'previous-line)
 
-(define-key evil-visual-state-map (kbd "S-<down>")
-  #'next-line)
+  (define-key evil-visual-state-map (kbd "S-<down>")
+    #'next-line)
 
-(define-key evil-visual-state-map (kbd "S-<left>")
-  #'backward-char)
+  (define-key evil-visual-state-map (kbd "S-<left>")
+    #'backward-char)
 
-(define-key evil-visual-state-map (kbd "S-<right>")
-  #'forward-char)
-(setq display-line-numbers-width-start t)
-(with-eval-after-load 'org
-  (setq org-startup-numerated t)
-  (setq org-startup-folded 'content)
-  (setq org-image-actual-width nil)
-  ;; here goes your Org config :
-;;(with-eval-after-load 'org-superstar
- ;;(setq org-superstar-headline-bullets-list '("✸" "✸" "✸" "✸"))
- ;; Org Headline Bullet Style (From Level 0 to Level 20)
-;; (setq org-superstar-headline-bullets-list '("⓪" "①" "②" "③"
-;;                                 "④" "⑤" "⑥" "⑦"
-;;                                 "⑧" "⑨" "⑩" "⑪"
-;;                                 "⑫" "⑬" "⑭"
-;;                                 "⑮" "⑯" "⑰"
-;;                                 "⑱" "⑲" "⑳"))
- ;;(setq org-superstar-bullet-list '("*" "*" "*" "*"))
- (setq org-superstar-item-bullet-alist
-        '((?* . ?•)
-          (?+ . ?➤)
-          (?- . ?•)))
+  (define-key evil-visual-state-map (kbd "S-<right>")
+    #'forward-char)
+  ;;(setq org-startup-truncated nil)
+  (with-eval-after-load 'org
+    (setq org-startup-numerated t)
+    (setq org-startup-folded 'content)
+    (setq org-image-actual-width nil)
+    ;; here goes your Org config :
+    ;;(with-eval-after-load 'org-superstar
+    ;;(setq org-superstar-headline-bullets-list '("✸" "✸" "✸" "✸"))
+    ;; Org Headline Bullet Style (From Level 0 to Level 20)
+    ;; (setq org-superstar-headline-bullets-list '("⓪" "①" "②" "③"
+    ;;                                 "④" "⑤" "⑥" "⑦"
+    ;;                                 "⑧" "⑨" "⑩" "⑪"
+    ;;                                 "⑫" "⑬" "⑭"
+    ;;                                 "⑮" "⑯" "⑰"
+    ;;                                 "⑱" "⑲" "⑳"))
+    ;;(setq org-superstar-bullet-list '("*" "*" "*" "*"))
+    (setq org-superstar-item-bullet-alist
+          '((?* . ?•)
+            (?+ . ?➤)
+            (?- . ?•)))
 
 
- ;; This is usually the default, but keep in mind it must be nil
- (setq org-hide-leading-stars t)
- ;; This line is necessary.
- (setq org-superstar-headline-bullets-list '(?\s))
- ;; If you use Org Indent you also need to add this, otherwise the
- ;; above has no effect while Indent is enabled.
- (setq org-indent-mode-turns-on-hiding-stars nil)
- (setq org-superstar-remove-leading-stars t)
- (setq org-superstar-special-todo-items t)
-  ; Enable custom bullets for TODO items
-  ;;(setq org-superstar-todo-bullet-alist
-  ;;      '(("TODO" . ?☐)
-  ;;        ("NEXT" . ?✒)
-  ;;        ("HOLD" . ?✰)
-  ;;        ("WAITING" . ?☕)
-  ;;        ("CANCELLED" . ?✘)
-  ;;        ("DONE" . ?✔)))
-)
-(global-set-key (kbd "C-g") '(lambda ()
-                               (interactive)
-                               (spacemacs/evil-search-clear-highlight)
-                               (evil-ex-nohighlight)
-                               (keyboard-quit)
-                               ))
-(setq flycheck-navigation-minimum-level 'error)
-(setq lsp-headerline-breadcrumb-icons-enable nil)
-(setq-default org-download-image-dir "~/Org/assets/")
-(if (display-graphic-p)
-    (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
-(setq display-line-numbers-width-start t)
-;; multiple cursors
-(use-package evil-mc
-  :commands evil-mc-mode
-  :init
-  :config
-  (evil-define-key '(normal visual) evil-mc-key-map
-    (kbd "C-p") #'evil-mc-undo-last-added-cursor
+    (setq display-line-numbers-width-start t)
+    ;; This is usually the default, but keep in mind it must be nil
+    (setq org-hide-leading-stars t)
+    ;; This line is necessary.
+    (setq org-superstar-headline-bullets-list '(?\s))
+    ;; If you use Org Indent you also need to add this, otherwise the
+    ;; above has no effect while Indent is enabled.
+    (setq org-indent-mode-turns-on-hiding-stars nil)
+    (setq org-superstar-remove-leading-stars t)
+    (setq org-superstar-special-todo-items t)
+                                        ; Enable custom bullets for TODO items
+    ;;(setq org-superstar-todo-bullet-alist
+    ;;      '(("TODO" . ?☐)
+    ;;        ("NEXT" . ?✒)
+    ;;        ("HOLD" . ?✰)
+    ;;        ("WAITING" . ?☕)
+    ;;        ("CANCELLED" . ?✘)
+    ;;        ("DONE" . ?✔)))
     )
-  (evil-define-key '(insert normal visual) evil-mc-key-map
-    (kbd "C-g") (lambda ()
-                  (interactive)
-                  (evil-normal-state)
-                  (evil-mc-undo-all-cursors)
-                  )
+  (global-set-key (kbd "C-g") '(lambda ()
+                                 (interactive)
+                                 (spacemacs/evil-search-clear-highlight)
+                                 (evil-ex-nohighlight)
+                                 (keyboard-quit)
+                                 ))
+  (setq flycheck-navigation-minimum-level 'error)
+  (setq-default org-download-image-dir "~/Org/assets/")
+  ;;(if (display-graphic-p)
+  ;;    (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
+  ;; multiple cursors
+  (use-package evil-mc
+    :commands evil-mc-mode
+    :init
+    :config
+    (evil-define-key '(normal visual) evil-mc-key-map
+      (kbd "C-p") #'evil-mc-undo-last-added-cursor
+      )
+    (evil-define-key '(insert normal visual) evil-mc-key-map
+      (kbd "C-g") (lambda ()
+                    (interactive)
+                    (evil-normal-state)
+                    (evil-mc-undo-all-cursors)
+                    )
+      )
     )
-  )
 
 
-(with-eval-after-load 'ox-latex
-  ;; http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export
-  ;; latexmk runs pdflatex/xelatex (whatever is specified) multiple times
-  ;; automatically to resolve the cross-references.
-  ;;(setq org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
-  (add-to-list 'org-latex-classes
-               '("texpadcn"
-                 "\\documentclass[lang=cn,11pt,a4paper]{article}
+  (with-eval-after-load 'ox-latex
+    ;; http://orgmode.org/worg/org-faq.html#using-xelatex-for-pdf-export
+    ;; latexmk runs pdflatex/xelatex (whatever is specified) multiple times
+    ;; automatically to resolve the cross-references.
+    ;;(setq org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
+    (add-to-list 'org-latex-classes
+                 '("texpadcn"
+                   "\\documentclass[lang=cn,11pt,a4paper]{article}
                  [NO-DEFAULT-PACKAGES]
                  [PACKAGES]
                  [EXTRA]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-  ;;(setq org-latex-listings 'minted)
-  ;;(add-to-list 'org-latex-packages-alist '("" "minted"))
-  )
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+    ;;(setq org-latex-listings 'minted)
+    ;;(add-to-list 'org-latex-packages-alist '("" "minted"))
+    )
 
-(use-package expand-region
-  :config
-  (progn
-    ;;(setq expand-region-smart-cursor t)
-    (define-key evil-visual-state-map (kbd "v")
-      (lambda ()
-        (interactive)
-        (er/expand-region 1)
+  (use-package lsp-mode
+    :init
+    :config
+    )
+
+  (use-package expand-region
+    :config
+    (progn
+      ;;(setq expand-region-smart-cursor t)
+      (define-key evil-visual-state-map (kbd "v")
+        (lambda ()
+          (interactive)
+          (er/expand-region 1)
+          )
         )
       )
     )
-)
-(use-package company
-  :ensure t
-  :config
-  (evil-define-key '(insert) company-mode-map [remap indent-for-tab-command] #'company-indent-or-complete-common
+  (use-package company
+    :ensure t
+    :config
+    ;;(evil-define-key '(insert) company-mode-map [remap indent-for-tab-command] #'company-indent-or-complete-common
+    ;;  )
+    ;;(evil-define-key '(insert) company-mode-map [remap c-indent-line-or-region] #'company-indent-or-complete-common
+    ;;  )
+    (evil-define-key '(insert) company-mode-map (kbd "C-n") #'company-complete)
     )
-  (evil-define-key '(insert) company-mode-map [remap c-indent-line-or-region] #'company-indent-or-complete-common
+
+  (use-package helm-ag
+    :ensure t
+    :config
+    ;;(define-key helm-ag-map (kbd "C-j") #'backward-char)
+    (define-key helm-ag-map (kbd "<left>") #'backward-char)
+    ;;(define-key helm-ag-map (kbd "C-k") #'forward-char)
+    (define-key helm-ag-map (kbd "<right>") #'forward-char)
     )
 
-  )
+  ;;(add-hook 'vterm-mode-hook (lambda () ))
 
-(use-package helm-ag
-  :ensure t
-  :config
-  ;;(define-key helm-ag-map (kbd "C-j") #'backward-char)
-  (define-key helm-ag-map (kbd "<left>") #'backward-char)
-  ;;(define-key helm-ag-map (kbd "C-k") #'forward-char)
-  (define-key helm-ag-map (kbd "<right>") #'forward-char)
-)
+  (use-package evil
+    :ensure t
+    :config
+    ;;(define-key evil-insert-state-map"jk" 'save-buffer)
+    ;;(add-hook 'evil-visual-state-entry-hook
+    ;;          (lambda()
+    ;;            (global-hl-line-mode -1)
+    ;;            )
+    ;;          )
+    ;;(add-hook 'evil-visual-state-exit-hook
+    ;;          (lambda()
+    ;;            (global-hl-line-mode 1)
+    ;;            )
+    ;;          )
+    )
 
-(use-package evil
-  :ensure t
-  :config
-  ;;(define-key evil-insert-state-map"jk" 'save-buffer)
-  )
-
-(use-package key-chord
-  :config
-  (progn
-    (key-chord-mode 1)
-    ;;(key-chord-define-global "jk" 'save-buffer)
-    (setq key-chord-two-keys-delay 0.2)
-    (key-chord-define evil-normal-state-map "fj" 'save-buffer)
-    (key-chord-define evil-mc-key-map "fj"
-                      (lambda ()
-                        (interactive)
-                        (evil-normal-state)
-                        (evil-mc-undo-all-cursors)
+  (use-package key-chord
+    :config
+    (progn
+      (key-chord-mode 1)
+      ;;(key-chord-define-global "jk" 'save-buffer)
+      (setq key-chord-two-keys-delay 0.2)
+      (key-chord-define evil-normal-state-map "fj" 'save-buffer)
+      (key-chord-define evil-mc-key-map "fj"
+                        (lambda ()
+                          (interactive)
+                          (evil-normal-state)
+                          (evil-mc-undo-all-cursors)
+                          )
                         )
-                      )
+      )
     )
-  )
-(use-package symbol-overlay
-  :ensure t
-  :config
-  (progn
-    (define-key symbol-overlay-map (kbd "C-g") #'symbol-overlay-remove-all)
+  (use-package symbol-overlay
+    :ensure t
+    :config
+    (progn
+      (define-key symbol-overlay-map (kbd "C-g") #'symbol-overlay-remove-all)
+      )
     )
-  )
-(use-package auto-highlight-symbol
-  :ensure t
-  :config
-  (progn
-    (define-key auto-highlight-symbol-mode-map (kbd "C-g") #'spacemacs//ahs-ts-on-exit)
-   )
- )
-(use-package evil-escape
-  :commands evil-escape-mode
-  :init
-  (setq evil-escape-excluded-states '(normal visual emacs motion multiedit evil-mc)
-        evil-escape-excluded-major-modes '(neotree-mode)
-       evil-escape-key-sequence "fj"
-        evil-escape-delay 0.2)
-  (setq evil-escape-inhibit-functions '((lambda () evil-mc-cursor-state)))
-  (add-hook 'after-init-hook #'evil-escape-mode)
-  :config
-  ;; no `evil-escape' in minibuffer
-  (cl-pushnew #'minibufferp evil-escape-inhibit-functions :test #'eq)
-  (define-key evil-insert-state-map  (kbd "C-g") #'evil-escape)
-  (define-key evil-replace-state-map (kbd "C-g") #'evil-escape)
-  (define-key evil-visual-state-map  (kbd "C-g") #'evil-escape)
-  (define-key evil-operator-state-map (kbd "C-g") #'evil-escape)
-  )
+  (use-package auto-highlight-symbol
+    :ensure t
+    :config
+    (progn
+      (define-key auto-highlight-symbol-mode-map (kbd "C-g") #'spacemacs//ahs-ts-on-exit)
+      )
+    )
+  (use-package evil-escape
+    :commands evil-escape-mode
+    :init
+    (setq evil-escape-excluded-states '(normal visual emacs motion multiedit evil-mc)
+          evil-escape-excluded-major-modes '(neotree-mode)
+          evil-escape-key-sequence "fj"
+          evil-escape-delay 0.2)
+    (setq evil-escape-inhibit-functions '((lambda () evil-mc-cursor-state)))
+    (add-hook 'after-init-hook #'evil-escape-mode)
+    :config
+    ;; no `evil-escape' in minibuffer
+    (cl-pushnew #'minibufferp evil-escape-inhibit-functions :test #'eq)
+    (define-key evil-insert-state-map  (kbd "C-g") #'evil-escape)
+    (define-key evil-replace-state-map (kbd "C-g") #'evil-escape)
+    (define-key evil-visual-state-map  (kbd "C-g") #'evil-escape)
+    (define-key evil-operator-state-map (kbd "C-g") #'evil-escape)
+    )
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
