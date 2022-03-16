@@ -53,10 +53,10 @@ This function should only modify configuration layer settings."
                        auto-completion-enable-sort-by-usage t)
      ;; latex
      xclipboard
-     (chinese :variables
-              chinese-enable-avy-pinyin nil)
+     ranger
+     chinese
      emacs-lisp
-     evil-better-jumper
+     ;;evil-better-jumper
      git
      (helm :variables
            helm-use-fuzzy 'source)
@@ -112,16 +112,20 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(key-chord)
+   dotspacemacs-additional-packages '(key-chord
+                                      org-modern)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
 
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
-                                    Ace-Pinyin
                                     ace-pinyin
-                                    Ace-Pinyin-Global
+                                    ace-Pinyin-Global
+                                    ace-jump-helm-line
+                                    ace-link
+                                    chinese-wbim
+                                    ccls
                                     rainbow-delimiters
                                     symon
                                     smeargle
@@ -143,12 +147,14 @@ This function should only modify configuration layer settings."
                                     company-rtags
                                     company-ycmd
                                     dumb-jump
+                                    flycheck
                                     flycheck-rtags
                                     flycheck-ycmd
                                     helm-gtags
                                     helm-rtags
                                     helm-company
                                     helm-c-yasnippet
+                                    helm-cscope
                                     avy
                                     rtags
                                     gtags
@@ -161,7 +167,6 @@ This function should only modify configuration layer settings."
                                     disaster
                                     gdb-mi
                                     google-c-style
-                                    helm-cscope
                                     realgud
                                     xcscope
                                     dap-mode
@@ -175,7 +180,6 @@ This function should only modify configuration layer settings."
                                     iedit
                                     multi-line
                                     pyim
-                                    ;;cpp-auto-include
                                     gendoxy
                                     aggressive-indent
                                     eval-sexp-fu
@@ -194,23 +198,39 @@ This function should only modify configuration layer settings."
                                     zoom-frm
                                     google-translate
                                     evil-args
-                                    evil-number
+                                    evil-numbers
                                     evil-nerd-commenter
                                     evil-lion
                                     evil-indent-plus
                                     evil-tutor
                                     evil-easymotion
                                     evil-vimish-fold
+                                    evil-iedit-state
+                                    evil-lisp-state
+                                    evil-cleverparens
+                                    evil-textobj-line
+                                    evil-exchange
+                                    evil-ediff
+                                    evil-goggles
                                     org-mime
                                     org-pomodoro
                                     org-present
                                     orgit
                                     org-projectile
                                     org-rich-yank
+                                    org-superstar
+                                    org-cliplink
+                                    origami
+                                    toc-org
                                     vi-tilde-fringe
+                                    vimish-fold
                                     Ido-Vertical
                                     writeroom-mode
+                                    Winner
                                     Powerline
+                                    projectile
+                                    Xterm-Mouse
+                                    ;;persp-mode
                                     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
@@ -230,9 +250,13 @@ It should only modify the values of Spacemacs settings."
   ;; This setq-default sexp is an exhaustive list of all the supported
   ;; spacemacs settings.
   (setq-default
-   ;; If non-nil then enable support for the portable dumper. You'll need
-   ;; to compile Emacs 27 from source following the instructions in file
+   ;; If non-nil then enable support for the portable dumper. You'll need to
+   ;; compile Emacs 27 from source following the instructions in file
    ;; EXPERIMENTAL.org at to root of the git repository.
+   ;;
+   ;; WARNING: pdumper does not work with Native Compilation, so it's disabled
+   ;; regardless of the following setting when native compilation is in effect.
+   ;;
    ;; (default nil)
    dotspacemacs-enable-emacs-pdumper nil
 
@@ -340,6 +364,11 @@ It should only modify the values of Spacemacs settings."
    ;; The minimum delay in seconds between number key presses. (default 0.4)
    dotspacemacs-startup-buffer-multi-digit-delay 0.4
 
+   ;; If non-nil, show file icons for entries and headings on Spacemacs home buffer.
+   ;; This has no effect in terminal or if "all-the-icons" package or the font
+   ;; is not installed. (default nil)
+   dotspacemacs-startup-buffer-show-icons t
+
    ;; Default major mode for a new empty buffer. Possible values are mode
    ;; names such as `text-mode'; and `nil' to use Fundamental mode.
    ;; (default `text-mode')
@@ -372,7 +401,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(doom :separator wave :separator-scale 1.5)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -382,7 +411,8 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    ;;dotspacemacs-default-font '("Source Code Pro"
-   dotspacemacs-default-font '("FantasqueSansMono Nerd Font Mono"
+   ;;dotspacemacs-default-font '("FantasqueSansMono Nerd Font Mono"
+   dotspacemacs-default-font '("Sarasa Mono SC Nerd"
                                :size 18.0
                                :weight normal
                                :width normal)
@@ -512,7 +542,7 @@ It should only modify the values of Spacemacs settings."
    ;; If non-nil unicode symbols are displayed in the mode line.
    ;; If you use Emacs as a daemon and wants unicode characters only in GUI set
    ;; the value to quoted `display-graphic-p'. (default t)
-   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-mode-line-unicode-symbols `display-graphic-p
 
    ;; If non-nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters point
@@ -584,7 +614,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
    ;; (default '("rg" "ag" "pt" "ack" "grep"))
-   dotspacemacs-search-tools '("rg")
+   dotspacemacs-search-tools '("rg" "grep")
 
    ;; Format specification for setting the frame title.
    ;; %a - the `abbreviated-file-name', or `buffer-name'
@@ -661,7 +691,8 @@ This function defines the environment variables for your Emacs session. By
 default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
-  (spacemacs/load-spacemacs-env))
+  (spacemacs/load-spacemacs-env)
+)
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:
@@ -670,22 +701,28 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq configuration-layer-elpa-archives
-        '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
-          ("org-cn"   . "http://elpa.zilongshanren.com/org/")
-          ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
-  ;;(setq initial-frame-alist '((height . 50) (width . 90)))
-  (add-to-list 'initial-frame-alist '(height . 50))
-  (add-to-list 'initial-frame-alist '(width . 85))
-  (add-to-list 'default-frame-alist '(height . 50))
-  (add-to-list 'default-frame-alist '(width . 85))
-)
+        '(("melpa-cn" . "http://mirrors.bfsu.edu.cn/elpa/melpa/")
+          ("org-cn" . "http://mirrors.bfsu.edu.cn/elpa/org/")
+          ("gnu-cn" . "http://mirrors.bfsu.edu.cn/elpa/gnu/")
+          ("non-gnu" . "https://elpa.nongnu.org/nongnu/")))
+  ;;(setq configuration-layer-elpa-archives
+  ;;      '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
+  ;;        ("org-cn"   . "http://elpa.zilongshanren.com/org/")
+  ;;        ("nognu-cn"   . "http://elpa.zilongshanren.com/nognu/")
+  ;;        ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
+  (setq default-frame-alist
+        `((top . 0)
+          (width . 100)
+          (height . 55)))
+  )
 
 
 (defun dotspacemacs/user-load ()
   "Library to load while dumping.
 This function is called only while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included in the
-dump.")
+dump."
+  )
 
 
 (defun dotspacemacs/user-config ()
@@ -694,9 +731,28 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  ;;(evil-goggles-mode)
+  (setq lsp-clients-clangd-args '("-j=8"
+                                  "--background-index"
+                                  "--clang-tidy=false"
+                                  "--completion-style=detailed"
+                                  "--header-insertion=never"
+                                  "--header-insertion-decorators=0"))
+
+  (setq display-line-numbers-width-start t)
+  (setq display-line-numbers-current-absolute nil)
+  ;; Disables electric indent.
+  (electric-indent-mode -1)
+  (evil-define-key '(insert) company-mode-map (kbd "C-n") #'company-complete)
   (global-hl-line-mode -1)
-  ;;(setq indent-guide-recursive t)
-  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
+  (add-hook 'org-mode-hook (lambda ()
+                             (progn
+                               (setq truncate-lines nil)
+                               (org-modern-mode 1)
+                               (setq display-line-numbers-width-start t)
+                               (setq display-line-numbers-current-absolute nil)
+                               )))
+  (add-hook 'verilog-mode-hook (lambda () (spacemacs/toggle-auto-completion-on)))
   (defun er--expand-region-1-sadsock ()
     "Increase selected region by semantic units.
 Basically it runs all the mark-functions in `er/try-expand-list'
@@ -812,30 +868,6 @@ moving point or mark as little as possible."
       (evil-visual-char)
       (forward-char)))
 
-                                        ;(define-key evil-normal-state-map (kbd "S-<up>")
-                                        ;  (lambda ()
-                                        ;    (interactive)
-                                        ;    (evil-visual-char)
-                                        ;  (previous-line)))
-                                        ;
-                                        ;(define-key evil-normal-state-map (kbd "S-<down>")
-                                        ;  (lambda ()
-                                        ;    (interactive)
-                                        ;    (evil-visual-char)
-                                        ;    (next-line)))
-                                        ;
-                                        ;(define-key evil-normal-state-map (kbd "S-<left>")
-                                        ;  (lambda ()
-                                        ;    (interactive)
-                                        ;    (evil-visual-char)
-                                        ;    (backward-char)))
-                                        ;
-                                        ;(define-key evil-normal-state-map (kbd "S-<right>")
-                                        ;  (lambda ()
-                                        ;    (interactive)
-                                        ;    (evil-visual-char)
-                                        ;    (forward-char)))
-
   (define-key evil-visual-state-map (kbd "S-<up>")
     #'previous-line)
 
@@ -847,47 +879,20 @@ moving point or mark as little as possible."
 
   (define-key evil-visual-state-map (kbd "S-<right>")
     #'forward-char)
-  ;;(setq org-startup-truncated nil)
-  (with-eval-after-load 'org
-    (setq org-startup-numerated t)
-    (setq org-startup-folded 'content)
-    (setq org-image-actual-width nil)
-    ;; here goes your Org config :
-    ;;(with-eval-after-load 'org-superstar
-    ;;(setq org-superstar-headline-bullets-list '("✸" "✸" "✸" "✸"))
-    ;; Org Headline Bullet Style (From Level 0 to Level 20)
-    ;; (setq org-superstar-headline-bullets-list '("⓪" "①" "②" "③"
-    ;;                                 "④" "⑤" "⑥" "⑦"
-    ;;                                 "⑧" "⑨" "⑩" "⑪"
-    ;;                                 "⑫" "⑬" "⑭"
-    ;;                                 "⑮" "⑯" "⑰"
-    ;;                                 "⑱" "⑲" "⑳"))
-    ;;(setq org-superstar-bullet-list '("*" "*" "*" "*"))
-    (setq org-superstar-item-bullet-alist
-          '((?* . ?•)
-            (?+ . ?➤)
-            (?- . ?•)))
 
-
-    (setq display-line-numbers-width-start t)
-    ;; This is usually the default, but keep in mind it must be nil
-    (setq org-hide-leading-stars t)
-    ;; This line is necessary.
-    (setq org-superstar-headline-bullets-list '(?\s))
-    ;; If you use Org Indent you also need to add this, otherwise the
-    ;; above has no effect while Indent is enabled.
-    (setq org-indent-mode-turns-on-hiding-stars nil)
-    (setq org-superstar-remove-leading-stars t)
-    (setq org-superstar-special-todo-items t)
-                                        ; Enable custom bullets for TODO items
-    ;;(setq org-superstar-todo-bullet-alist
-    ;;      '(("TODO" . ?☐)
-    ;;        ("NEXT" . ?✒)
-    ;;        ("HOLD" . ?✰)
-    ;;        ("WAITING" . ?☕)
-    ;;        ("CANCELLED" . ?✘)
-    ;;        ("DONE" . ?✔)))
-    )
+  ;; Org settings
+  (setq-default org-download-image-dir "~/Org/assets/")
+  (setq org-hide-emphasis-markers t
+        ;;org-pretty-entities t
+        org-auto-align-tags nil
+        org-tags-column 0
+        ;;org-ellipsis "…"
+        org-catch-invisible-edits 'show-and-error
+        org-special-ctrl-a/e t
+        org-insert-heading-respect-content t)
+  (setq org-startup-numerated t)
+  (setq org-startup-folded 'content)
+  (setq org-image-actual-width nil)
   (global-set-key (kbd "C-g") '(lambda ()
                                  (interactive)
                                  (spacemacs/evil-search-clear-highlight)
@@ -895,7 +900,6 @@ moving point or mark as little as possible."
                                  (keyboard-quit)
                                  ))
   (setq flycheck-navigation-minimum-level 'error)
-  (setq-default org-download-image-dir "~/Org/assets/")
   ;;(if (display-graphic-p)
   ;;    (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
   ;; multiple cursors
