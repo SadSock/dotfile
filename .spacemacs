@@ -58,8 +58,9 @@ This function should only modify configuration layer settings."
      emacs-lisp
      ;;evil-better-jumper
      git
-     (helm :variables
-           helm-use-fuzzy 'source)
+     ivy
+     ;;(helm :variables
+     ;;      helm-use-fuzzy 'source)
      (lsp :variables
           lsp-navigation 'both
           lsp-modeline-diagnostics-enable t
@@ -176,6 +177,7 @@ This function should only modify configuration layer settings."
                                     emacsql-sqlite
                                     forge
                                     ghub
+                                    gh-md
                                     gnuplot
                                     iedit
                                     multi-line
@@ -739,7 +741,7 @@ before packages are loaded."
                                   "--header-insertion=never"
                                   "--header-insertion-decorators=0"))
 
-  (setq display-line-numbers-width-start t)
+  ;;(setq display-line-numbers-width-start t)
   (setq display-line-numbers-current-absolute nil)
   ;; Disables electric indent.
   (electric-indent-mode -1)
@@ -967,14 +969,14 @@ moving point or mark as little as possible."
     (evil-define-key '(insert) company-mode-map (kbd "C-n") #'company-complete)
     )
 
-  (use-package helm-ag
-    :ensure t
-    :config
-    ;;(define-key helm-ag-map (kbd "C-j") #'backward-char)
-    (define-key helm-ag-map (kbd "<left>") #'backward-char)
-    ;;(define-key helm-ag-map (kbd "C-k") #'forward-char)
-    (define-key helm-ag-map (kbd "<right>") #'forward-char)
-    )
+  ;;(use-package helm-ag
+  ;;  :ensure t
+  ;;  :config
+  ;;  ;;(define-key helm-ag-map (kbd "C-j") #'backward-char)
+  ;;  (define-key helm-ag-map (kbd "<left>") #'backward-char)
+  ;;  ;;(define-key helm-ag-map (kbd "C-k") #'forward-char)
+  ;;  (define-key helm-ag-map (kbd "<right>") #'forward-char)
+  ;;  )
 
   ;;(add-hook 'vterm-mode-hook (lambda () ))
 
