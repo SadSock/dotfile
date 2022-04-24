@@ -53,9 +53,7 @@ This function should only modify configuration layer settings."
                        auto-completion-enable-sort-by-usage t)
      ;; latex
      xclipboard
-     ranger
-     chinese
-     emacs-lisp
+     ;;emacs-lisp
      ;;evil-better-jumper
      git
      ivy
@@ -113,8 +111,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(key-chord
-                                      org-modern)
+   dotspacemacs-additional-packages '(org-modern)
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -755,67 +752,67 @@ before packages are loaded."
                                (setq display-line-numbers-current-absolute nil)
                                )))
   (add-hook 'verilog-mode-hook (lambda () (spacemacs/toggle-auto-completion-on)))
-  (defun er--expand-region-1-sadsock ()
-    "Increase selected region by semantic units.
-Basically it runs all the mark-functions in `er/try-expand-list'
-and chooses the one that increases the size of the region while
-moving point or mark as little as possible."
-    (let* ((p1 (point))
-           (p2 (if (use-region-p) (mark) (point)))
-           (start (min p1 p2))
-           (end (max p1 p2))
-           (try-list er/try-expand-list)
-           (best-start (point-min))
-           (best-end (point-max))
-           (set-mark-default-inactive nil))
-
-      ;; add hook to clear history on buffer changes
-      (unless er/history
-        (add-hook 'after-change-functions 'er/clear-history t t))
-
-      ;; remember the start and end points so we can contract later
-      ;; unless we're already at maximum size
-      (unless (and (= start best-start)
-                   (= end best-end))
-        (push (cons p1 p2) er/history))
-
-      (when (and expand-region-skip-whitespace
-                 (er--point-is-surrounded-by-white-space)
-                 (= start end))
-        (skip-chars-forward er--space-str)
-        (setq start (point)))
-
-      (while try-list
-        (er--save-excursion
-         (ignore-errors
-           (funcall (car try-list))
-           (when (and (region-active-p)
-                      (er--this-expansion-is-better start end best-start best-end))
-             (setq best-start (point))
-             (setq best-end (mark))
-             (when (and er--show-expansion-message (not (minibufferp)))
-               (message "%S" (car try-list))))))
-        (setq try-list (cdr try-list)))
-
-      (setq deactivate-mark nil)
-      ;; if smart cursor enabled, decide to put it at start or end of region:
-      (if (and expand-region-smart-cursor
-               (not (= start best-start)))
-          (progn (goto-char best-end)
-                 (set-mark best-start))
-        (goto-char best-end)
-        (set-mark best-start))
-
-      (er--copy-region-to-register)
-
-      (when (and (= best-start (point-min))
-                 (= best-end (point-max))) ;; We didn't find anything new, so exit early
-        'early-exit)))
+;;  (defun er--expand-region-1-sadsock ()
+;;    "Increase selected region by semantic units.
+;;Basically it runs all the mark-functions in `er/try-expand-list'
+;;and chooses the one that increases the size of the region while
+;;moving point or mark as little as possible."
+;;    (let* ((p1 (point))
+;;           (p2 (if (use-region-p) (mark) (point)))
+;;           (start (min p1 p2))
+;;           (end (max p1 p2))
+;;           (try-list er/try-expand-list)
+;;           (best-start (point-min))
+;;           (best-end (point-max))
+;;           (set-mark-default-inactive nil))
+;;
+;;      ;; add hook to clear history on buffer changes
+;;      (unless er/history
+;;        (add-hook 'after-change-functions 'er/clear-history t t))
+;;
+;;      ;; remember the start and end points so we can contract later
+;;      ;; unless we're already at maximum size
+;;      (unless (and (= start best-start)
+;;                   (= end best-end))
+;;        (push (cons p1 p2) er/history))
+;;
+;;      (when (and expand-region-skip-whitespace
+;;                 (er--point-is-surrounded-by-white-space)
+;;                 (= start end))
+;;        (skip-chars-forward er--space-str)
+;;        (setq start (point)))
+;;
+;;      (while try-list
+;;        (er--save-excursion
+;;         (ignore-errors
+;;           (funcall (car try-list))
+;;           (when (and (region-active-p)
+;;                      (er--this-expansion-is-better start end best-start best-end))
+;;             (setq best-start (point))
+;;             (setq best-end (mark))
+;;             (when (and er--show-expansion-message (not (minibufferp)))
+;;               (message "%S" (car try-list))))))
+;;        (setq try-list (cdr try-list)))
+;;
+;;      (setq deactivate-mark nil)
+;;      ;; if smart cursor enabled, decide to put it at start or end of region:
+;;      (if (and expand-region-smart-cursor
+;;               (not (= start best-start)))
+;;          (progn (goto-char best-end)
+;;                 (set-mark best-start))
+;;        (goto-char best-end)
+;;        (set-mark best-start))
+;;
+;;      (er--copy-region-to-register)
+;;
+;;      (when (and (= best-start (point-min))
+;;                 (= best-end (point-max))) ;; We didn't find anything new, so exit early
+;;        'early-exit)))
 
   ;;  (defun something-fixed ()
 
   ;;    )
-  (advice-add 'er--expand-region-1 :override #'er--expand-region-1-sadsock)
+ ;; (advice-add 'er--expand-region-1 :override #'er--expand-region-1-sadsock)
 
   ;;(setq baud-rate 2400)
 
@@ -833,54 +830,12 @@ moving point or mark as little as possible."
     ;;"fF"  'projectile-find-file-in-directory
     )
   (setq load-path
-        (cons (expand-file-name "~/Config/emacs/tablegen") load-path))
+        (cons (expand-file-name "~/dotfile/emacs/tablegen") load-path))
   (require 'tablegen-mode)
   (setq load-path
-        (cons (expand-file-name "~/Config/emacs/tablegen") load-path))
+        (cons (expand-file-name "~/dotfile/emacs/tablegen") load-path))
   (require 'llvm-mode)
 
-
-  (define-key evil-insert-state-map (kbd "S-<up>")
-    (lambda ()
-      (interactive)
-      (evil-force-normal-state)
-      (evil-visual-char)
-      (previous-line)))
-
-  (define-key evil-insert-state-map (kbd "S-<down>")
-    (lambda ()
-      (interactive)
-      (evil-force-normal-state)
-      (evil-visual-char)
-      (next-line)))
-
-  (define-key evil-insert-state-map (kbd "S-<left>")
-    (lambda ()
-      (interactive)
-      (forward-char)
-      (evil-force-normal-state)
-      (evil-visual-char)
-      (backward-char)))
-
-  (define-key evil-insert-state-map (kbd "S-<right>")
-    (lambda ()
-      (interactive)
-      (forward-char)
-      (evil-force-normal-state)
-      (evil-visual-char)
-      (forward-char)))
-
-  (define-key evil-visual-state-map (kbd "S-<up>")
-    #'previous-line)
-
-  (define-key evil-visual-state-map (kbd "S-<down>")
-    #'next-line)
-
-  (define-key evil-visual-state-map (kbd "S-<left>")
-    #'backward-char)
-
-  (define-key evil-visual-state-map (kbd "S-<right>")
-    #'forward-char)
 
   ;; Org settings
   (setq-default org-download-image-dir "~/Org/assets/")
@@ -942,23 +897,6 @@ moving point or mark as little as possible."
     ;;(add-to-list 'org-latex-packages-alist '("" "minted"))
     )
 
-  (use-package lsp-mode
-    :init
-    :config
-    )
-
-  (use-package expand-region
-    :config
-    (progn
-      ;;(setq expand-region-smart-cursor t)
-      (define-key evil-visual-state-map (kbd "v")
-        (lambda ()
-          (interactive)
-          (er/expand-region 1)
-          )
-        )
-      )
-    )
   (use-package company
     :ensure t
     :config
@@ -969,61 +907,11 @@ moving point or mark as little as possible."
     (evil-define-key '(insert) company-mode-map (kbd "C-n") #'company-complete)
     )
 
-  ;;(use-package helm-ag
-  ;;  :ensure t
-  ;;  :config
-  ;;  ;;(define-key helm-ag-map (kbd "C-j") #'backward-char)
-  ;;  (define-key helm-ag-map (kbd "<left>") #'backward-char)
-  ;;  ;;(define-key helm-ag-map (kbd "C-k") #'forward-char)
-  ;;  (define-key helm-ag-map (kbd "<right>") #'forward-char)
-  ;;  )
-
-  ;;(add-hook 'vterm-mode-hook (lambda () ))
-
-  (use-package evil
-    :ensure t
-    :config
-    ;;(define-key evil-insert-state-map"jk" 'save-buffer)
-    ;;(add-hook 'evil-visual-state-entry-hook
-    ;;          (lambda()
-    ;;            (global-hl-line-mode -1)
-    ;;            )
-    ;;          )
-    ;;(add-hook 'evil-visual-state-exit-hook
-    ;;          (lambda()
-    ;;            (global-hl-line-mode 1)
-    ;;            )
-    ;;          )
-    )
-
-  (use-package key-chord
-    :config
-    (progn
-      (key-chord-mode 1)
-      ;;(key-chord-define-global "jk" 'save-buffer)
-      (setq key-chord-two-keys-delay 0.2)
-      (key-chord-define evil-normal-state-map "fj" 'save-buffer)
-      (key-chord-define evil-mc-key-map "fj"
-                        (lambda ()
-                          (interactive)
-                          (evil-normal-state)
-                          (evil-mc-undo-all-cursors)
-                          )
-                        )
-      )
-    )
   (use-package symbol-overlay
     :ensure t
     :config
     (progn
       (define-key symbol-overlay-map (kbd "C-g") #'symbol-overlay-remove-all)
-      )
-    )
-  (use-package auto-highlight-symbol
-    :ensure t
-    :config
-    (progn
-      (define-key auto-highlight-symbol-mode-map (kbd "C-g") #'spacemacs//ahs-ts-on-exit)
       )
     )
   (use-package evil-escape
@@ -1045,11 +933,6 @@ moving point or mark as little as possible."
     )
 )
 
+
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-)
