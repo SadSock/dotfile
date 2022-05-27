@@ -207,10 +207,11 @@ This function should only modify configuration layer settings."
                                     evil-iedit-state
                                     evil-lisp-state
                                     evil-cleverparens
-                                    evil-textobj-line
+                                    ;;evil-textobj-line
                                     evil-exchange
-                                    evil-ediff
+                                    ;;evil-ediff
                                     evil-goggles
+                                    evil-escape
                                     org-mime
                                     org-pomodoro
                                     org-present
@@ -704,11 +705,6 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
           ("org-cn" . "http://mirrors.bfsu.edu.cn/elpa/org/")
           ("gnu-cn" . "http://mirrors.bfsu.edu.cn/elpa/gnu/")
           ("non-gnu" . "https://elpa.nongnu.org/nongnu/")))
-  ;;(setq configuration-layer-elpa-archives
-  ;;      '(("melpa-cn" . "http://elpa.zilongshanren.com/melpa/")
-  ;;        ("org-cn"   . "http://elpa.zilongshanren.com/org/")
-  ;;        ("nognu-cn"   . "http://elpa.zilongshanren.com/nognu/")
-  ;;        ("gnu-cn"   . "http://elpa.zilongshanren.com/gnu/")))
   (setq default-frame-alist
         `((top . 0)
           (width . 100)
@@ -730,7 +726,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  ;;(evil-goggles-mode)
+  (setq indent-guide-recursive t)
   (setq lsp-clients-clangd-args '("-j=8"
                                   "--background-index"
                                   "--clang-tidy=false"
@@ -750,74 +746,19 @@ before packages are loaded."
                                (org-modern-mode 1)
                                (setq display-line-numbers-width-start t)
                                (setq display-line-numbers-current-absolute nil)
+                               (add-to-list 'org-preview-latex-process-alist '(xdvsvgm :progams
+							                                                                         ("xelatex" "dvisvgm")
+							                                                                         :discription "xdv > svg"
+							                                                                         :message "you need install the programs: xelatex and dvisvgm."
+							                                                                         :image-input-type "xdv"
+							                                                                         :image-output-type "svg"
+							                                                                         ;;:image-size-adjust (8.4 . 6.5)
+							                                                                         :image-size-adjust (10 . 7.8)
+							                                                                         :latex-compiler ("xelatex -interaction nonstopmode -no-pdf -output-directory %o %f")
+							                                                                         :image-converter ("dvisvgm %f -e -n -b min -c %S -o %O")))
+                               (setq org-preview-latex-default-process 'xdvsvgm)
                                )))
   (add-hook 'verilog-mode-hook (lambda () (spacemacs/toggle-auto-completion-on)))
-;;  (defun er--expand-region-1-sadsock ()
-;;    "Increase selected region by semantic units.
-;;Basically it runs all the mark-functions in `er/try-expand-list'
-;;and chooses the one that increases the size of the region while
-;;moving point or mark as little as possible."
-;;    (let* ((p1 (point))
-;;           (p2 (if (use-region-p) (mark) (point)))
-;;           (start (min p1 p2))
-;;           (end (max p1 p2))
-;;           (try-list er/try-expand-list)
-;;           (best-start (point-min))
-;;           (best-end (point-max))
-;;           (set-mark-default-inactive nil))
-;;
-;;      ;; add hook to clear history on buffer changes
-;;      (unless er/history
-;;        (add-hook 'after-change-functions 'er/clear-history t t))
-;;
-;;      ;; remember the start and end points so we can contract later
-;;      ;; unless we're already at maximum size
-;;      (unless (and (= start best-start)
-;;                   (= end best-end))
-;;        (push (cons p1 p2) er/history))
-;;
-;;      (when (and expand-region-skip-whitespace
-;;                 (er--point-is-surrounded-by-white-space)
-;;                 (= start end))
-;;        (skip-chars-forward er--space-str)
-;;        (setq start (point)))
-;;
-;;      (while try-list
-;;        (er--save-excursion
-;;         (ignore-errors
-;;           (funcall (car try-list))
-;;           (when (and (region-active-p)
-;;                      (er--this-expansion-is-better start end best-start best-end))
-;;             (setq best-start (point))
-;;             (setq best-end (mark))
-;;             (when (and er--show-expansion-message (not (minibufferp)))
-;;               (message "%S" (car try-list))))))
-;;        (setq try-list (cdr try-list)))
-;;
-;;      (setq deactivate-mark nil)
-;;      ;; if smart cursor enabled, decide to put it at start or end of region:
-;;      (if (and expand-region-smart-cursor
-;;               (not (= start best-start)))
-;;          (progn (goto-char best-end)
-;;                 (set-mark best-start))
-;;        (goto-char best-end)
-;;        (set-mark best-start))
-;;
-;;      (er--copy-region-to-register)
-;;
-;;      (when (and (= best-start (point-min))
-;;                 (= best-end (point-max))) ;; We didn't find anything new, so exit early
-;;        'early-exit)))
-
-  ;;  (defun something-fixed ()
-
-  ;;    )
- ;; (advice-add 'er--expand-region-1 :override #'er--expand-region-1-sadsock)
-
-  ;;(setq baud-rate 2400)
-
-  ;;(setq reftex-default-bibliography '("/Users/apple/MegaAsync/MEGA/MyScholarship/note/library.bib"))
-  ;;(define-key evil-motion-state-map (kbd "c-s-o") 'evil-jump-forward)
   (setq  projectile-indexing-method 'alien
          projectile-generic-command "fd . -0 --type f --color=never"
          projectile-enable-caching t)
@@ -914,23 +855,24 @@ before packages are loaded."
       (define-key symbol-overlay-map (kbd "C-g") #'symbol-overlay-remove-all)
       )
     )
-  (use-package evil-escape
-    :commands evil-escape-mode
-    :init
-    (setq evil-escape-excluded-states '(normal visual emacs motion multiedit evil-mc)
-          evil-escape-excluded-major-modes '(neotree-mode)
-          evil-escape-key-sequence "fj"
-          evil-escape-delay 0.2)
-    (setq evil-escape-inhibit-functions '((lambda () evil-mc-cursor-state)))
-    (add-hook 'after-init-hook #'evil-escape-mode)
-    :config
-    ;; no `evil-escape' in minibuffer
-    (cl-pushnew #'minibufferp evil-escape-inhibit-functions :test #'eq)
-    (define-key evil-insert-state-map  (kbd "C-g") #'evil-escape)
-    (define-key evil-replace-state-map (kbd "C-g") #'evil-escape)
-    (define-key evil-visual-state-map  (kbd "C-g") #'evil-escape)
-    (define-key evil-operator-state-map (kbd "C-g") #'evil-escape)
-    )
+
+  ;;(use-package evil-escape
+  ;;  :commands evil-escape-mode
+  ;;  :init
+  ;;  (setq evil-escape-excluded-states '(normal visual emacs motion multiedit evil-mc)
+  ;;        evil-escape-excluded-major-modes '(neotree-mode)
+  ;;        evil-escape-key-sequence "fj"
+  ;;        evil-escape-delay 0.2)
+  ;;  (setq evil-escape-inhibit-functions '((lambda () evil-mc-cursor-state)))
+  ;;  (add-hook 'after-init-hook #'evil-escape-mode)
+  ;;  :config
+  ;;  ;; no `evil-escape' in minibuffer
+  ;;  (cl-pushnew #'minibufferp evil-escape-inhibit-functions :test #'eq)
+  ;;  (define-key evil-insert-state-map  (kbd "C-g") #'evil-escape)
+  ;;  (define-key evil-replace-state-map (kbd "C-g") #'evil-escape)
+  ;;  (define-key evil-visual-state-map  (kbd "C-g") #'evil-escape)
+  ;;  (define-key evil-operator-state-map (kbd "C-g") #'evil-escape)
+  ;;  )
 )
 
 
