@@ -57,8 +57,6 @@ This function should only modify configuration layer settings."
      ;;evil-better-jumper
      git
      ivy
-     ;;(helm :variables
-     ;;      helm-use-fuzzy 'source)
      (lsp :variables
           lsp-navigation 'both
           lsp-modeline-diagnostics-enable t
@@ -82,9 +80,9 @@ This function should only modify configuration layer settings."
           lsp-file-watch-threshold 30000
           )
      ;; rust
-     ;;markdown
+     ;; markdown
      multiple-cursors
-     ;;restructuredtext
+     ;; restructuredtext
      org
      ;;(shell :variables
      ;;       shell-default-height 30
@@ -102,6 +100,7 @@ This function should only modify configuration layer settings."
             ;;c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-clang-format-on-save t
             )
+     (tabs :variables tabs-highlight-current-tab 'left)
      )
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
@@ -447,7 +446,7 @@ It should only modify the values of Spacemacs settings."
    ;; and TAB or `C-m' and `RET'.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab t
+   dotspacemacs-distinguish-gui-tab nil
 
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
@@ -709,6 +708,13 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
         `((top . 0)
           (width . 100)
           (height . 55)))
+
+  (setq-default evil-want-C-u-scroll t
+                ;; `evil-want-C-i-jump' is set to nil to avoid `TAB' being
+                ;; overlapped in terminal mode. The GUI specific `<C-i>' is used
+                ;; instead.
+                evil-want-C-i-jump t)
+
   )
 
 
@@ -737,8 +743,8 @@ before packages are loaded."
   ;;(setq display-line-numbers-width-start t)
   (setq display-line-numbers-current-absolute nil)
   ;; Disables electric indent.
-  (electric-indent-mode -1)
-  (evil-define-key '(insert) company-mode-map (kbd "C-n") #'company-complete)
+  ;;(electric-indent-mode -1)
+  ;;(evil-define-key '(insert) company-mode-map (kbd "C-n") #'company-complete)
   (global-hl-line-mode -1)
   (add-hook 'org-mode-hook (lambda ()
                              (progn
@@ -763,7 +769,7 @@ before packages are loaded."
          projectile-generic-command "fd . -0 --type f --color=never"
          projectile-enable-caching t)
   ;;(setq-default evil-escape-key-sequence "jk")
-  (setq-default evil-escape-delay 0.2)
+  ;;(setq-default evil-escape-delay 0.2)
   (spacemacs/set-leader-keys
     "pf"  'projectile-find-file
     "pF"  'projectile-find-file-dwim
@@ -801,6 +807,12 @@ before packages are loaded."
   ;;(if (display-graphic-p)
   ;;    (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
   ;; multiple cursors
+
+  (use-package evil
+    :ensure t
+    :config
+    )
+
   (use-package evil-mc
     :commands evil-mc-mode
     :init
@@ -841,10 +853,6 @@ before packages are loaded."
   (use-package company
     :ensure t
     :config
-    ;;(evil-define-key '(insert) company-mode-map [remap indent-for-tab-command] #'company-indent-or-complete-common
-    ;;  )
-    ;;(evil-define-key '(insert) company-mode-map [remap c-indent-line-or-region] #'company-indent-or-complete-common
-    ;;  )
     (evil-define-key '(insert) company-mode-map (kbd "C-n") #'company-complete)
     )
 
@@ -856,23 +864,6 @@ before packages are loaded."
       )
     )
 
-  ;;(use-package evil-escape
-  ;;  :commands evil-escape-mode
-  ;;  :init
-  ;;  (setq evil-escape-excluded-states '(normal visual emacs motion multiedit evil-mc)
-  ;;        evil-escape-excluded-major-modes '(neotree-mode)
-  ;;        evil-escape-key-sequence "fj"
-  ;;        evil-escape-delay 0.2)
-  ;;  (setq evil-escape-inhibit-functions '((lambda () evil-mc-cursor-state)))
-  ;;  (add-hook 'after-init-hook #'evil-escape-mode)
-  ;;  :config
-  ;;  ;; no `evil-escape' in minibuffer
-  ;;  (cl-pushnew #'minibufferp evil-escape-inhibit-functions :test #'eq)
-  ;;  (define-key evil-insert-state-map  (kbd "C-g") #'evil-escape)
-  ;;  (define-key evil-replace-state-map (kbd "C-g") #'evil-escape)
-  ;;  (define-key evil-visual-state-map  (kbd "C-g") #'evil-escape)
-  ;;  (define-key evil-operator-state-map (kbd "C-g") #'evil-escape)
-  ;;  )
 )
 
 
