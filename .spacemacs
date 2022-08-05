@@ -53,10 +53,11 @@ This function should only modify configuration layer settings."
                        auto-completion-enable-sort-by-usage t)
      ;; latex
      xclipboard
-     ;;emacs-lisp
-     ;;evil-better-jumper
+     ;; emacs-lisp
      git
      ivy
+     treemacs
+     ;;semantic
      (lsp :variables
           lsp-navigation 'both
           lsp-modeline-diagnostics-enable t
@@ -64,8 +65,8 @@ This function should only modify configuration layer settings."
           lsp-ui-sidine-symbol t
           lsp-enable-imenu t
           lsp-ui-flycheck-enable t
-          lsp-lens-enable nil
-          lsp-ui-sideline-enable nil
+          lsp-lens-enable t
+          lsp-ui-sideline-enable t
           lsp-ui-doc-enable nil
           lsp-ui-doc-display nil
           lsp-headerline-breadcrumb-enable t
@@ -78,6 +79,7 @@ This function should only modify configuration layer settings."
           lsp-before-save-edits t
           lsp-modeline-diagnostics-scope 'file
           lsp-file-watch-threshold 30000
+          lsp-use-upstream-bindings nil
           )
      ;; rust
      ;; markdown
@@ -100,7 +102,7 @@ This function should only modify configuration layer settings."
             ;;c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-clang-format-on-save t
             )
-     (tabs :variables tabs-highlight-current-tab 'left)
+     ;;(tabs :variables tabs-highlight-current-tab 'left)
      )
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
@@ -110,7 +112,7 @@ This function should only modify configuration layer settings."
    ;; `dotspacemacs/user-config'. To use a local version of a package, use the
    ;; `:location' property: '(your-package :location "~/path/to/your-package/")
    ;; Also include the dependencies as they will not be resolved automatically.
-   dotspacemacs-additional-packages '(org-modern xclip)
+   dotspacemacs-additional-packages '()
 
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -206,9 +208,9 @@ This function should only modify configuration layer settings."
                                     evil-iedit-state
                                     evil-lisp-state
                                     evil-cleverparens
-                                    ;;evil-textobj-line
+                                    evil-textobj-line
                                     evil-exchange
-                                    ;;evil-ediff
+                                    evil-ediff
                                     evil-goggles
                                     evil-escape
                                     org-mime
@@ -227,7 +229,7 @@ This function should only modify configuration layer settings."
                                     writeroom-mode
                                     Winner
                                     Powerline
-                                    projectile
+                                    ;;projectile
                                     Xterm-Mouse
                                     ;;persp-mode
                                     )
@@ -340,6 +342,13 @@ It should only modify the values of Spacemacs settings."
    ;; If the value is nil then no banner is displayed. (default 'official)
    dotspacemacs-startup-banner 'official
 
+   ;; Scale factor controls the scaling (size) of the startup banner. Default
+   ;; value is `auto' for scaling the logo automatically to fit all buffer
+   ;; contents, to a maximum of the full image height and a minimum of 3 line
+   ;; heights. If set to a number (int or float) it is used as a constant
+   ;; scaling factor for the default logo size.
+   dotspacemacs-startup-banner-scale 'auto
+
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -391,7 +400,8 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(doom-one)
+   dotspacemacs-themes '(spacemacs-dark
+                         spacemacs-light)
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -400,7 +410,7 @@ It should only modify the values of Spacemacs settings."
    ;; refer to the DOCUMENTATION.org for more info on how to create your own
    ;; spaceline theme. Value can be a symbol or list with additional properties.
    ;; (default '(spacemacs :separator wave :separator-scale 1.5))
-   dotspacemacs-mode-line-theme '(doom :separator wave :separator-scale 1.5)
+   dotspacemacs-mode-line-theme '(spacemacs :separator wave :separator-scale 1.5)
 
    ;; If non-nil the cursor color matches the state color in GUI Emacs.
    ;; (default t)
@@ -641,7 +651,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil - same as frame-title-format)
    dotspacemacs-icon-title-format nil
 
-   ;; Show trailing whitespace (default t)
+   ;; Color highlight trailing whitespace in all prog-mode and text-mode derived
+   ;; modes such as c++-mode, python-mode, emacs-lisp, html-mode, rst-mode etc.
+   ;; (default t)
    dotspacemacs-show-trailing-whitespace t
 
    ;; Delete whitespace while saving buffer. Possible values are `all'
@@ -753,15 +765,15 @@ before packages are loaded."
                                (setq display-line-numbers-width-start t)
                                (setq display-line-numbers-current-absolute nil)
                                (add-to-list 'org-preview-latex-process-alist '(xdvsvgm :progams
-							                                                                         ("xelatex" "dvisvgm")
-							                                                                         :discription "xdv > svg"
-							                                                                         :message "you need install the programs: xelatex and dvisvgm."
-							                                                                         :image-input-type "xdv"
-							                                                                         :image-output-type "svg"
-							                                                                         ;;:image-size-adjust (8.4 . 6.5)
-							                                                                         :image-size-adjust (10 . 7.8)
-							                                                                         :latex-compiler ("xelatex -interaction nonstopmode -no-pdf -output-directory %o %f")
-							                                                                         :image-converter ("dvisvgm %f -e -n -b min -c %S -o %O")))
+                                                                                       ("xelatex" "dvisvgm")
+                                                                                       :discription "xdv > svg"
+                                                                                       :message "you need install the programs: xelatex and dvisvgm."
+                                                                                       :image-input-type "xdv"
+                                                                                       :image-output-type "svg"
+                                                                                       ;;:image-size-adjust (8.4 . 6.5)
+                                                                                       :image-size-adjust (10 . 7.8)
+                                                                                       :latex-compiler ("xelatex -interaction nonstopmode -no-pdf -output-directory %o %f")
+                                                                                       :image-converter ("dvisvgm %f -e -n -b min -c %S -o %O")))
                                (setq org-preview-latex-default-process 'xdvsvgm)
                                )))
   (add-hook 'verilog-mode-hook (lambda () (spacemacs/toggle-auto-completion-on)))
@@ -863,7 +875,6 @@ before packages are loaded."
       (define-key symbol-overlay-map (kbd "C-g") #'symbol-overlay-remove-all)
       )
     )
-
 )
 
 
