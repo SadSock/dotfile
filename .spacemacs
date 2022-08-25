@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(rust
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -98,7 +98,7 @@ This function should only modify configuration layer settings."
                       version-control-global-margin t)
      (c-c++ :variables
             c-c++-adopt-subprojects t
-            c-c++-backend 'lsp-clangd
+            c-c++-backend 'lsp-ccls
             ;;c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-clang-format-on-save t
             )
@@ -124,7 +124,7 @@ This function should only modify configuration layer settings."
                                     ace-jump-helm-line
                                     ace-link
                                     chinese-wbim
-                                    ccls
+                                    ;;ccls
                                     rainbow-delimiters
                                     symon
                                     smeargle
@@ -145,6 +145,7 @@ This function should only modify configuration layer settings."
                                     uuidgen
                                     company-rtags
                                     company-ycmd
+                                    devdocs
                                     dumb-jump
                                     flycheck
                                     flycheck-rtags
@@ -161,8 +162,8 @@ This function should only modify configuration layer settings."
                                     auto-complete
                                     auto-yasnippet
                                     ac-ispell
-                                    yasnippet
-                                    yasnippet-snippets
+                                    ;;yasnippet
+                                    ;;yasnippet-snippets
                                     disaster
                                     gdb-mi
                                     google-c-style
@@ -177,8 +178,8 @@ This function should only modify configuration layer settings."
                                     ghub
                                     gh-md
                                     gnuplot
-                                    iedit
-                                    multi-line
+                                    ;;iedit
+                                    ;;multi-line
                                     pyim
                                     gendoxy
                                     aggressive-indent
@@ -205,12 +206,12 @@ This function should only modify configuration layer settings."
                                     evil-tutor
                                     evil-easymotion
                                     evil-vimish-fold
-                                    evil-iedit-state
+                                    ;;evil-iedit-state
                                     evil-lisp-state
                                     evil-cleverparens
                                     evil-textobj-line
                                     evil-exchange
-                                    evil-ediff
+                                    ;;evil-ediff
                                     evil-goggles
                                     evil-escape
                                     org-mime
@@ -420,9 +421,9 @@ It should only modify the values of Spacemacs settings."
    ;; a non-negative integer (pixel size), or a floating-point (point size).
    ;; Point size is recommended, because it's device independent. (default 10.0)
    ;;dotspacemacs-default-font '("Source Code Pro"
-   ;;dotspacemacs-default-font '("FantasqueSansMono Nerd Font Mono"
-   dotspacemacs-default-font '("Sarasa Mono SC Nerd"
-                               :size 18.0
+   dotspacemacs-default-font '("FantasqueSansMono Nerd Font Mono"
+   ;;dotspacemacs-default-font '("Sarasa Mono SC Nerd"
+                               :size 14.0
                                :weight normal
                                :width normal)
 
@@ -744,6 +745,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
+  (setq hscroll-step 1)
   (setq indent-guide-recursive t)
   (setq lsp-clients-clangd-args '("-j=8"
                                   "--background-index"
@@ -880,3 +882,22 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(add-node-modules-path company-web web-completion-data counsel-css emmet-mode helm-core impatient-mode htmlize simple-httpd prettier-js pug-mode sass-mode haml-mode scss-mode slim-mode smartparens tagedit web-beautify web-mode ws-butler winum which-key wgrep volatile-highlights vim-powerline use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil term-cursor symbol-overlay spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc smex restart-emacs request popwin pcre2el paradox org-download org-contrib open-junk-file lsp-ui lsp-treemacs lsp-origami lsp-ivy ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy info+ indent-guide hybrid-mode holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make golden-ratio gitignore-templates git-timemachine git-modes git-messenger git-link git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-surround evil-org evil-mc evil-matchit evil-evilified-state evil-collection evil-anzu dotenv-mode dired-quick-sort diminish devdocs cpp-auto-include counsel-projectile company-statistics company-c-headers clang-format centered-cursor-mode bind-map auto-highlight-symbol)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
+)
