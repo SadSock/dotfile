@@ -49,7 +49,7 @@ This function should only modify configuration layer settings."
                        auto-completion-private-snippets-directory nil
                        auto-completion-enable-snippets-in-popup nil
                        auto-completion-enable-help-tooltip nil
-                       auto-completion-use-company-box nil
+                       auto-completion-use-company-box t
                        auto-completion-enable-sort-by-usage t)
      ;; latex
      xclipboard
