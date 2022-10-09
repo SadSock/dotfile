@@ -116,6 +116,7 @@ lvim.builtin.treesitter.ensure_installed = {
   "bash",
   "c",
   "cpp",
+  "llvm",
   "javascript",
   "json",
   "lua",
