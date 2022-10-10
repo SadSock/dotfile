@@ -29,6 +29,17 @@ M.config = function()
         vim.api.nvim_set_keymap("n", "<C-S-F>", "<CMD>Telescope live_grep_args<CR>", { noremap = true })
       end,
     },
+    --------------
+    -- 语言服务 --
+    --------------
+    {
+      "p00f/clangd_extensions.nvim",
+       ft = { "c", "cpp", "objc", "objcpp", "cuda" },
+      config = function()
+        require("config.clangd_extensions").config()
+      end,
+    },
+
 --    {
 --      "nvim-telescope/telescope-live-grep-args.nvim",
 --      keys = { "<C-S-F>" },

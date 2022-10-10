@@ -20,6 +20,11 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 vim.o.guifont = "Monofur Nerd Font Mono"
+
+-- 当文件被外部程序修改时，自动加载
+vim.o.autoread = true
+vim.bo.autoread = true
+
 -- vim.g.nvim_tree_disable_netrw = 0
 -- vim.g.nvim_tree_hijack_netrw = 0
 
@@ -32,6 +37,27 @@ lvim.format_on_save = false
 lvim.builtin.nvimtree.setup.disable_netrw = false -- or false
 lvim.builtin.nvimtree.setup.hijack_netrw = false -- or false
 
+lvim.builtin.treesitter.matchup.enable = true
+lvim.builtin.treesitter.rainbow.enable = false
+lvim.builtin.treesitter.ensure_installed = {
+  "bash",
+  "cuda",
+  "llvm",
+  "c",
+  "cpp",
+  "haskell",
+  "javascript",
+  "json",
+  "lua",
+  "python",
+  "typescript",
+  "tsx",
+  "css",
+  "rust",
+  "java",
+  "kotlin",
+  "yaml",
+}
 
 -- lvim.builtin.telescope.defaults.layout_config.
 lvim.builtin.telescope.defaults.layout_strategy = "vertical"
@@ -141,6 +167,21 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = false,
   }
 )
+
+-- Language Specific
+-- =========================================
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, {
+  "clangd",
+  "dockerls",
+  "gopls",
+  "jdtls",
+  "pyright",
+  "rust_analyzer",
+  "taplo",
+  "texlab",
+  "tsserver",
+  "yamlls",
+})
 
 function PrintDiagnostics(opts, bufnr, line_nr, client_id)
   bufnr = bufnr or 0
