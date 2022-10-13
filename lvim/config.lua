@@ -32,10 +32,12 @@ vim.bo.autoread = true
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-lvim.colorscheme = "onedarker"
+--lvim.colorscheme = "onedarker"
 lvim.format_on_save = false
 lvim.builtin.nvimtree.setup.disable_netrw = false -- or false
 lvim.builtin.nvimtree.setup.hijack_netrw = false -- or false
+
+lvim.builtin.breadcrumbs.active = true
 
 lvim.builtin.treesitter.matchup.enable = true
 lvim.builtin.treesitter.rainbow.enable = false
@@ -62,18 +64,19 @@ lvim.builtin.treesitter.ensure_installed = {
 -- lvim.builtin.telescope.defaults.layout_config.
 lvim.builtin.telescope.defaults.layout_strategy = "vertical"
 lvim.builtin.telescope.defaults.layout_config = {
---    width = 0.65,
---    -- preview_cutoff = 120,
---    horizontal = {
---        mirror = false,
---        height = 0.75,
---    },
-    vertical = {
-         mirror = false
-    },
---    flex = {
---        flip_columns = 180,
---    },
+  --    width = 0.65,
+  --    -- preview_cutoff = 120,
+  --    horizontal = {
+  --        mirror = false,
+  --        height = 0.75,
+  --    },
+  vertical = {
+    mirror = true,
+    width = 0.8,
+  },
+  --    flex = {
+  --        flip_columns = 180,
+  --    },
 }
 
 
@@ -304,7 +307,7 @@ require("plugins").config()
 --   end,
 -- })
 
-lvim.builtin.telescope.on_config_done = function(telescope)
-  pcall(telescope.load_extension, "live_grep_args")
-  -- any other extensions loading
-end
+-- lvim.builtin.telescope.on_config_done = function(telescope)
+--   pcall(telescope.load_extension, "live_grep_args")
+--   -- any other extensions loading
+-- end
