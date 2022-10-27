@@ -39,7 +39,25 @@ M.config = function()
         require("config.clangd_extensions").config()
       end,
     },
-
+    {
+      "tpope/vim-fugitive",
+      cmd = {
+        "G",
+        "Git",
+        "Gdiffsplit",
+        "Gread",
+        "Gwrite",
+        "Ggrep",
+        "GMove",
+        "GDelete",
+        "GBrowse",
+        "GRemove",
+        "GRename",
+        "Glgrep",
+        "Gedit"
+      },
+      ft = {"fugitive"}
+    },
 --    {
 --      "nvim-telescope/telescope-live-grep-args.nvim",
 --      keys = { "<C-S-F>" },

@@ -212,7 +212,7 @@ This function should only modify configuration layer settings."
                                     evil-textobj-line
                                     evil-exchange
                                     ;;evil-ediff
-                                    evil-goggles
+                                    ;;evil-goggles
                                     evil-escape
                                     org-mime
                                     org-pomodoro
