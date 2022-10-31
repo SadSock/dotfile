@@ -47,10 +47,10 @@ This function should only modify configuration layer settings."
                        auto-completion-complete-with-key-sequence-delay 2.0
                        auto-completion-idle-delay nil
                        auto-completion-private-snippets-directory nil
-                       auto-completion-enable-snippets-in-popup nil
+                       auto-completion-enable-snippets-in-popup t
                        auto-completion-enable-help-tooltip nil
                        auto-completion-use-company-box t
-                       auto-completion-enable-sort-by-usage t)
+                       auto-completion-enable-sort-by-usage nil)
      ;; latex
      xclipboard
      ;; emacs-lisp
