@@ -63,7 +63,7 @@ This function should only modify configuration layer settings."
           lsp-modeline-diagnostics-enable t
           lsp-ui-sideline-show-hover nil
           lsp-ui-sidine-symbol t
-          lsp-ui-sideline-enable t
+          lsp-ui-sideline-enable nil
           lsp-enable-imenu t
           lsp-ui-flycheck-enable t
           lsp-lens-enable t
@@ -75,7 +75,7 @@ This function should only modify configuration layer settings."
           lsp-enable-on-type-formatting t
           lsp-enable-symbol-highlighting nil
           lsp-enable-indentation nil
-          lsp-ui-flycheck-live-reporting t
+          lsp-ui-flycheck-live-reporting nil
           lsp-before-save-edits t
           lsp-modeline-diagnostics-scope 'file
           lsp-file-watch-threshold 30000
