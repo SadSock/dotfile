@@ -124,7 +124,7 @@ This function should only modify configuration layer settings."
                                     ace-jump-helm-line
                                     ace-link
                                     chinese-wbim
-                                    ;;ccls
+                                    ccls
                                     rainbow-delimiters
                                     symon
                                     smeargle
@@ -204,14 +204,15 @@ This function should only modify configuration layer settings."
                                     evil-lion
                                     evil-indent-plus
                                     evil-tutor
-                                    evil-easymotion
+                                    evil-surround
+                                    evil-unimpaired
+                                    ;;evil-easymotion
                                     evil-vimish-fold
                                     ;;evil-iedit-state
                                     evil-lisp-state
                                     evil-cleverparens
                                     evil-textobj-line
                                     evil-exchange
-                                    ;;evil-ediff
                                     ;;evil-goggles
                                     evil-escape
                                     org-mime
@@ -230,9 +231,8 @@ This function should only modify configuration layer settings."
                                     writeroom-mode
                                     Winner
                                     Powerline
-                                    ;;projectile
+                                    string-edit-at-point
                                     Xterm-Mouse
-                                    ;;persp-mode
                                     )
 
    ;; Defines the behaviour of Spacemacs when installing packages.
