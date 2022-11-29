@@ -98,11 +98,11 @@ This function should only modify configuration layer settings."
                       version-control-global-margin t)
      (c-c++ :variables
             c-c++-adopt-subprojects t
-            c-c++-backend 'lsp-ccls
+            c-c++-backend 'lsp-clangd
             ;;c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-clang-format-on-save t
             )
-     ;;(tabs :variables tabs-highlight-current-tab 'left)
+     (tabs :variables tabs-highlight-current-tab 'left)
      )
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
@@ -162,8 +162,6 @@ This function should only modify configuration layer settings."
                                     auto-complete
                                     auto-yasnippet
                                     ac-ispell
-                                    ;;yasnippet
-                                    ;;yasnippet-snippets
                                     disaster
                                     gdb-mi
                                     google-c-style
@@ -178,8 +176,6 @@ This function should only modify configuration layer settings."
                                     ghub
                                     gh-md
                                     gnuplot
-                                    ;;iedit
-                                    ;;multi-line
                                     pyim
                                     gendoxy
                                     aggressive-indent
@@ -206,14 +202,11 @@ This function should only modify configuration layer settings."
                                     evil-tutor
                                     evil-surround
                                     evil-unimpaired
-                                    ;;evil-easymotion
                                     evil-vimish-fold
-                                    ;;evil-iedit-state
                                     evil-lisp-state
                                     evil-cleverparens
                                     evil-textobj-line
                                     evil-exchange
-                                    ;;evil-goggles
                                     evil-escape
                                     org-mime
                                     org-pomodoro
