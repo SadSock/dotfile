@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(rust
+   '(
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press `SPC f e R' (Vim style) or
@@ -100,7 +100,7 @@ This function should only modify configuration layer settings."
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-clangd
             ;;c-c++-lsp-enable-semantic-highlight 'rainbow
-            c-c++-enable-clang-format-on-save t
+            c-c++-enable-clang-format-on-save nil
             )
      (tabs :variables tabs-highlight-current-tab 'left)
      )
@@ -119,12 +119,55 @@ This function should only modify configuration layer settings."
 
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
+                                    auto-complete
+                                    auto-yasnippet
+                                    auto-highlight-symbol
+                                    ac-ispell
                                     ace-pinyin
                                     ace-Pinyin-Global
                                     ace-jump-helm-line
                                     ace-link
+                                    avy
                                     chinese-wbim
                                     ccls
+                                    coffee-mode
+                                    company-rtags
+                                    company-ycmd
+                                    column-enforce-mode
+                                    chinese-conv
+                                    dired-quick-sort
+                                    dotenv-mode
+                                    drag-stuff
+                                    devdocs
+                                    evil-args
+                                    evil-numbers
+                                    evil-nerd-commenter
+                                    evil-lion
+                                    evil-indent-plus
+                                    evil-tutor
+                                    evil-surround
+                                    ;;evil-unimpaired
+                                    evil-vimish-fold
+                                    evil-lisp-state
+                                    evil-cleverparens
+                                    evil-textobj-line
+                                    evil-exchange
+                                    evil-escape
+                                    expand-region
+                                    gitignore-templates
+                                    git-modes
+                                    git-link
+                                    ghub
+                                    gh-md
+                                    help-fns+
+                                    highlight-symbol
+                                    helm-gtags
+                                    helm-rtags
+                                    helm-company
+                                    helm-c-yasnippet
+                                    helm-cscope
+                                    helm-make
+                                    holy-mode
                                     rainbow-delimiters
                                     symon
                                     smeargle
@@ -134,34 +177,17 @@ This function should only modify configuration layer settings."
                                     find-by-pinyin-dired
                                     elisp-slime-nav
                                     editorconfig
-                                    drag-stuff
-                                    column-enforce-mode
-                                    chinese-conv
-                                    highlight-symbol
                                     eyebrowse
                                     fancy-battery
-                                    coffee-mode
                                     browse-at-remote
                                     uuidgen
-                                    company-rtags
-                                    company-ycmd
-                                    devdocs
                                     dumb-jump
                                     flycheck
                                     flycheck-rtags
                                     flycheck-ycmd
-                                    helm-gtags
-                                    helm-rtags
-                                    helm-company
-                                    helm-c-yasnippet
-                                    helm-cscope
-                                    avy
                                     rtags
                                     gtags
                                     ycmd
-                                    auto-complete
-                                    auto-yasnippet
-                                    ac-ispell
                                     disaster
                                     gdb-mi
                                     google-c-style
@@ -170,11 +196,10 @@ This function should only modify configuration layer settings."
                                     dap-mode
                                     counsel-gtags
                                     ivy-rtags
+                                    ivy-avy
                                     emacsql
                                     emacsql-sqlite
                                     forge
-                                    ghub
-                                    gh-md
                                     gnuplot
                                     pyim
                                     gendoxy
@@ -185,6 +210,8 @@ This function should only modify configuration layer settings."
                                     lorem-ipsum
                                     password-generator
                                     smartparens
+                                    smex
+                                    vim-powerline
                                     string-inflection
                                     persistent-scratch
                                     unkillable-scratch
@@ -194,20 +221,6 @@ This function should only modify configuration layer settings."
                                     desktop
                                     zoom-frm
                                     google-translate
-                                    evil-args
-                                    evil-numbers
-                                    evil-nerd-commenter
-                                    evil-lion
-                                    evil-indent-plus
-                                    evil-tutor
-                                    evil-surround
-                                    evil-unimpaired
-                                    evil-vimish-fold
-                                    evil-lisp-state
-                                    evil-cleverparens
-                                    evil-textobj-line
-                                    evil-exchange
-                                    evil-escape
                                     org-mime
                                     org-pomodoro
                                     org-present
