@@ -132,7 +132,12 @@ This function should only modify configuration layer settings."
                                     ccls
                                     coffee-mode
                                     company-rtags
+                                    centered-cursor-mode
                                     company-ycmd
+                                    counsel-gtags
+                                    clang-format
+                                    company-c-headers
+                                    cpp-auto-include
                                     column-enforce-mode
                                     chinese-conv
                                     dired-quick-sort
@@ -146,7 +151,6 @@ This function should only modify configuration layer settings."
                                     evil-indent-plus
                                     evil-tutor
                                     evil-surround
-                                    ;;evil-unimpaired
                                     evil-vimish-fold
                                     evil-lisp-state
                                     evil-cleverparens
@@ -168,6 +172,17 @@ This function should only modify configuration layer settings."
                                     helm-cscope
                                     helm-make
                                     holy-mode
+                                    hide-comnt
+                                    open-junk-file
+                                    org-mime
+                                    org-pomodoro
+                                    org-present
+                                    orgit
+                                    org-projectile
+                                    org-rich-yank
+                                    org-superstar
+                                    org-cliplink
+                                    origami
                                     rainbow-delimiters
                                     symon
                                     smeargle
@@ -194,9 +209,10 @@ This function should only modify configuration layer settings."
                                     realgud
                                     xcscope
                                     dap-mode
-                                    counsel-gtags
+                                    ivy-hydra
                                     ivy-rtags
                                     ivy-avy
+                                    ivy-yasnippet
                                     emacsql
                                     emacsql-sqlite
                                     forge
@@ -210,9 +226,12 @@ This function should only modify configuration layer settings."
                                     lorem-ipsum
                                     password-generator
                                     smartparens
+                                    spacemacs-whitespace-cleanup
                                     smex
-                                    vim-powerline
+                                    space-doc
+                                    spaceline-all-the-icons
                                     string-inflection
+                                    vim-powerline
                                     persistent-scratch
                                     unkillable-scratch
                                     string-edit
@@ -221,18 +240,10 @@ This function should only modify configuration layer settings."
                                     desktop
                                     zoom-frm
                                     google-translate
-                                    org-mime
-                                    org-pomodoro
-                                    org-present
-                                    orgit
-                                    org-projectile
-                                    org-rich-yank
-                                    org-superstar
-                                    org-cliplink
-                                    origami
                                     toc-org
                                     vi-tilde-fringe
                                     vimish-fold
+                                    volatile-highlights
                                     Ido-Vertical
                                     writeroom-mode
                                     Winner
