@@ -9,7 +9,7 @@ This function should only modify configuration layer settings."
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
    ;; or `spacemacs'. (default 'spacemacs)
-   dotspacemacs-distribution 'spacemacs
+   dotspacemacs-distribution 'spacemacs-base
 
    ;; Lazy installation of layers (i.e. layers are installed only when a file
    ;; with a supported type is opened). Possible values are `all', `unused'
@@ -51,12 +51,14 @@ This function should only modify configuration layer settings."
                        auto-completion-enable-help-tooltip nil
                        auto-completion-use-company-box t
                        auto-completion-enable-sort-by-usage nil)
+     spacemacs-project
+     spacemacs-navigation
      ;; latex
      xclipboard
      ;; emacs-lisp
      git
      ivy
-     treemacs
+     ;;treemacs
      ;;semantic
      (lsp :variables
           lsp-navigation 'both
@@ -85,7 +87,7 @@ This function should only modify configuration layer settings."
      ;; markdown
      multiple-cursors
      ;; restructuredtext
-     org
+     ;; org
      ;;(shell :variables
      ;;       shell-default-height 30
      ;;       shell-default-position 'bottom
@@ -93,9 +95,7 @@ This function should only modify configuration layer settings."
      ;;       close-window-with-terminal t
      ;;       shell-default-full-span t)
      syntax-checking
-     (version-control :variables
-                      version-control-diff-tool 'git-gutter+
-                      version-control-global-margin t)
+     version-control
      (c-c++ :variables
             c-c++-adopt-subprojects t
             c-c++-backend 'lsp-clangd
@@ -734,10 +734,10 @@ If you are unsure, try setting them in `dotspacemacs/user-config' first."
           ("org-cn" . "http://mirrors.bfsu.edu.cn/elpa/org/")
           ("gnu-cn" . "http://mirrors.bfsu.edu.cn/elpa/gnu/")
           ("non-gnu" . "https://elpa.nongnu.org/nongnu/")))
-  (setq default-frame-alist
-        `((top . 0)
-          (width . 100)
-          (height . 55)))
+  ;;(setq default-frame-alist
+  ;;      `((top . 0)
+  ;;        (width . 100)
+  ;;        (height . 55)))
 
   (setq-default evil-want-C-u-scroll t
                 ;; `evil-want-C-i-jump' is set to nil to avoid `TAB' being
@@ -799,8 +799,6 @@ before packages are loaded."
   (setq  projectile-indexing-method 'alien
          projectile-generic-command "fd . -0 --type f --color=never"
          projectile-enable-caching t)
-  ;;(setq-default evil-escape-key-sequence "jk")
-  ;;(setq-default evil-escape-delay 0.2)
   (spacemacs/set-leader-keys
     "pf"  'projectile-find-file
     "pF"  'projectile-find-file-dwim
@@ -887,13 +885,13 @@ before packages are loaded."
     (evil-define-key '(insert) company-mode-map (kbd "C-n") #'company-complete)
     )
 
-  (use-package symbol-overlay
-    :ensure t
-    :config
-    (progn
-      (define-key symbol-overlay-map (kbd "C-g") #'symbol-overlay-remove-all)
-      )
-    )
+  ;;(use-package symbol-overlay
+  ;;  :ensure t
+  ;;  :config
+  ;;  (progn
+  ;;    (define-key symbol-overlay-map (kbd "C-g") #'symbol-overlay-remove-all)
+  ;;    )
+  ;;  )
 )
 
 
@@ -904,17 +902,4 @@ before packages are loaded."
 This is an auto-generated function, do not modify its content directly, use
 Emacs customize menu instead.
 This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(add-node-modules-path company-web web-completion-data counsel-css emmet-mode helm-core impatient-mode htmlize simple-httpd prettier-js pug-mode sass-mode haml-mode scss-mode slim-mode smartparens tagedit web-beautify web-mode ws-butler winum which-key wgrep volatile-highlights vim-powerline use-package undo-tree treemacs-projectile treemacs-persp treemacs-magit treemacs-icons-dired treemacs-evil term-cursor symbol-overlay spacemacs-whitespace-cleanup spacemacs-purpose-popwin spaceline-all-the-icons space-doc smex restart-emacs request popwin pcre2el paradox org-download org-contrib open-junk-file lsp-ui lsp-treemacs lsp-origami lsp-ivy ivy-yasnippet ivy-xref ivy-purpose ivy-hydra ivy-avy info+ indent-guide hybrid-mode holy-mode hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-make golden-ratio gitignore-templates git-timemachine git-modes git-messenger git-link git-gutter-fringe+ fuzzy font-lock+ flycheck-pos-tip flx expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-surround evil-org evil-mc evil-matchit evil-evilified-state evil-collection evil-anzu dotenv-mode dired-quick-sort diminish devdocs cpp-auto-include counsel-projectile company-statistics company-c-headers clang-format centered-cursor-mode bind-map auto-highlight-symbol)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t))
 )
