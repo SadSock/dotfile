@@ -51,15 +51,23 @@ This function should only modify configuration layer settings."
                        auto-completion-enable-help-tooltip nil
                        auto-completion-use-company-box t
                        auto-completion-enable-sort-by-usage nil)
+     spacemacs-completion
+     spacemacs-defaults
+     spacemacs-evil
      spacemacs-project
      spacemacs-navigation
+     spacemacs-editing-visual
+     spacemacs-editing
+     spacemacs-visual
+     spacemacs-modeline
      ;; latex
-     xclipboard
+     ;; xclipboard
      ;; emacs-lisp
      git
      ivy
      ;;treemacs
      ;;semantic
+     neotree
      (lsp :variables
           lsp-navigation 'both
           lsp-modeline-diagnostics-enable t
@@ -102,7 +110,7 @@ This function should only modify configuration layer settings."
             ;;c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-clang-format-on-save nil
             )
-     (tabs :variables tabs-highlight-current-tab 'left)
+     ;;(tabs :variables tabs-highlight-current-tab 'left)
      )
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
@@ -127,7 +135,6 @@ This function should only modify configuration layer settings."
                                     ace-Pinyin-Global
                                     ace-jump-helm-line
                                     ace-link
-                                    avy
                                     chinese-wbim
                                     ccls
                                     coffee-mode
@@ -211,7 +218,6 @@ This function should only modify configuration layer settings."
                                     dap-mode
                                     ivy-hydra
                                     ivy-rtags
-                                    ivy-avy
                                     ivy-yasnippet
                                     emacsql
                                     emacsql-sqlite
@@ -243,7 +249,6 @@ This function should only modify configuration layer settings."
                                     toc-org
                                     vi-tilde-fringe
                                     vimish-fold
-                                    volatile-highlights
                                     Ido-Vertical
                                     writeroom-mode
                                     Winner
@@ -474,14 +479,14 @@ It should only modify the values of Spacemacs settings."
    ;; and TAB or `C-m' and `RET'.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
 
    ;; Name of the default layout (default "Default")
    dotspacemacs-default-layout-name "Default"
 
    ;; If non-nil the default layout name is displayed in the mode-line.
    ;; (default nil)
-   dotspacemacs-display-default-layout nil
+   dotspacemacs-display-default-layout t
 
    ;; If non-nil then the last auto saved layouts are resumed automatically upon
    ;; start. (default nil)
@@ -560,6 +565,11 @@ It should only modify the values of Spacemacs settings."
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
    dotspacemacs-inactive-transparency 90
 
+   ;; A value from the range (0..100), in increasing opacity, which describes the
+   ;; transparency level of a frame background when it's active or selected. Transparency
+   ;; can be toggled through `toggle-background-transparency'. (default 90)
+   dotspacemacs-background-transparency 90
+
    ;; If non-nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
 
@@ -621,7 +631,7 @@ It should only modify the values of Spacemacs settings."
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
-   dotspacemacs-highlight-delimiters 'all
+   dotspacemacs-highlight-delimiters 'current
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
@@ -679,7 +689,7 @@ It should only modify the values of Spacemacs settings."
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup 'changed
+   dotspacemacs-whitespace-cleanup 'nil
 
    ;; If non-nil activate `clean-aindent-mode' which tries to correct
    ;; virtual indentation of simple modes. This can interfere with mode specific
@@ -762,7 +772,9 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (setq hscroll-step 1)
+  (global-tab-line-mode)
+  (evil-goggles-mode)
+  ;;(setq hscroll-step 1)
   (setq indent-guide-recursive t)
   (setq lsp-clients-clangd-args '("-j=8"
                                   "--background-index"
@@ -795,16 +807,18 @@ before packages are loaded."
                                                                                        :image-converter ("dvisvgm %f -e -n -b min -c %S -o %O")))
                                (setq org-preview-latex-default-process 'xdvsvgm)
                                )))
-  (add-hook 'verilog-mode-hook (lambda () (spacemacs/toggle-auto-completion-on)))
-  (setq  projectile-indexing-method 'alien
-         projectile-generic-command "fd . -0 --type f --color=never"
-         projectile-enable-caching t)
-  (spacemacs/set-leader-keys
-    "pf"  'projectile-find-file
-    "pF"  'projectile-find-file-dwim
-    "ff"  'projectile-find-file-in-directory
-    ;;"fF"  'projectile-find-file-in-directory
-    )
+  ;;(add-hook 'verilog-mode-hook (lambda () (spacemacs/toggle-auto-completion-on)))
+  ;;(setq  projectile-indexing-method 'alien
+  ;;       projectile-generic-command "fd . -0 --type f --color=never"
+  ;;       projectile-enable-caching t)
+  ;;(setq-default evil-escape-key-sequence "jk")
+  ;;(setq-default evil-escape-delay 0.2)
+  ;;(spacemacs/set-leader-keys
+  ;;  "pf"  'projectile-find-file
+  ;;  "pF"  'projectile-find-file-dwim
+  ;;  "ff"  'projectile-find-file-in-directory
+  ;;  ;;"fF"  'projectile-find-file-in-directory
+  ;;  )
   (setq load-path
         (cons (expand-file-name "~/dotfile/emacs/tablegen") load-path))
   (require 'tablegen-mode)
@@ -826,21 +840,21 @@ before packages are loaded."
   (setq org-startup-numerated t)
   (setq org-startup-folded 'content)
   (setq org-image-actual-width nil)
-  (global-set-key (kbd "C-g") '(lambda ()
-                                 (interactive)
-                                 (spacemacs/evil-search-clear-highlight)
-                                 (evil-ex-nohighlight)
-                                 (keyboard-quit)
-                                 ))
+  ;;(global-set-key (kbd "C-g") '(lambda ()
+  ;;                               (interactive)
+  ;;                               (spacemacs/evil-search-clear-highlight)
+  ;;                               (evil-ex-nohighlight)
+  ;;                               (keyboard-quit)
+  ;;                               ))
   (setq flycheck-navigation-minimum-level 'error)
   ;;(if (display-graphic-p)
   ;;    (spacemacs//set-monospaced-font   "Source Code Pro" "Hiragino Sans GB" 14 16))
   ;; multiple cursors
 
-  (use-package evil
-    :ensure t
-    :config
-    )
+  ;;(use-package evil
+  ;;  :ensure t
+  ;;  :config
+  ;;  )
 
   (use-package evil-mc
     :commands evil-mc-mode
@@ -885,6 +899,13 @@ before packages are loaded."
     (evil-define-key '(insert) company-mode-map (kbd "C-n") #'company-complete)
     )
 
+  (use-package neotree
+    :ensure t
+    :config
+    ;(setq neo-theme 'nerd)
+    (setq neo-theme 'icons)
+    (setq neo-vc-integration '(face))
+   )
   ;;(use-package symbol-overlay
   ;;  :ensure t
   ;;  :config
@@ -897,9 +918,3 @@ before packages are loaded."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-)
