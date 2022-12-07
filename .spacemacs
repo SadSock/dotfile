@@ -65,9 +65,8 @@ This function should only modify configuration layer settings."
      ;; emacs-lisp
      git
      ivy
-     ;;treemacs
+     treemacs
      ;;semantic
-     neotree
      (lsp :variables
           lsp-navigation 'both
           lsp-modeline-diagnostics-enable t
@@ -110,7 +109,7 @@ This function should only modify configuration layer settings."
             ;;c-c++-lsp-enable-semantic-highlight 'rainbow
             c-c++-enable-clang-format-on-save nil
             )
-     ;;(tabs :variables tabs-highlight-current-tab 'left)
+     (tabs :variables tabs-highlight-current-tab 'left)
      )
    ;; List of additional packages that will be installed without being wrapped
    ;; in a layer (generally the packages are installed only and should still be
@@ -772,7 +771,7 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
-  (global-tab-line-mode)
+  ;;(global-tab-line-mode)
   (evil-goggles-mode)
   ;;(setq hscroll-step 1)
   (setq indent-guide-recursive t)
@@ -899,13 +898,6 @@ before packages are loaded."
     (evil-define-key '(insert) company-mode-map (kbd "C-n") #'company-complete)
     )
 
-  (use-package neotree
-    :ensure t
-    :config
-    ;(setq neo-theme 'nerd)
-    (setq neo-theme 'icons)
-    (setq neo-vc-integration '(face))
-   )
   ;;(use-package symbol-overlay
   ;;  :ensure t
   ;;  :config
