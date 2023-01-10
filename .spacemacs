@@ -215,7 +215,6 @@ This function should only modify configuration layer settings."
                                     realgud
                                     xcscope
                                     dap-mode
-                                    ivy-hydra
                                     ivy-rtags
                                     ivy-yasnippet
                                     emacsql
