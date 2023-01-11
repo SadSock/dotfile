@@ -70,23 +70,23 @@ This function should only modify configuration layer settings."
      (lsp :variables
           lsp-navigation 'both
           lsp-modeline-diagnostics-enable t
+          lsp-modeline-diagnostics-scope 'file
+          lsp-enable-imenu t
           lsp-ui-sideline-show-hover nil
           lsp-ui-sidine-symbol t
           lsp-ui-sideline-enable nil
-          lsp-enable-imenu t
           lsp-ui-flycheck-enable t
-          lsp-lens-enable t
           lsp-ui-doc-enable nil
           lsp-ui-doc-display nil
+          lsp-ui-flycheck-live-reporting nil
+          lsp-lens-enable t
           lsp-headerline-breadcrumb-enable t
           lsp-headerline-breadcrumb-icons-enable nil
           lsp-log-max nil
           lsp-enable-on-type-formatting t
           lsp-enable-symbol-highlighting nil
           lsp-enable-indentation nil
-          lsp-ui-flycheck-live-reporting nil
           lsp-before-save-edits t
-          lsp-modeline-diagnostics-scope 'file
           lsp-file-watch-threshold 30000
           lsp-use-upstream-bindings nil
           )
