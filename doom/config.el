@@ -38,8 +38,7 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type `relative)
 (setq display-line-numbers-current-absolute nil)
-
-(setq flycheck-navigation-minimum-level 'error)
+(setq confirm-kill-emacs nil)
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
@@ -87,7 +86,7 @@
   (setq ;;lsp-navigation 'both
         ;;lsp-modeline-diagnostics-scope 'file
         ;;lsp-modeline-code-action-fallback-icon t
-        ;;lsp-modeline-diagnostics-enable nil
+        ;;lsp-modeline-diagnostics-enable t
         ;;lsp-modeline-code-actions-enable t
         ;;lsp-modeline-workspace-status-enable t
         ;;lsp-ui-sideline-show-hover nil
@@ -111,6 +110,10 @@
 
 (after! company
   (setq company-idle-delay nil)
+  )
+
+(after! flycheck
+  (setq flycheck-navigation-minimum-level 'error)
   )
 
 (setq load-path
