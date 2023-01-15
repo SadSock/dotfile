@@ -32,13 +32,14 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-molokai)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type `relative)
 (setq display-line-numbers-current-absolute nil)
 
+(setq flycheck-navigation-minimum-level 'error)
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
@@ -76,45 +77,40 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 (after! lsp-mode
+
   (setq lsp-clients-clangd-args '("-j=8"
                                   "--background-index"
                                   "--clang-tidy=false"
                                   "--completion-style=detailed"
                                   "--header-insertion=never"
                                   "--header-insertion-decorators=0"))
-  (setq lsp-navigation 'both
-        lsp-modeline-diagnostics-scope 'file
-        lsp-modeline-code-action-fallback-icon t
-        lsp-modeline-diagnostics-enable t
-        lsp-modeline-code-actions-enable t
-        lsp-modeline-workspace-status-enable t
-        lsp-ui-sideline-show-hover nil
-        lsp-ui-sidine-symbol t
-        lsp-ui-sideline-enable nil
-        lsp-ui-flycheck-enable nil
-        lsp-ui-doc-enable nil
-        lsp-ui-doc-display nil
+  (setq ;;lsp-navigation 'both
+        ;;lsp-modeline-diagnostics-scope 'file
+        ;;lsp-modeline-code-action-fallback-icon t
+        ;;lsp-modeline-diagnostics-enable nil
+        ;;lsp-modeline-code-actions-enable t
+        ;;lsp-modeline-workspace-status-enable t
+        ;;lsp-ui-sideline-show-hover nil
+        ;;lsp-ui-sidine-symbol nil
+        ;;lsp-ui-sideline-enable t
+        ;;lsp-ui-flycheck-enable t
+        ;;lsp-ui-doc-enable nil
+        ;;lsp-ui-doc-display nil
         lsp-headerline-breadcrumb-enable t
-        lsp-headerline-breadcrumb-icons-enable nil
-        lsp-log-max nil
+        ;;lsp-headerline-breadcrumb-icons-enable nil
+        ;;lsp-log-max nil
         lsp-lens-enable t
         lsp-enable-on-type-formatting nil
         lsp-enable-symbol-highlighting nil
         lsp-enable-indentation nil
-        lsp-enable-imenu t
-        lsp-ui-flycheck-live-reporting nil
-        lsp-before-save-edits t
-        lsp-file-watch-threshold 30000
-        lsp-use-upstream-bindings nil)
+        ;;lsp-enable-imenu t
+        ;;lsp-ui-flycheck-live-reporting nil
+        lsp-before-save-edits nil
+        )
   )
 
 (after! company
   (setq company-idle-delay nil)
-  )
-
-(after! evil
-  (setq evil-want-C-i-jump t
-        evil-want-C-u-scroll t)
   )
 
 (setq load-path

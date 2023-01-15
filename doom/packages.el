@@ -48,3 +48,40 @@
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
+
+;;; Code:
+(disable-packages!
+ace-window
+avy
+browse-at-remote
+ccls
+cuda-mode
+company-dict
+demangle-mode
+disaster
+drag-stuff
+dumb-jump
+dtrt-indent
+embark
+embark-consult
+evil-args
+evil-easymotion
+evil-embrace.el
+evil-surround
+evil-escape
+evil-exchange
+evil-indent-plus
+evil-numbers
+evil-snipe
+evil-textobj-anyblock
+exato
+evil-quick-diff
+flycheck-popup-tip
+magit-gitflow
+magit-todos
+link-hint
+opencl-mode
+quickrun
+undo-fu
+irony
+rtags)
