@@ -69,9 +69,9 @@
        :emacs
        ;;dired             ; making dired pretty [functional]
        ;;electric          ; smarter, keyword-based electric-indent
-       ;;ibuffer         ; interactive buffer management
+       ;;ibuffer           ; interactive buffer management
        ;;undo              ; persistent, smarter undo for your inevitable mistakes
-       vc                ; version-control and Emacs, sitting in a tree
+       vc                  ; version-control and Emacs, sitting in a tree
 
        :term
        ;;eshell            ; the elisp shell that works everywhere
@@ -96,7 +96,7 @@
        ;;gist              ; interacting with github gists
        lookup              ; navigate your code and its documentation
        lsp                 ; M-x vscode
-       magit             ; a git porcelain for Emacs
+       magit               ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        ;;pdf               ; pdf enhancements

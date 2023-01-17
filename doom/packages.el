@@ -24,8 +24,51 @@
 
 ;; If you'd like to disable a package included with Doom, you can do so here
 ;; with the `:disable' property:
+;;; Code:
 ;(package! builtin-package :disable t)
-
+( disable-packages!
+ avy
+ browse-at-remote
+ cfrs
+ ccls
+ company-dict
+ company-irony
+ company-irony-c-headers
+ cuda-mode
+ demangle-mode
+ drag-stuff
+ disaster
+ dtrt-indent
+ dumb-jump
+ evil-snipe
+ evil-args
+ evil-easymotion
+ evil-embrace
+ evil-escape
+ evil-exchange
+ evil-indent-plus
+ evil-nerd-commentary
+ evil-numbers
+ evil-quick-diff
+ evil-surround
+ evil-textobj-anyblock
+ exato
+ eglot
+ embark
+ embark-consult
+ emacs-solaire-mode
+ flycheck-popup-tip
+ ;;hide-mode-line
+ gitconfig-mode
+ gitignore-mode
+ link-hint
+ magit-gitflow
+ magit-todos
+ opencl-mode
+ ;;smartparens
+ popup-el
+ viper
+ )
 ;; You can override the recipe of a built in package without having to specify
 ;; all the properties for `:recipe'. These will inherit the rest of its recipe
 ;; from Doom or MELPA/ELPA/Emacsmirror:
@@ -47,43 +90,4 @@
 ;; ...or multiple packages
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
-;(unpin! t)
-
-;;; Code:
-(disable-packages!
-ace-window
-avy
-browse-at-remote
-ccls
-cuda-mode
-company-dict
-demangle-mode
-disaster
-drag-stuff
-dumb-jump
-dtrt-indent
-embark
-embark-consult
-evil-args
-evil-easymotion
-evil-embrace.el
-evil-surround
-evil-escape
-evil-exchange
-evil-indent-plus
-evil-numbers
-evil-snipe
-evil-textobj-anyblock
-exato
-evil-quick-diff
-flycheck-popup-tip
-git-commit
-magit-gitflow
-magit-todos
-link-hint
-opencl-mode
-quickrun
-undo-fu
-irony
-;;smartparens
-rtags)
+;;(unpin! t)
