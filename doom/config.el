@@ -92,19 +92,21 @@
         ;;lsp-ui-sideline-show-hover nil
         ;;lsp-ui-sidine-symbol nil
         ;;lsp-ui-sideline-enable t
-        ;;lsp-ui-flycheck-enable t
+        ;;lsp-ui-sideline-show-diagnostics t
+        ;;lsp-ui-sideline-update-mode nil
         ;;lsp-ui-doc-enable nil
         ;;lsp-ui-doc-display nil
+        ;;lsp-ui-flycheck-enable t
         lsp-headerline-breadcrumb-enable t
-        ;;lsp-headerline-breadcrumb-icons-enable nil
+        ;;lsp-headerline-breadcrumb-icons-enable t
         ;;lsp-log-max nil
-        lsp-lens-enable t
-        lsp-enable-on-type-formatting nil
-        lsp-enable-symbol-highlighting nil
-        lsp-enable-indentation nil
+        ;;lsp-lens-enable t
+        ;;lsp-enable-on-type-formatting nil
+        ;;lsp-enable-symbol-highlighting nil
+        ;;lsp-enable-indentation nil
         ;;lsp-enable-imenu t
         ;;lsp-ui-flycheck-live-reporting nil
-        lsp-before-save-edits nil
+        ;;lsp-before-save-edits nil
         )
   )
 
@@ -115,6 +117,12 @@
 (after! flycheck
   (setq flycheck-navigation-minimum-level 'error)
   )
+
+(after! evil
+  (setq evil-want-Y-yank-to-eol nil))
+
+(after! smartparens
+  (smartparens-global-mode -1))
 
 (setq load-path
       (cons (expand-file-name "~/dotfile/emacs/tablegen") load-path))

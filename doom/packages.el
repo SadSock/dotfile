@@ -77,6 +77,7 @@ evil-textobj-anyblock
 exato
 evil-quick-diff
 flycheck-popup-tip
+git-commit
 magit-gitflow
 magit-todos
 link-hint
@@ -84,4 +85,5 @@ opencl-mode
 quickrun
 undo-fu
 irony
+;;smartparens
 rtags)
