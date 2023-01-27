@@ -34,6 +34,7 @@
  company-dict
  company-irony
  company-irony-c-headers
+ company-glsl
  cuda-mode
  cmake-mode
  demangle-mode
@@ -48,7 +49,7 @@
  evil-escape
  evil-exchange
  evil-indent-plus
- evil-nerd-commentary
+ evil-nerd-commenter
  evil-numbers
  evil-quick-diff
  evil-surround
@@ -59,12 +60,14 @@
  embark-consult
  emacs-solaire-mode
  flycheck-popup-tip
+ helpful
  ;;hide-mode-line
  gitconfig-mode
  gitignore-mode
  link-hint
  magit-gitflow
  magit-todos
+ modern-cpp-font-lock
  opencl-mode
  ;;rainbow-delimiters
  ;;smartparens
