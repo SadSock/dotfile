@@ -102,7 +102,7 @@
         ;;lsp-log-max nil
         ;;lsp-lens-enable t
         ;;lsp-enable-on-type-formatting nil
-        ;;lsp-enable-symbol-highlighting nil
+        lsp-enable-symbol-highlighting nil
         ;;lsp-enable-indentation nil
         ;;lsp-enable-imenu t
         ;;lsp-ui-flycheck-live-reporting nil
@@ -119,7 +119,7 @@
   )
 
 (after! evil
-  (setq evil-want-Y-yank-to-eol nil))
+  (setq! evil-want-Y-yank-to-eol nil))
 
 (after! smartparens
   (smartparens-global-mode -1))

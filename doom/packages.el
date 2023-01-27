@@ -26,7 +26,7 @@
 ;; with the `:disable' property:
 ;;; Code:
 ;(package! builtin-package :disable t)
-( disable-packages!
+(disable-packages!
  avy
  browse-at-remote
  cfrs
@@ -35,6 +35,7 @@
  company-irony
  company-irony-c-headers
  cuda-mode
+ cmake-mode
  demangle-mode
  drag-stuff
  disaster
@@ -53,7 +54,7 @@
  evil-surround
  evil-textobj-anyblock
  exato
- eglot
+ ;;eglot
  embark
  embark-consult
  emacs-solaire-mode
@@ -65,8 +66,11 @@
  magit-gitflow
  magit-todos
  opencl-mode
+ ;;rainbow-delimiters
  ;;smartparens
+ ;;tramp
  popup-el
+ so-long
  viper
  )
 ;; You can override the recipe of a built in package without having to specify
