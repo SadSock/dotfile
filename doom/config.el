@@ -43,7 +43,8 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
-
+(setq evil-collection-want-find-usages-bindings-p t)
+(setq evil-collection-want-find-usages-bindings t)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -120,7 +121,8 @@
   )
 
 (after! evil
-  (setq! evil-want-Y-yank-to-eol nil))
+  (setq evil-collection-want-find-usages-bindings t
+        evil-want-Y-yank-to-eol nil))
 
 (after! smartparens
   (smartparens-global-mode -1))
