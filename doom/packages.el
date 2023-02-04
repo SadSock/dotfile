@@ -54,6 +54,7 @@
  evil-quick-diff
  evil-surround
  evil-textobj-anyblock
+ evil-multiedit
  exato
  ;;eglot
  embark

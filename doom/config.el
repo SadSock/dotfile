@@ -90,14 +90,14 @@
         ;;lsp-modeline-diagnostics-enable t
         ;;lsp-modeline-code-actions-enable t
         ;;lsp-modeline-workspace-status-enable t
-        ;;lsp-ui-sideline-show-hover nil
+        lsp-ui-sideline-show-hover t
         ;;lsp-ui-sidine-symbol nil
-        ;;lsp-ui-sideline-enable t
-        ;;lsp-ui-sideline-show-diagnostics t
+        lsp-ui-sideline-enable t
+        lsp-ui-sideline-show-diagnostics t
         ;;lsp-ui-sideline-update-mode nil
         ;;lsp-ui-doc-enable nil
         ;;lsp-ui-doc-display nil
-        ;;lsp-ui-flycheck-enable t
+        lsp-ui-flycheck-enable t
         lsp-headerline-breadcrumb-enable t
         ;;lsp-headerline-breadcrumb-icons-enable t
         ;;lsp-log-max nil
@@ -131,3 +131,13 @@
 (setq load-path
       (cons (expand-file-name "~/dotfile/emacs/tablegen") load-path))
 (require 'llvm-mode)
+
+(setq load-path
+      (cons (expand-file-name "~/dotfile/emacs") load-path))
+(require 'ptx-mode)
+
+
+(map! :leader
+    (:prefix-map ("f" . "file")
+     :desc "Dired"              "j"  #'dired-jump)
+    )
