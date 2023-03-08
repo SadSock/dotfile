@@ -79,6 +79,20 @@
 ;; they are implemented.
 (after! lsp-mode
 
+    ;; Configure the variables for python
+
+  (setq lsp-pylsp-configuration-sources ["flake8"]
+        lsp-pylsp-plugins-flake8-enabled t
+        lsp-pylsp-plugins-yapf-enabled nil
+        lsp-pylsp-plugins-mccabe-enabled nil
+        lsp-pylsp-plugins-pycodestyle-enabled nil
+        lsp-pylsp-plugins-pydocstyle-enabled nil
+        lsp-pylsp-plugins-flake8-ignore
+        [;; line too long
+         "E501"
+         ;; line break before binary operator
+         "W503"])
+
   (setq lsp-clients-clangd-args '("-j=8"
                                   "--background-index"
                                   "--clang-tidy=false"
@@ -91,20 +105,21 @@
         ;;lsp-modeline-diagnostics-enable t
         ;;lsp-modeline-code-actions-enable t
         ;;lsp-modeline-workspace-status-enable t
-        lsp-ui-sideline-show-hover t
+        ;;lsp-ui-sideline-show-hover t
         ;;lsp-ui-sidine-symbol nil
-        lsp-ui-sideline-enable t
-        lsp-ui-sideline-show-diagnostics t
+        ;;lsp-ui-sideline-enable t
+        ;;lsp-ui-sideline-show-diagnostics nil
         ;;lsp-ui-sideline-update-mode nil
         ;;lsp-ui-doc-enable nil
         ;;lsp-ui-doc-display nil
-        lsp-ui-flycheck-enable t
+        ;;lsp-ui-flycheck-enable t
+        ;;lsp-ui-flycheck-live-reporting nil
         lsp-headerline-breadcrumb-enable t
         ;;lsp-headerline-breadcrumb-icons-enable t
         ;;lsp-log-max nil
         lsp-lens-enable t
         ;;lsp-enable-on-type-formatting nil
-        lsp-enable-symbol-highlighting nil
+        ;;lsp-enable-symbol-highlighting nil
         ;;lsp-enable-indentation nil
         ;;lsp-enable-imenu t
         ;;lsp-ui-flycheck-live-reporting t
@@ -122,18 +137,11 @@
   (setq company-idle-delay nil)
   )
 
-(after! flycheck
-  (setq flycheck-navigation-minimum-level 'error)
-  )
-
 (after! evil
   (setq evil-collection-want-find-usages-bindings t
         evil-want-Y-yank-to-eol nil
         evil-want-C-i-jump t
         ))
-
-(after! smartparens
-  (smartparens-global-mode -1))
 
 (setq load-path
       (cons (expand-file-name "~/dotfile/emacs/tablegen") load-path))
