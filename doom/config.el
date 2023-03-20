@@ -112,6 +112,12 @@
         )
   )
 
+(after! lsp-treemacs
+  (setq lsp-treemacs-symbols-position-params '((side . right)
+                                               (slot . 1)
+                                               (window-width . 30)))
+  )
+
 (after! company
   (setq company-idle-delay nil)
   )
@@ -137,7 +143,6 @@
 (setq load-path
       (cons (expand-file-name "~/dotfile/emacs") load-path))
 (require 'ptx-mode)
-
 
 (map! :leader
     (:prefix-map ("f" . "file")
