@@ -128,7 +128,9 @@
 
 (after! evil
   (setq evil-collection-want-find-usages-bindings t
-        evil-want-Y-yank-to-eol nil))
+        evil-want-Y-yank-to-eol nil
+         ;;evil-want-C-i-jump t
+        ))
 
 (after! smartparens
   (smartparens-global-mode -1))

@@ -57,8 +57,8 @@
  evil-multiedit
  exato
  ;;eglot
- embark
- embark-consult
+ ;;embark
+ ;;embark-consult
  emacs-solaire-mode
  flycheck-popup-tip
  helpful
