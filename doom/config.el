@@ -102,12 +102,12 @@
         lsp-headerline-breadcrumb-enable t
         ;;lsp-headerline-breadcrumb-icons-enable t
         ;;lsp-log-max nil
-        ;;lsp-lens-enable t
+        lsp-lens-enable t
         ;;lsp-enable-on-type-formatting nil
         lsp-enable-symbol-highlighting nil
         ;;lsp-enable-indentation nil
         ;;lsp-enable-imenu t
-        ;;lsp-ui-flycheck-live-reporting nil
+        ;;lsp-ui-flycheck-live-reporting t
         ;;lsp-before-save-edits nil
         )
   )
@@ -129,7 +129,7 @@
 (after! evil
   (setq evil-collection-want-find-usages-bindings t
         evil-want-Y-yank-to-eol nil
-         ;;evil-want-C-i-jump t
+        evil-want-C-i-jump t
         ))
 
 (after! smartparens
