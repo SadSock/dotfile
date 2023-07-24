@@ -13,4 +13,5 @@ select = "underline"
 hidden = false
 
 [editor.lsp]
-display-inlay-hints = false
+display-inlay-hints = true
+display-messages = true
