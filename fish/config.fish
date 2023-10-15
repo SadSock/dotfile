@@ -1,6 +1,6 @@
 #g some more ls aliases
 
-source (/home/xwu/.nix-profile/bin/starship init fish --print-full-init | psub)
+# source (/home/xwu/.nix-profile/bin/starship init fish --print-full-init | psub)
 fzf_configure_bindings
 
 alias ll='exa -lahF --icons --color-scale --group-directories-first'

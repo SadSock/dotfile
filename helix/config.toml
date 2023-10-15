@@ -4,6 +4,10 @@ theme = "monokai"
 line-number = "relative"
 mouse = true
 
+[editor.indent-guides]
+character = "|"
+render = true
+
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
