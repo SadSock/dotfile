@@ -39,12 +39,35 @@ lvim.plugins={
   },
 }
 
+lvim.plugins = {
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    config = function()
+      require('nvim-treesitter.configs').setup({
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+            },
+          },
+        },
+      })
+    end,
+  },
+}
+
+
 local osc52_opts ={
-          max_length = 0,           -- Maximum length of selection (0 for no limit)
-          silent = false,           -- Disable message on successful copy
-          trim = false,             -- Trim surrounding whitespaces before copy
-          tmux_passthrough = false, -- Use tmux passthrough (requires tmux: set -g allow-passthrough on)
-        };
+  max_length = 0,           -- Maximum length of selection (0 for no limit)
+  silent = false,           -- Disable message on successful copy
+  trim = false,             -- Trim surrounding whitespaces before copy
+  tmux_passthrough = false, -- Use tmux passthrough (requires tmux: set -g allow-passthrough on)
+};
 
 require("lvim.lsp.manager").setup("osc52", osc52_opts)
 
