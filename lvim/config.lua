@@ -8,6 +8,9 @@
 
 vim.wo.relativenumber = true;
 
+lvim.builtin.treesitter.rainbow.enable = false
+-- enable treesitter integration
+lvim.builtin.treesitter.matchup.enable = true
 -- auto install treesitter parsers
 lvim.builtin.treesitter.ensure_installed = {
   "cpp",
@@ -26,7 +29,11 @@ lvim.builtin.treesitter.ensure_installed = {
 
 require("lvim.lsp.manager").setup("marksman")
 
+
 lvim.plugins={
+  {
+    "mrjones2014/nvim-ts-rainbow",
+  },
   {"folke/neodev.nvim"},
 
   {
@@ -37,9 +44,13 @@ lvim.plugins={
       require("gitblame").setup { enabled = false }
     end,
   },
-}
-
-lvim.plugins = {
+  {
+    "andymass/vim-matchup",
+    event = "CursorMoved",
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end,
+  },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     config = function()
