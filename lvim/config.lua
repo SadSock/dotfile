@@ -8,6 +8,22 @@
 
 vim.wo.relativenumber = true;
 
+-- auto install treesitter parsers
+lvim.builtin.treesitter.ensure_installed = {
+  "cpp",
+  "c" ,
+  "markdown",
+  "llvm",
+  "bash",
+  "lua",
+  "python",
+  "cmake",
+  "make",
+  "diff",
+  "fish",
+  "tablegen",
+}
+
 require("lvim.lsp.manager").setup("marksman")
 
 lvim.plugins={
@@ -22,8 +38,6 @@ lvim.plugins={
     end,
   },
 }
-
-
 
 local osc52_opts ={
           max_length = 0,           -- Maximum length of selection (0 for no limit)
