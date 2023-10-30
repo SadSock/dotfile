@@ -8,4 +8,5 @@ return {
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
   { import = "astrocommunity.editing-support.multicursors-nvim" },
   { import = "astrocommunity.colorscheme.monokai-pro-nvim" },
+  { import = "astrocommunity.bars-and-lines.vim-illuminate" },
 }
