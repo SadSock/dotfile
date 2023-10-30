@@ -13,9 +13,14 @@ return {
   {
     "loctvl842/monokai-pro.nvim",
     config = function()
-        require("monokai-pro").setup {
-        filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
-    }
+      require("monokai-pro").setup {
+        filter = "classic", -- classic | octagon | pro | machine | ristretto | spectrum
+      }
     end
-},
+  },
+
+  { "max397574/better-escape.nvim",
+    enabled = false },
+  {"windwp/nvim-autopairs",
+    enabled = false},
 }
