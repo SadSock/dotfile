@@ -20,6 +20,26 @@ return {
       return opts
     end,
   },
+  {
+    "rebelot/heirline.nvim",
+    opts = function(_, opts)
+       -- opts.buffer_active = { bold = true, italic = false }
+       local file = io.open("fuck.txt","w")
+       for k,v in pairs(opts) do
+       file:write(k,"\n")
+     end
+      return opts
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+    local cmp = require('cmp')
+      opts.completion = {autocomplete = false,}
+      opts.mapping = {['<C-n>'] = cmp.mapping.complete()}
+    return opts
+    end,
+  },
   -- You can disable default plugins as follows:
   -- { "max397574/better-escape.nvim", enabled = false },
   --

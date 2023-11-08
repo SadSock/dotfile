@@ -10,17 +10,39 @@ return {
   --   end,
   -- },
   --
-  {
-    "loctvl842/monokai-pro.nvim",
-    config = function()
-      require("monokai-pro").setup {
-        filter = "classic", -- classic | octagon | pro | machine | ristretto | spectrum
-      }
-    end
-  },
 
   { "max397574/better-escape.nvim",
-    enabled = false },
+  enabled = false },
   {"windwp/nvim-autopairs",
-    enabled = false},
+  enabled = false},
+
+  {
+    "AstroNvim/astrotheme",
+    -- event = "BufRead",
+    config = function()
+      require("astrotheme").setup({
+        style = {
+          transparent = false,         -- Bool value, toggles transparency.
+          inactive = true,             -- Bool value, toggles inactive window color.
+          float = true,                -- Bool value, toggles floating windows background colors.
+          neotree = true,              -- Bool value, toggles neo-trees background color.
+          border = true,               -- Bool value, toggles borders.
+          title_invert = true,         -- Bool value, swaps text and background colors.
+          italic_comments = false,      -- Bool value, toggles italic comments.
+          simple_syntax_colors = true, -- Bool value, simplifies the amounts of colors used for syntax highlighting.
+        },
+
+
+        highlights = {
+          global = {             -- Add or modify hl groups globally, theme specific hl groups take priority.
+          modify_hl_groups = function(hl, c)
+            Keyword = { fg = c.syntax.purple, bg = c.none, bold = true }
+          end,
+        },
+      },
+
+    })
+
+  end,
+},
 }
