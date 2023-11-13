@@ -1,5 +1,0 @@
-statusline
-statuscolumn
-opts
-winbar
-tabline

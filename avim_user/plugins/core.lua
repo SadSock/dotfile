@@ -20,18 +20,25 @@ return {
       return opts
     end,
   },
+  
   {
     "rebelot/heirline.nvim",
+    optional = true,
     opts = function(_, opts)
-       -- opts.buffer_active = { bold = true, italic = false }
-     --   local file = io.open("fuck.txt","w")
-     --   for k,v in pairs(opts) do
-     --   file:write(k,"\n")
-     -- end
-      return opts
+      local status = require "astronvim.utils.status"
+      -- opts.statusline = nil
+      opts.statuscolumn = vim.fn.has "nvim-0.9" == 1
+          and {
+            status.component.foldcolumn(),
+            status.component.fill(),
+            status.component.signcolumn(),
+            status.component.numbercolumn(),
+          }
+        or nil
     end,
   },
-  {
+
+    {
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
     local cmp = require('cmp')
