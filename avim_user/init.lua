@@ -57,6 +57,21 @@ disabled = { -- disable formatting capabilities for the listed language servers
     },
   },
 
+  mason = {
+    -- install_root_dir = "",
+    -- print(path.concat { vim.fn.stdpath "data", "mason" }),
+    -- print("fuck.txt"),
+    -- file = io.open("fuck.txt", "w"),
+    -- file:write("test"),
+    -- file:close(),
+    -- io.input(file),
+    -- file:write("test\n"),
+    -- file:close(),
+    -- io.write("test\n"),
+    -- io.close(),
+  },
+
+
   -- Configure require("lazy").setup() options
   lazy = {
     defaults = { lazy = true },

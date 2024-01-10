@@ -73,14 +73,14 @@ lvim.plugins={
 }
 
 
-local osc52_opts ={
-  max_length = 0,           -- Maximum length of selection (0 for no limit)
-  silent = false,           -- Disable message on successful copy
-  trim = false,             -- Trim surrounding whitespaces before copy
-  tmux_passthrough = false, -- Use tmux passthrough (requires tmux: set -g allow-passthrough on)
-};
-
-require("lvim.lsp.manager").setup("osc52", osc52_opts)
+--local osc52_opts ={
+--  max_length = 0,           -- Maximum length of selection (0 for no limit)
+--  silent = false,           -- Disable message on successful copy
+--  trim = false,             -- Trim surrounding whitespaces before copy
+--  tmux_passthrough = false, -- Use tmux passthrough (requires tmux: set -g allow-passthrough on)
+--};
+--
+--require("lvim.lsp.manager").setup("osc52", osc52_opts)
 
 -- require('osc52').setup {
 --  max_length = 0,           -- Maximum length of selection (0 for no limit)
