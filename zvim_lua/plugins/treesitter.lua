@@ -10,6 +10,8 @@ return {
 			vim.list_extend(opts.ensure_installed, {
 				"tablegen",
 				"cpp",
+        "c",
+        "cuda",
 				"llvm",
 				"markdown",
 				"markdown_inline",
