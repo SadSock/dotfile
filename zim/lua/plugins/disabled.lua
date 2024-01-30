@@ -8,4 +8,5 @@ return {
   { "echasnovski/mini.bufremove", enabled = false },
   { "rafamadriz/friendly-snippets", enabled = false },
   { "MunifTanjim/nui.nvim", enabled = false },
+  { "nvim-treesitter/nvim-treesitter-context", enabled = false },
 }
