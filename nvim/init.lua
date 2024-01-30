@@ -13,3 +13,9 @@ vim.opt.rtp:prepend(lazypath)
 
 
 require("lazy").setup("plugins")
+
+
+# disable command history list
+vim.keymap.set('n', 'q:', '')
+vim.keymap.set('n', 'q/', '')
+vim.keymap.set('n', 'q?', '')
