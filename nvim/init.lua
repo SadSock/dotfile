@@ -31,7 +31,7 @@ require("lazy").setup({
 	version = false, -- always use the latest git commit                                                                
 	-- version = "*", -- try installing the latest stable version for plugins that support semver                       
     },
-    install = {  missing = true,colorscheme = { "monokai-pro" } },
+    install = {  missing = true,colorscheme = { "catppuccin" } },
     checker = { enabled = false }, -- automatically check for plugin updates                                              
     performance = {
 	rtp = {
@@ -50,9 +50,9 @@ require("lazy").setup({
     },                                                                                                                   H
 })
 
---require("lazy").setup("plugins")
 
-
+-- select theme
+vim.cmd.colorscheme('catppuccin')
 
 -- disable command history list
 vim.keymap.set('n', 'q:', '')
@@ -64,3 +64,51 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 vim.opt.shiftwidth = 4
+
+
+local cmp = require'cmp'
+local lspkind = require('lspkind')
+
+cmp.setup({
+    completion= {autocomplete = false},
+    snippet = {
+	expand = function(args)
+	    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+	end,
+    },
+    window = {
+	--completion = cmp.config.window.bordered(),
+	--documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+	['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+	['<Tab>'] = function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        else
+          fallback()
+        end
+      end
+    }),
+    sources = {
+	{ name = 'nvim_lsp' },
+	{ name = 'luasnip' }, -- For luasnip users.
+	{ name = 'buffer' },
+	{ name = 'path' },
+    },
+    view = {
+	entries = "custom" -- can be "custom", "wildmenu" or "native"
+    },
+    formatting = {
+	format = lspkind.cmp_format(),
+    },
+})
+
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+require('lspconfig').clangd.setup {
+    capabilities = capabilities
+}
+require('lspconfig').lua_ls.setup {
+    capabilities = capabilities
+}
