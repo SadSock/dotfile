@@ -15,6 +15,9 @@ return function()
 	show_end_of_buffer = false, -- show the '~' characters after the end of buffers
 	term_colors = true,
 	compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
+	no_italic = true, -- Force no italic
+	no_bold = false, -- Force no bold
+	no_underline = false, -- Force no underline
 	styles = {
 	    comments = {  },
 	    properties = {  },
@@ -36,14 +39,14 @@ return function()
 		virtual_text = {
 		    errors = {  },
 		    hints = {  },
-		    warnings = {  },
+		warnings = {  },
 		    information = {  },
 		},
 		underlines = {
-		    errors = { "underline" },
-		    hints = { "underline" },
-		    warnings = { "underline" },
-		    information = { "underline" },
+		    errors = {  },
+		    hints = {  },
+		warnings = {  },
+		    information = {  },
 		},
 	    },
 	    aerial = true,

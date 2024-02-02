@@ -69,3 +69,14 @@ vim.opt.shiftwidth = 4
 vim.wo.wrap = false
 vim.wo.linebreak = true
 vim.wo.list = false -- extra option I set in addition to the ones in your question
+
+-- disable auto fold
+vim.opt.foldlevelstart = 99 -- 0 to close all folds upon opening file
+vim.opt.foldenable = true
+
+--
+vim.opt.ignorecase = true
+vim.opt.inccommand = "nosplit"
+vim.opt.incsearch = true
+vim.opt.infercase = true
+
