@@ -103,7 +103,6 @@ wk.register({
 wk.register({
   ["<leader>"] = {
     f = {
---      name = "+file",
       b = {"<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", "Buffers" },
       f = { "<cmd>Telescope find_files<cr>", "Find File" },
       g = {"<cmd>Telescope git_files<cr>",   "Find Files (git-files)" },
@@ -142,3 +141,45 @@ wk.register({
 	},
     },
 })
+
+wk.register({
+      ["gd"] =  {function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, "Goto Definition" },
+      ["gr"] = {"<cmd>Telescope lsp_references<cr>", "References" },
+      ["gD"] = { vim.lsp.buf.declaration, "Goto Declaration" },
+      ["gI"] = { function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, "Goto Implementation" },
+      ["gy"] = { function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, "Goto T[y]pe Definition" },
+      ["K"]  = { vim.lsp.buf.hover, "Hover" },
+      ["gK"] = { vim.lsp.buf.signature_help, "Signature Help" },})
+wk.register({
+    mode = { "i"},
+      ["<c-k>"] = {vim.lsp.buf.signature_help, "Signature Help" },
+})
+wk.register({
+    mode = { "n", "v" },
+     ["<leader>ca"] = {vim.lsp.buf.code_action, "Code Action" },
+})
+wk.register({
+    ["<leader>cr"] = {vim.lsp.buf.rename, "Rename"},
+    ["<leader>cl"] = {"<cmd>LspInfo<cr>", "Lsp Info"},
+    ["<leader>cA"] = {
+        function()
+          vim.lsp.buf.code_action({
+            context = {
+              only = {
+                "source",
+              },
+              diagnostics = {},
+            },
+          })
+        end,
+	"Source Action",
+      }})
+
+-- highlight yanked text for 200ms using the "Visual" highlight group
+
+vim.cmd[[
+augroup highlight_yank
+autocmd!
+au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=200})
+augroup END
+]]

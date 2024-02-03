@@ -19,7 +19,6 @@ return {
 	    },
 	},
     },
-
     -- catppuccin
     {
 	"catppuccin/nvim",
