@@ -26,5 +26,5 @@ return {
 	lazy = false,
 	name = "catppuccin",
 	config = require("configs.catppuccin"),
-},
+    },
 }

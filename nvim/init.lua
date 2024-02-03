@@ -11,6 +11,40 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- set leader key
+vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- disable command history list
+vim.keymap.set('n', 'q:', '')
+vim.keymap.set('n', 'q/', '')
+vim.keymap.set('n', 'q?', '')
+
+-- show line number
+vim.wo.number = true
+vim.wo.relativenumber = true
+
+vim.opt.shiftwidth = 4
+
+-- disable line wrap 
+vim.wo.wrap = false
+vim.wo.linebreak = true
+vim.wo.list = false -- extra option I set in addition to the ones in your question
+
+-- disable auto fold
+vim.opt.foldlevelstart = 99 -- 0 to close all folds upon opening file
+vim.opt.foldenable = true
+
+--
+vim.opt.ignorecase = true
+vim.opt.inccommand = "nosplit"
+vim.opt.incsearch = true
+vim.opt.infercase = true
+
+-- Please do NOT set `updatetime` to above 500, otherwise most plugins may not function correctly
+-- vim.opt.updatetime = 200
+
 require("lazy").setup({
     spec = {
 	-- add LazyVim and import its plugins                                                                               
@@ -54,29 +88,57 @@ require("lazy").setup({
 -- select theme
 vim.cmd.colorscheme('catppuccin')
 
--- disable command history list
-vim.keymap.set('n', 'q:', '')
-vim.keymap.set('n', 'q/', '')
-vim.keymap.set('n', 'q?', '')
+local wk = require("which-key")
 
--- show line number
-vim.wo.number = true
-vim.wo.relativenumber = true
+wk.register({
+  ["<leader>,"] = {
+        "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>","Switch Buffer",
+      },
+  ["<leader>/"] = { "<cmd>Telescope live_grep_args<cr>", "Grep" },
+  ["<leader>:"] = {"<cmd>Telescope command_history<cr>", "Command History" },
+  ["<leader><space>"] = { "<cmd>Telescope find_files<cr>", "Find File" },
+})
 
-vim.opt.shiftwidth = 4
+-- find
+wk.register({
+  ["<leader>"] = {
+    f = {
+--      name = "+file",
+      b = {"<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", "Buffers" },
+      f = { "<cmd>Telescope find_files<cr>", "Find File" },
+      g = {"<cmd>Telescope git_files<cr>",   "Find Files (git-files)" },
+      r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+      n = { "<cmd>enew<cr>", "New File" },
+    },
+  },
+})
 
--- disable line wrap 
-vim.wo.wrap = false
-vim.wo.linebreak = true
-vim.wo.list = false -- extra option I set in addition to the ones in your question
 
--- disable auto fold
-vim.opt.foldlevelstart = 99 -- 0 to close all folds upon opening file
-vim.opt.foldenable = true
-
---
-vim.opt.ignorecase = true
-vim.opt.inccommand = "nosplit"
-vim.opt.incsearch = true
-vim.opt.infercase = true
-
+-- search
+wk.register({
+    ["<leader>s\""] = {"<cmd>Telescope registers<cr>", "Registers" },
+})
+wk.register({
+    ["<leader>"] = {
+	s = {
+	    --name = "+search",
+	    a={"<cmd>Telescope autocommands<cr>", "Auto Commands" },
+	    b={"<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer" },
+	    c={"<cmd>Telescope command_history<cr>", "Command History" },
+	    C={"<cmd>Telescope commands<cr>", "Commands" },
+	    d={"<cmd>Telescope diagnostics bufnr=0<cr>", "Document diagnostics" },
+	    D={"<cmd>Telescope diagnostics<cr>", "Workspace diagnostics" },
+	    g={"<cmd>Telescope live_grep_args<cr>", "Grep" },
+	    h={"<cmd>Telescope help_tags<cr>", "Help Pages" },
+	    H={"<cmd>Telescope highlights<cr>", "Search Highlight Groups" },
+	    k={"<cmd>Telescope keymaps<cr>", "Key Maps" },
+	    M={"<cmd>Telescope man_pages<cr>", "Man Pages" },
+	    m={"<cmd>Telescope marks<cr>", "Jump to Mark" },
+	    o={"<cmd>Telescope vim_options<cr>", "Options" },
+	    R={"<cmd>Telescope resume<cr>", "Resume" },
+	    w={"<cmd>telescope grep_string<cr>", "Word" },
+	    s={"<cmd>telescope lsp_document_symbols<cr>", "Goto Symbol" },
+	    S={"<cmd>telescope lsp_dynamic_workspace_symbols", "Goto Symbol (Workspace)" },
+	},
+    },
+})

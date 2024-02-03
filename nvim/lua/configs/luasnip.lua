@@ -4,7 +4,7 @@ return function()
 		vim.opt.rtp:append(snippet_path)
 	end
 
-	require("luasnip").setup({
+	require("utils").load_plugin("luasnip", {
 		history = true,
 		update_events = "TextChanged,TextChangedI",
 		delete_check_events = "TextChanged,InsertLeave",
