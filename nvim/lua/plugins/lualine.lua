@@ -3,10 +3,13 @@ return {
 	'nvim-lualine/lualine.nvim',
 	dependencies = { 'nvim-tree/nvim-web-devicons' },
 	lazy = true,
-	event = { "BufReadPost", "BufAdd", "BufNewFile" },
+	event = "VimEnter",
+	--event = { "BufReadPost", "BufAdd", "BufNewFile" },
 	--config = require("configs.lualine"),
-
-	opts =  {options = {theme = 'auto'},}
+	config = function()
+	    require("configs.lualine").setup()
+	end,
+	--opts =  {options = {theme = 'auto'},}
     }
 
 }
