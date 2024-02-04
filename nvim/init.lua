@@ -65,7 +65,7 @@ require("lazy").setup({
 	version = false, -- always use the latest git commit                                                                
 	-- version = "*", -- try installing the latest stable version for plugins that support semver                       
     },
-    install = {  missing = true,colorscheme = { "catppuccin" } },
+    install = {  missing = true,colorscheme = { "tokyonight" } },
     checker = { enabled = false }, -- automatically check for plugin updates                                              
     performance = {
 	rtp = {
@@ -86,7 +86,7 @@ require("lazy").setup({
 
 
 -- select theme
-vim.cmd.colorscheme('catppuccin')
+vim.cmd.colorscheme('tokyonight')
 
 local wk = require("which-key")
 
