@@ -4,12 +4,9 @@ return {
 	dependencies = { 'nvim-tree/nvim-web-devicons' },
 	lazy = true,
 	event = "VimEnter",
-	--event = { "BufReadPost", "BufAdd", "BufNewFile" },
-	--config = require("configs.lualine"),
-	config = function()
-	    require("configs.lualine").setup()
-	end,
-	--opts =  {options = {theme = 'auto'},}
+	opts =  {options = {theme = 'auto',
+	    component_separators = { left = '', right = ''},
+	    section_separators = { left = '', right = ''},
+	},}
     }
-
 }
