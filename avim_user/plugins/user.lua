@@ -16,6 +16,9 @@ return {
   {"windwp/nvim-autopairs",
   enabled = false},
 
+  {"nvim-neo-tree/neo-tree.nvim",
+  enabled = false},
+  
   {
     "AstroNvim/astrotheme",
     -- event = "BufRead",
