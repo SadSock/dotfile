@@ -1,32 +1,32 @@
 return {
 -- indent guides for Neovim
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-    opts = {
-      indent = {
-        char = "│",
-        tab_char = "│",
-      },
-      scope = { enabled = false },
-      exclude = {
-        filetypes = {
-          "help",
-          "alpha",
-          "dashboard",
-          "neo-tree",
-          "Trouble",
-          "trouble",
-          "lazy",
-          "mason",
-          "notify",
-          "toggleterm",
-          "lazyterm",
-        },
-      },
-    },
-    main = "ibl",
-  },
+  --{
+  --  "lukas-reineke/indent-blankline.nvim",
+  --  event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+  --  opts = {
+  --    indent = {
+  --      char = "│",
+  --      tab_char = "│",
+  --    },
+  --    scope = { enabled = false },
+  --    exclude = {
+  --      filetypes = {
+  --        "help",
+  --        "alpha",
+  --        "dashboard",
+  --        "neo-tree",
+  --        "Trouble",
+  --        "trouble",
+  --        "lazy",
+  --        "mason",
+  --        "notify",
+  --        "toggleterm",
+  --        "lazyterm",
+  --      },
+  --    },
+  --  },
+  --  main = "ibl",
+  --},
 
   -- Active indent guide and indent text objects. When you're browsing
   -- code, this highlights the current level of indentation, and animates
