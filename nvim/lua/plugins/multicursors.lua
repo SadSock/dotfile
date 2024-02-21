@@ -1,4 +1,9 @@
-return {
+M ={
+--    {
+--    'mg979/vim-visual-multi',
+--    lazy = true,
+--    event = { 'BufReadPost', 'BufAdd', 'BufNewFile' },
+--},
     {
 	"smoka7/multicursors.nvim",
 	event = "VeryLazy",
@@ -30,5 +35,7 @@ return {
 		desc = 'Multicursors',
 	    },
 	},
-    }
+    },
 }
+
+return M
