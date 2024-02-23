@@ -33,9 +33,9 @@ return {
             vim.api.nvim_create_autocmd({ "UIEnter", "BufReadPre", "BufNewFile" }, {
         	group = "vim_illuminate_augroup",
         	callback = function()
-        	    vim.cmd([[hi IlluminatedWordText  cterm=underline gui=underline]])
-        	    vim.cmd([[hi IlluminatedWordRead  cterm=underline gui=underline]])
-        	    vim.cmd([[hi IlluminatedWordWrite cterm=underline gui=underline]])
+        	    vim.cmd([[hi IlluminatedWordText  guifg=none guibg=none ctermfg=none ctermbg=none cterm=underline gui=underline]])
+        	    vim.cmd([[hi IlluminatedWordRead  guifg=none guibg=none ctermfg=none ctermbg=none cterm=underline gui=underline]])
+        	    vim.cmd([[hi IlluminatedWordWrite guifg=none guibg=none ctermfg=none ctermbg=none cterm=underline gui=underline]])
         	end,
 
             })
