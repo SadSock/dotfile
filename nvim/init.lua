@@ -94,7 +94,7 @@ wk.register({
   ["<leader>,"] = {
         "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>","Switch Buffer",
       },
-  ["<leader>/"] = { "<cmd>Telescope live_grep_args<cr>", "Grep" },
+  ["<leader>/"] = { "<cmd>Telescope live_grep_args<cr>", "Grep Args" },
   ["<leader>:"] = {"<cmd>Telescope command_history<cr>", "Command History" },
   ["<leader><space>"] = { "<cmd>Telescope find_files<cr>", "Find File" },
 })
@@ -103,11 +103,13 @@ wk.register({
 wk.register({
   ["<leader>"] = {
     f = {
+      c = {"<cmd>Telescope colorscheme<cr>", "Change Colorscheme" },
       b = {"<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", "Buffers" },
       f = { "<cmd>Telescope find_files<cr>", "Find File" },
       g = {"<cmd>Telescope git_files<cr>",   "Find Files (git-files)" },
       r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
       n = { "<cmd>enew<cr>", "New File" },
+      w = { "<cmd>Telescope live_grep_args<cr>", "Grep Args" },
     },
   },
 })
