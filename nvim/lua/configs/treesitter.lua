@@ -2,7 +2,7 @@ return vim.schedule_wrap(function()
 
     vim.api.nvim_set_option_value("foldmethod", "expr", {})
     vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
-
+    vim.g.matchup_matchparen_offscreen = { method = "popup", fullwidth = 1, highlight = "Normal", syntax_hl = 1 }
     require("utils").load_plugin("nvim-treesitter", {
 	ensure_installed = {
 	    "gitcommit",
