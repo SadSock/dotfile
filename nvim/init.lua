@@ -110,6 +110,8 @@ wk.register({
       r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
       n = { "<cmd>enew<cr>", "New File" },
       w = { "<cmd>Telescope live_grep_args<cr>", "Grep Args" },
+      m = {"<cmd>Telescope marks<cr>", "Jump to Mark" },
+      M = {"<cmd>Telescope bookmarks list<cr>", "Jump to Bookmark" },
     },
   },
 })
@@ -134,7 +136,6 @@ wk.register({
 	    H={"<cmd>Telescope highlights<cr>", "Search Highlight Groups" },
 	    k={"<cmd>Telescope keymaps<cr>", "Key Maps" },
 	    M={"<cmd>Telescope man_pages<cr>", "Man Pages" },
-	    m={"<cmd>Telescope marks<cr>", "Jump to Mark" },
 	    o={"<cmd>Telescope vim_options<cr>", "Options" },
 	    R={"<cmd>Telescope resume<cr>", "Resume" },
 	    s={"<cmd>telescope lsp_document_symbols<cr>", "Goto Symbol" },
@@ -176,6 +177,14 @@ wk.register({
 	"Source Action",
       }})
 
+wk.register({
+    ["<leader>"] = {
+	c = {
+	    s={"<cmd>telescope lsp_document_symbols<cr>", "Goto Symbol" },
+	    S={"<cmd>telescope lsp_dynamic_workspace_symbols", "Goto Symbol (Workspace)" },
+	},
+    },
+})
 -- highlight yanked text for 200ms using the "Visual" highlight group
 
 vim.cmd[[
