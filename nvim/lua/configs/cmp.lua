@@ -75,7 +75,7 @@ return function()
 	    completion = {
 		border = border("PmenuBorder"),
 		winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,Search:PmenuSel",
-		scrollbar = false,
+		scrollbar = true,
 	    },
 	    documentation = {
 		border = border("CmpDocBorder"),
@@ -86,42 +86,53 @@ return function()
 	    priority_weight = 2,
 	    comparators = comparators,
 	},
-	formatting = {
-	    fields = { "abbr", "kind", "menu" },
-	    format = function(entry, vim_item)
-		local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp)
-		-- load lspkind icons
-		vim_item.kind =
-		string.format(" %s  %s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
+	  formatting = {
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+      local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+      local strings = vim.split(kind.kind, "%s", { trimempty = true })
+      kind.kind = " " .. (strings[1] or "") .. " "
+      kind.menu = "    (" .. (strings[2] or "") .. ")"
 
-		vim_item.menu = setmetatable({
-		    cmp_tabnine = "[TN]",
-		    copilot = "[CPLT]",
-		    buffer = "[BUF]",
-		    orgmode = "[ORG]",
-		    nvim_lsp = "[LSP]",
-		    nvim_lua = "[LUA]",
-		    path = "[PATH]",
-		    tmux = "[TMUX]",
-		    treesitter = "[TS]",
-		    latex_symbols = "[LTEX]",
-		    luasnip = "[SNIP]",
-		    spell = "[SPELL]",
-		}, {
-		    __index = function()
-			return "[BTN]" -- builtin/unknown source names
-		    end,
-		})[entry.source.name]
+      return kind
+    end,
+  },
+	-- formatting = {
+	--     fields = { "abbr", "kind", "menu" },
+	--     format = function(entry, vim_item)
+	-- 	local lspkind_icons = vim.tbl_deep_extend("force", icons.kind, icons.type, icons.cmp)
+	-- 	-- load lspkind icons
+	-- 	vim_item.kind =
+	-- 	string.format(" %s  %s", lspkind_icons[vim_item.kind] or icons.cmp.undefined, vim_item.kind or "")
 
-		local label = vim_item.abbr
-		local truncated_label = vim.fn.strcharpart(label, 0, 80)
-		if truncated_label ~= label then
-		    vim_item.abbr = truncated_label .. "..."
-		end
+	-- 	vim_item.menu = setmetatable({
+	-- 	    cmp_tabnine = "[TN]",
+	-- 	    copilot = "[CPLT]",
+	-- 	    buffer = "[BUF]",
+	-- 	    orgmode = "[ORG]",
+	-- 	    nvim_lsp = "[LSP]",
+	-- 	    nvim_lua = "[LUA]",
+	-- 	    path = "[PATH]",
+	-- 	    tmux = "[TMUX]",
+	-- 	    treesitter = "[TS]",
+	-- 	    latex_symbols = "[LTEX]",
+	-- 	    luasnip = "[SNIP]",
+	-- 	    spell = "[SPELL]",
+	-- 	}, {
+	-- 	    __index = function()
+	-- 		return "[BTN]" -- builtin/unknown source names
+	-- 	    end,
+	-- 	})[entry.source.name]
 
-		return vim_item
-	    end,
-	},
+	-- 	local label = vim_item.abbr
+	-- 	local truncated_label = vim.fn.strcharpart(label, 0, 80)
+	-- 	if truncated_label ~= label then
+	-- 	    vim_item.abbr = truncated_label .. "..."
+	-- 	end
+
+	-- 	return vim_item
+	--     end,
+	-- },
 	matching = {
 	    disallow_partial_fuzzy_matching = false,
 	},

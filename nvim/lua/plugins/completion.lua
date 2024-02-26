@@ -15,6 +15,7 @@ return{{
 	{ "saadparwaiz1/cmp_luasnip" },
 	{ "hrsh7th/cmp-nvim-lsp" },
 	{ "hrsh7th/cmp-nvim-lua" },
+	{"onsails/lspkind.nvim"},
 	--	{ "andersevenrud/cmp-tmux" },
 	{ "hrsh7th/cmp-path" },
 	--	{ "f3fora/cmp-spell" },
