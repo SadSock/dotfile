@@ -110,8 +110,8 @@ wk.register({
       r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
       n = { "<cmd>enew<cr>", "New File" },
       w = { "<cmd>Telescope live_grep_args<cr>", "Grep Args" },
-      m = {"<cmd>Telescope marks<cr>", "Jump to Mark" },
-      M = {"<cmd>Telescope bookmarks list<cr>", "Jump to Bookmark" },
+      M = {"<cmd>Telescope marks<cr>", "Jump to Mark" },
+      m = {"<cmd>Telescope bookmarks list<cr>", "Jump to Bookmark" },
     },
   },
 })
