@@ -1,9 +1,9 @@
-return vim.schedule_wrap(function()
+return function()
 
     vim.api.nvim_set_option_value("foldmethod", "expr", {})
     vim.api.nvim_set_option_value("foldexpr", "nvim_treesitter#foldexpr()", {})
     --vim.g.matchup_matchparen_offscreen = { method = "popup", fullwidth = 1, highlight = "Normal", syntax_hl = 1 }
-    require("utils").load_plugin("nvim-treesitter", {
+    require("nvim-treesitter.configs").setup({
 	ensure_installed = {
 	    "gitcommit",
 	    "diff",
@@ -45,6 +45,7 @@ return vim.schedule_wrap(function()
 		    ["if"] = "@function.inner",
 		    ["ac"] = "@class.outer",
 		    ["ic"] = "@class.inner",
+		  --  ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
 		},
 	    },
 	    move = {
@@ -70,10 +71,10 @@ return vim.schedule_wrap(function()
 	},
 	indent = { enable = true },
 	matchup = { enable = true },
-	}, false, require("nvim-treesitter.configs").setup)
+	})
     require("nvim-treesitter.install").prefer_git = true
     local parsers = require("nvim-treesitter.parsers").get_parser_configs()
     for _, p in pairs(parsers) do
 	p.install_info.url = p.install_info.url:gsub("https://github.com/", "git@github.com:")
     end
-end)
+end
