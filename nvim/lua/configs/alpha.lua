@@ -56,14 +56,14 @@ return function()
 				require("telescope.builtin").oldfiles()
 			end,
 		}),
-		-- button("space f p", " Project find", leader, nil, {
-		-- 	noremap = true,
-		-- 	silent = true,
-		-- 	nowait = true,
-		-- 	callback = function()
-		-- 		require("telescope").extensions.projects.projects({})
-		-- 	end,
-		-- }),
+		button("space f m", " Bookmarks", leader, nil, {
+			noremap = true,
+			silent = true,
+			nowait = true,
+			callback = function()
+				require("telescope.builtin").bookmarks().list()
+			end,
+		}),
 		button("space f f", "󰈞 File find", leader, nil, {
 			noremap = true,
 			silent = true,

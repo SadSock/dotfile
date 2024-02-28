@@ -33,6 +33,7 @@ return {
   -- the highlighting.
   {
     "echasnovski/mini.indentscope",
+	lazy=true,
     version = false, -- wait till new 0.7.0 release to put it back on semver
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = {
