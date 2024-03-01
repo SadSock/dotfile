@@ -14,7 +14,10 @@ return{
 	    vim.cmd("MasonUpdate")
 	end,
 	config = function()
-	    require("mason").setup()
+	    -- require("mason").setup()
+	    require("mason").setup({
+		install_root_dir = vim.fn.expand("$HOME/.local/share/mason"),
+	    })
 	end,
 
     },
@@ -22,11 +25,12 @@ return{
 
 	config = function()
 	    require("mason-lspconfig").setup ({
-		ensure_installed = {"lua_ls","clangd","neocmake","asm_lsp","marksman",},
+		ensure_installed = {"lua_ls","clangd","neocmake","asm_lsp","marksman","bashls"},
 		automatic_installation = { exclude = {"pyright","pylsp"} },
 		-- automatic_installation = true,
-		handlers = nil})
+	    handlers = nil})
 	    local lspconfig = require('lspconfig')
+	    lspconfig.bashls.setup {}
 	    lspconfig.lua_ls.setup {}
 	    lspconfig.clangd.setup {}
 	    lspconfig.neocmake.setup{}
