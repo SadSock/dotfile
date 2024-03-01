@@ -11,7 +11,7 @@ return{
     {
 	"williamboman/mason.nvim",
 	build = function()
-	vim.cmd("MasonUpdate")
+	    vim.cmd("MasonUpdate")
 	end,
 	config = function()
 	    require("mason").setup()
@@ -22,14 +22,30 @@ return{
 
 	config = function()
 	    require("mason-lspconfig").setup ({
-		ensure_installed = {"lua_ls","neocmake","asm_lsp","marksman",},
-		automatic_installation = { exclude = {"clangd", "pyright",} },
-	-- automatic_installation = true,
-	    handlers = nil})
+		ensure_installed = {"lua_ls","clangd","neocmake","asm_lsp","marksman",},
+		automatic_installation = { exclude = {"pyright","pylsp"} },
+		-- automatic_installation = true,
+		handlers = nil})
 	    local lspconfig = require('lspconfig')
-	    lspconfig.clangd.setup {}
 	    lspconfig.lua_ls.setup {}
-	    lspconfig.pyright.setup{}
+	    lspconfig.clangd.setup {}
+	    lspconfig.neocmake.setup{}
+	    lspconfig.asm_lsp.setup{}
+	    lspconfig.marksman.setup{}
+	    lspconfig.pylsp.setup{
+
+		settings = {
+		    pylsp = {
+			plugins = {
+			    pycodestyle = {
+				ignore = {'W391'},
+				maxLineLength = 100
+			    }
+			}
+		    }
+		}
+	    }
+	    -- lspconfig.pyright.setup{}
 	end,
 
     },

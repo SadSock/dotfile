@@ -14,7 +14,7 @@ return {
 		    section_separators = { left = '', right = ''},
 	    },
 	    sections = {
-		lualine_x = {
+		lualine_x = {"fileformat",
 		    {
 		    -- Lsp server name .
 		    function()
@@ -34,7 +34,7 @@ return {
 		    end,
 		    -- icon = ' ',
 		    -- color = { fg = '#ffffff', gui = 'bold' },
-		},"fileformat", "filetype"},
+		}, "filetype"},
 	    }
 	}
     }

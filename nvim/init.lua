@@ -184,6 +184,33 @@ wk.register({
 	},
     },
 })
+
+wk.register({
+      ["gd"] =  {function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, "Goto Definition" },
+      ["gr"] = {"<cmd>Telescope lsp_references<cr>", "References" },
+      ["gD"] = { vim.lsp.buf.declaration, "Goto Declaration" },
+      ["gI"] = { function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, "Goto Implementation" },
+      ["gy"] = { function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, "Goto T[y]pe Definition" },
+      ["K"]  = { vim.lsp.buf.hover, "Hover" },
+      ["gK"] = { vim.lsp.buf.signature_help, "Signature Help" },}
+
+
+)
+
+-- bookmarks
+local bm = require("bookmarks")
+
+wk.register({
+
+    ["mm"] = { bm.bookmark_toggle,    "toggle bookmark"}, -- add or edit mark annotation at current line
+    ["mi"] = { bm.bookmark_ann,    "edit annotation"}, -- add or edit mark annotation at current line
+    ["mc"] = { bm.bookmark_clean,   "clean local marks"}, -- clean all marks in local buffer
+    ["mn"] = { bm.bookmark_next,    "next local mark"}, -- jump to next mark in local buffer
+    ["mp"] = { bm.bookmark_prev,    "previous local mark"}, -- jump to previous mark in local buffer
+    ["ml"] = { bm.bookmark_list,    "marks list"}, -- show marked file list in quickfix window
+}
+)
+
 -- highlight yanked text for 200ms using the "Visual" highlight group
 
 vim.cmd[[
