@@ -55,7 +55,7 @@ return {
 		lualine_x = {
 		    { "fancy_macro" },
 		    { "fancy_diagnostics" },
-	--	    { "fancy_searchcount" },
+		    --	    { "fancy_searchcount" },
 		    { "fancy_location" },
 		},
 		lualine_y = {
