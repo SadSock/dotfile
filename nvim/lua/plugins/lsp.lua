@@ -16,7 +16,7 @@ return{
 	config = function()
 	    -- require("mason").setup()
 	    require("mason").setup({
-		install_root_dir = vim.fn.expand("$HOME/.local/share/mason"),
+		-- install_root_dir = vim.fn.expand("$HOME/.local/share/mason"),
 	    })
 	end,
 
