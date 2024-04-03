@@ -217,6 +217,7 @@
 ## sequences.
 
 #bleopt prompt_eol_mark=$'\e[94m[ble: EOF]\e[m'
+bleopt prompt_eol_mark=
 
 
 ## "prompt_ruler" specifies the ruler between the previous command and the
@@ -266,12 +267,15 @@
 #bleopt edit_marker=$'\e[94m[ble: %s]\e[m'
 #bleopt edit_marker_error=$'\e[91m[ble: %s]\e[m'
 
+bleopt edit_marker=
+bleopt edit_marker_error=
 
 ## "exec_errexit_mark" specifies the format of the mark to show the exit status
 ## of the command when it is non-zero.  If this setting is an empty string, the
 ## exit status will not be shown.  The value can contain ANSI escape sequences.
 
 #bleopt exec_errexit_mark=$'\e[91m[ble: exit %d]\e[m'
+bleopt exec_errexit_mark=
 
 
 ## "exec_elapsed_mark" specifies the format of the command execution time
@@ -635,6 +639,7 @@ bleopt exec_exit_mark=
 
 #ble-face auto_complete='fg=238,bg=254'           # default
 #ble-face auto_complete='fg=white,bg=69'          # blue background
+ble-face auto_complete='fg=white'          # blue background
 #ble-face auto_complete='fg=240,underline,italic' # darker background
 
 
@@ -913,6 +918,11 @@ bleopt highlight_variable=
 
 ## The following settings specify graphic styles of corresponding faces.  Faces
 ## used for specific features are described in the respective sections.
+
+ble-face -s region                    fg=white
+ble-face -s region_insert             fg=blue
+ble-face -s region_match              fg=white
+ble-face -s region_target             fg=black
 
 #ble-face -s region                    fg=white,bg=60
 #ble-face -s region_insert             fg=blue,bg=252

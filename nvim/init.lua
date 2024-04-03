@@ -25,7 +25,7 @@ vim.keymap.set('n', 'q?', '')
 vim.wo.number = true
 vim.wo.relativenumber = true
 
-vim.opt.shiftwidth = 4
+vim.opt.shiftwidth = 2
 
 -- disable line wrap 
 vim.wo.wrap = false
