@@ -95,19 +95,6 @@ settings["server_formatting_block_list"] = {
 	clangd = true,
 }
 
--- Set the language servers that will be installed during bootstrap here.
--- check the below link for all the supported LSPs:
--- https://github.com/neovim/nvim-lspconfig/tree/master/lua/lspconfig/server_configurations
----@type string[]
-settings["lsp_deps"] = {
-	"bashls",
-	"clangd",
-	"html",
-	"jsonls",
-	"lua_ls",
-	"pylsp",
-	-- "gopls",
-}
 
 -- Set the general-purpose servers that will be installed during bootstrap here.
 -- Check the below link for all supported sources.
@@ -134,32 +121,6 @@ settings["dap_deps"] = {
 	"python", -- Python (debugpy)
 }
 
--- Set the Treesitter parsers that will be installed during bootstrap here.
--- Check the below link for all supported languages:
--- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
----@type string[]
-settings["treesitter_deps"] = {
-	"bash",
-	"c",
-	"cpp",
-	"css",
-	"go",
-	"gomod",
-	"html",
-	"javascript",
-	"json",
-	"latex",
-	"lua",
-	"make",
-	"markdown",
-	"markdown_inline",
-	"python",
-	"rust",
-	"typescript",
-	"vimdoc",
-	"vue",
-	"yaml",
-}
 
 -- Set the options for neovim's gui clients like `neovide` and `neovim-qt` here.
 -- NOTE: Currently, only the following options related to the GUI are supported. Other entries will be IGNORED.
@@ -214,4 +175,3 @@ settings["dashboard_image"] = {
 }
 
 return require("utils").extend_config(settings, "user.settings")
-

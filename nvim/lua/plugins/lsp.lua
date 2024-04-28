@@ -26,7 +26,7 @@ return{
 	config = function()
 	    require("mason-lspconfig").setup ({
 		ensure_installed = {"lua_ls","clangd","neocmake","marksman"},
-		automatic_installation = { exclude = {"pyright","pylsp","asm_lsp","bashls"} },
+		automatic_installation = { exclude = {"pyright","pylsp","asm_lsp", "bashls"} },
 		-- automatic_installation = true,
 	    handlers = nil})
 	    local lspconfig = require('lspconfig')

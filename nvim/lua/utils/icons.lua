@@ -226,4 +226,3 @@ function icons.get(category, add_space)
 end
 
 return icons
-
