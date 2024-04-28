@@ -4,7 +4,7 @@ export PATH=/home/xwu/.local/bin:$PATH
 #source ~/.local/share/blesh/ble.sh
 #source /home/xwu/.config/broot/launcher/bash/br
 
-alias icd='cd /$(fd --type d / --base-directory / --full-path | fzf)'
+alias icd='cd $(fd --type d / -a --full-path | fzf)'
 
  __main() {
      local major="${BASH_VERSINFO[0]}"
