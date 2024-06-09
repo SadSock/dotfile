@@ -1,6 +1,6 @@
 format = """
 $username\
-$hostname\
+$localip\
 $directory\
 $git_branch\
 $git_state\
@@ -10,13 +10,19 @@ $line_break\
 $python\
 $character"""
 
+
+[localip]
+ssh_only = false
+format = '🌐  [$localipv4](bold red) '
+disabled = false
+
 [directory]
 style = "blue"
 
 [character]
-success_symbol = "[>](purple)"
-error_symbol = "[>](red)"
-vimcmd_symbol = "[<](green)"
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
 
 [git_branch]
 format = "[$branch]($style)"

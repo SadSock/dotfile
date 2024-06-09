@@ -1,11 +1,26 @@
+# common
+
 export TERM=xterm-256color
 export PATH=/home/xwu/.local/bin:$PATH
+export XDG_CONFIG_HOME=/home/xwu/.config
+export XDG_DATA_HOME=/home/xwu/.local/share
+export XDG_STATE_HOME=/home/xwu/.local/state
+export COLORTERM=truecolor
 
 #source ~/.local/share/blesh/ble.sh
 #source /home/xwu/.config/broot/launcher/bash/br
 
-alias icd='cd $(fd --type d / -a --full-path | fzf)'
+# alias icd='cd '
 
+icd(){
+dir=$(fd --type d / -a --full-path | fzf)
+
+if [ -n $dir ]; then
+  cd $dir
+fi
+}
+
+# starship
  __main() {
      local major="${BASH_VERSINFO[0]}"
      local minor="${BASH_VERSINFO[1]}"
