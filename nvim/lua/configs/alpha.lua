@@ -40,7 +40,7 @@ return function()
 
 	local leader = " "
 	dashboard.section.buttons.val = {
-		button("space f c", " Colorscheme Change", leader, nil, {
+		button("space f c", " Themes Change", leader, nil, {
 			noremap = true,
 			silent = true,
 			nowait = true,
