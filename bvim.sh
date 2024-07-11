@@ -1,1 +1,1 @@
-NVIM_APPNAME="bvim" nvim
+NVIM_APPNAME="bvim" nvim $@

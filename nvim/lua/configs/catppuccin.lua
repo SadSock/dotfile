@@ -33,7 +33,7 @@ return function()
 	    variables = {},
 	},
 	integrations = {
-	    treesitter = true,
+	    treesitter = false,
 	    native_lsp = {
 		enabled = true,
 		virtual_text = {
@@ -91,7 +91,7 @@ return function()
 	    symbols_outline = false,
 	    telekasten = false,
 	    telescope = { enabled = true, style = "nvchad" },
-	    treesitter_context = true,
+	    treesitter_context = false,
 	    ts_rainbow = false,
 	    vim_sneak = false,
 	    vimwiki = false,
@@ -182,4 +182,3 @@ return function()
 	},
     })
 end
-
