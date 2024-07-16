@@ -90,88 +90,116 @@ vim.cmd.colorscheme('tokyonight')
 
 local wk = require("which-key")
 
-wk.register({
-  ["<leader>,"] = {
-        "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>","Switch Buffer",
-      },
-  ["<leader>/"] = { "<cmd>Telescope live_grep_args<cr>", "Grep Args" },
-  ["<leader>:"] = {"<cmd>Telescope command_history<cr>", "Command History" },
-  ["<leader><space>"] = { "<cmd>Telescope find_files<cr>", "Find File" },
-})
+wk.add(
+{
+    {
+      mode = { "n", "v" },
+      { "<leader><tab>", group = "tabs" },
+      { "<leader>b", group = "buffer" },
+      { "<leader>c", group = "code" },
+      { "<leader>f", group = "file/find" },
+      { "<leader>g", group = "git" },
+      { "<leader>gh", group = "hunks" },
+      { "<leader>q", group = "quit/session" },
+      { "<leader>s", group = "search" },
+      { "<leader>u", group = "ui" },
+      { "<leader>w", group = "windows" },
+      { "<leader>x", group = "diagnostics/quickfix" },
+      { "[", group = "prev" },
+      { "]", group = "next" },
+      { "g", group = "goto" },
+      { "gs", group = "surround" },
+    },
+  }
+)
+
+
+wk.add(
+{
+    { "<leader>,", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Switch Buffer" },
+    { "<leader>/", "<cmd>Telescope live_grep_args<cr>", desc = "Grep Args" },
+    { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+    { "<leader><space>", "<cmd>Telescope find_files<cr>", desc = "Find File" },
+  }
+)
 
 -- find
-wk.register({
-  ["<leader>"] = {
-    f = {
-      c = {"<cmd>Telescope colorscheme<cr>", "Change Colorscheme" },
-      b = {"<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", "Buffers" },
-      f = { "<cmd>Telescope find_files<cr>", "Find File" },
-      g = {"<cmd>Telescope git_files<cr>",   "Find Files (git-files)" },
-      r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-      n = { "<cmd>enew<cr>", "New File" },
-      w = { "<cmd>Telescope live_grep_args<cr>", "Grep Args" },
-      M = {"<cmd>Telescope marks<cr>", "Jump to Mark" },
-      m = {"<cmd>Telescope bookmarks list<cr>", "Jump to Bookmark" },
-    },
-  },
-})
+wk.add(
+{
+    { "<leader>fM", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
+    { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
+    { "<leader>fc", "<cmd>Telescope colorscheme<cr>", desc = "Change Colorscheme" },
+    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
+    { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
+    { "<leader>fm", "<cmd>Telescope bookmarks list<cr>", desc = "Jump to Bookmark" },
+    { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
+    { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
+    { "<leader>fw", "<cmd>Telescope live_grep_args<cr>", desc = "Grep Args" },
+    }
+)
 
 -- buffers
-wk.register({
-  ["<leader>"] = {
-    b = {
-      b = {"<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", "Switch Buffers" },
-    },
-  },
-})
--- search
-wk.register({
-    ["<leader>s\""] = {"<cmd>Telescope registers<cr>", "Registers" },
-})
-wk.register({
-    ["<leader>"] = {
-	s = {
-	    --name = "+search",
-	    a={"<cmd>Telescope autocommands<cr>", "Auto Commands" },
-	    b={"<cmd>Telescope current_buffer_fuzzy_find<cr>", "Buffer" },
-	    c={"<cmd>Telescope command_history<cr>", "Command History" },
-	    C={"<cmd>Telescope commands<cr>", "Commands" },
-	    d={"<cmd>Telescope diagnostics bufnr=0<cr>", "Document diagnostics" },
-	    D={"<cmd>Telescope diagnostics<cr>", "Workspace diagnostics" },
-	    g={"<cmd>Telescope live_grep_args<cr>", "Grep Args" },
-	    h={"<cmd>Telescope help_tags<cr>", "Help Pages" },
-	    H={"<cmd>Telescope highlights<cr>", "Search Highlight Groups" },
-	    k={"<cmd>Telescope keymaps<cr>", "Key Maps" },
-	    M={"<cmd>Telescope man_pages<cr>", "Man Pages" },
-	    o={"<cmd>Telescope vim_options<cr>", "Options" },
-	    R={"<cmd>Telescope resume<cr>", "Resume" },
-	    s={"<cmd>telescope lsp_document_symbols<cr>", "Goto Symbol" },
-	    S={"<cmd>telescope lsp_dynamic_workspace_symbols", "Goto Symbol (Workspace)" },
-	},
-    },
-})
+wk.add(
 
-wk.register({
-      ["gd"] =  {function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, "Goto Definition" },
-      ["gr"] = {"<cmd>Telescope lsp_references<cr>", "References" },
-      ["gD"] = { vim.lsp.buf.declaration, "Goto Declaration" },
-      ["gI"] = { function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, "Goto Implementation" },
-      ["gy"] = { function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, "Goto T[y]pe Definition" },
-      ["K"]  = { vim.lsp.buf.hover, "Hover" },
-      ["gK"] = { vim.lsp.buf.signature_help, "Signature Help" },})
-wk.register({
-    mode = { "i"},
-      ["<c-k>"] = {vim.lsp.buf.signature_help, "Signature Help" },
-})
-wk.register({
-    mode = { "n", "v" },
-     ["<leader>ca"] = {vim.lsp.buf.code_action, "Code Action" },
-})
-wk.register({
-    ["<leader>cr"] = {vim.lsp.buf.rename, "Rename"},
-    ["<leader>cl"] = {"<cmd>LspInfo<cr>", "Lsp Info"},
-    ["<leader>cA"] = {
-        function()
+{
+    { "<leader>bb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Switch Buffers" },
+  }
+
+)
+-- search
+wk.add(
+{
+    { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
+  }
+
+)
+wk.add(
+{
+    { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
+    { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
+    { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
+    { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+    { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
+    { "<leader>sS", "<cmd>telescope lsp_dynamic_workspace_symbols", desc = "Goto Symbol (Workspace)" },
+    { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
+    { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
+    { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+    { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
+    { "<leader>sg", "<cmd>Telescope live_grep_args<cr>", desc = "Grep Args" },
+    { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
+    { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
+    { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
+    { "<leader>ss", "<cmd>telescope lsp_document_symbols<cr>", desc = "Goto Symbol" },
+  }
+)
+
+wk.add(
+{
+    { "K", vim.lsp.buf.hover, desc = "Hover" },
+    { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+    { "gI", function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, desc = "Goto Implementation" },
+    { "gK", vim.lsp.buf.signature_help, desc = "Signature Help" },
+    { "gd", function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, desc = "Goto Definition" },
+    { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
+    { "gy", function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, desc = "Goto T[y]pe Definition" },
+  }
+)
+
+wk.add(
+{
+    { "<c-k>", vim.lsp.buf.signature_help, desc = "Signature Help", mode = "i" },
+  }
+)
+wk.add(
+{
+    { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" } },
+  }
+)
+
+wk.add(
+
+{
+    { "<leader>cA", function()
           vim.lsp.buf.code_action({
             context = {
               only = {
@@ -179,43 +207,36 @@ wk.register({
               },
               diagnostics = {},
             },
-          })
-        end,
-	"Source Action",
-      }})
-
-wk.register({
-    ["<leader>"] = {
-	c = {
-	    s={"<cmd>telescope lsp_document_symbols<cr>", "Goto Symbol" },
-	    S={"<cmd>telescope lsp_dynamic_workspace_symbols", "Goto Symbol (Workspace)" },
-	},
-    },
-})
-
-wk.register({
-      ["gd"] =  {function() require("telescope.builtin").lsp_definitions({ reuse_win = true }) end, "Goto Definition" },
-      ["gr"] = {"<cmd>Telescope lsp_references<cr>", "References" },
-      ["gD"] = { vim.lsp.buf.declaration, "Goto Declaration" },
-      ["gI"] = { function() require("telescope.builtin").lsp_implementations({ reuse_win = true }) end, "Goto Implementation" },
-      ["gy"] = { function() require("telescope.builtin").lsp_type_definitions({ reuse_win = true }) end, "Goto T[y]pe Definition" },
-      ["K"]  = { vim.lsp.buf.hover, "Hover" },
-      ["gK"] = { vim.lsp.buf.signature_help, "Signature Help" },}
+     })
+        end, desc = "Source Action" },
+    { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+    { "<leader>cr", vim.lsp.buf.rename, desc = "Rename" },
+  }
+  )
 
 
+
+
+wk.add(
+{
+    { "<leader>cS", "<cmd>telescope lsp_dynamic_workspace_symbols", desc = "Goto Symbol (Workspace)" },
+    { "<leader>cs", "<cmd>telescope lsp_document_symbols<cr>", desc = "Goto Symbol" },
+  }
 )
+
 
 -- bookmarks
 local bm = require("bookmarks")
 
-wk.register({
+wk.add(
+{
 
-    ["mm"] = { bm.bookmark_toggle,    "toggle bookmark"}, -- add or edit mark annotation at current line
-    ["mi"] = { bm.bookmark_ann,    "edit annotation"}, -- add or edit mark annotation at current line
-    ["mc"] = { bm.bookmark_clean,   "clean local marks"}, -- clean all marks in local buffer
-    ["mn"] = { bm.bookmark_next,    "next local mark"}, -- jump to next mark in local buffer
-    ["mp"] = { bm.bookmark_prev,    "previous local mark"}, -- jump to previous mark in local buffer
-    ["ml"] = { bm.bookmark_list,    "marks list"}, -- show marked file list in quickfix window
+    {"mm", bm.bookmark_toggle,    desc = "toggle bookmark"}, -- add or edit mark annotation at current line
+    {"mi", bm.bookmark_ann,       desc = "edit annotation"}, -- add or edit mark annotation at current line
+    {"mc", bm.bookmark_clean,     desc = "clean local marks"}, -- clean all marks in local buffer
+    {"mn", bm.bookmark_next,      desc = "next local mark"}, -- jump to next mark in local buffer
+    {"mp", bm.bookmark_prev,      desc = "previous local mark"}, -- jump to previous mark in local buffer
+    {"ml", bm.bookmark_list,      desc = "marks list"}, -- show marked file list in quickfix window
 }
 )
 
