@@ -42,8 +42,14 @@ vim.opt.inccommand = "nosplit"
 vim.opt.incsearch = true
 vim.opt.infercase = true
 
+--
+
+vim.opt.clipboard:append { 'unnamed', 'unnamedplus' }
+
+
 -- Please do NOT set `updatetime` to above 500, otherwise most plugins may not function correctly
 -- vim.opt.updatetime = 200
+
 
 require("lazy").setup({
     spec = {
@@ -65,7 +71,7 @@ require("lazy").setup({
 	version = false, -- always use the latest git commit
 	-- version = "*", -- try installing the latest stable version for plugins that support semver
     },
-    install = {  missing = true,colorscheme = { "tokyonight" } },
+    install = {  missing = true,colorscheme = { "onedark" } },
     checker = { enabled = false }, -- automatically check for plugin updates
     performance = {
 	rtp = {
@@ -78,15 +84,15 @@ require("lazy").setup({
 		"tarPlugin",
 		"tohtml",
 		"tutor",
-		"zipPlugin",                                                                                                   P
-	    },                                                                                                               S
+		"zipPlugin",
+	    },
 	},
-    },                                                                                                                   H
+    },
 })
 
 
 -- select theme
-vim.cmd.colorscheme('tokyonight')
+vim.cmd.colorscheme('onedark')
 
 local wk = require("which-key")
 
