@@ -34,8 +34,12 @@ fi
 }
 
 icd(){
-dir=$(fd --type d  -I -a --full-path . $HOME| fzf)
 
+if [ $# -eq 0 ]; then
+  dir=$(fd --type d  -I -a --full-path . $HOME| fzf)
+    elif [ $# -eq 1 ]; then
+  dir=$(fd --type d  -I -a --full-path . $1| fzf)
+    fi
 if [ -n $dir ]; then
   cd $dir
 fi
