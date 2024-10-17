@@ -78,8 +78,8 @@ require("lazy").setup({
 	    -- disable some rtp plugins
 	    disabled_plugins = {
 		"gzip",
-		"matchit",
-		"matchparen",
+		--"matchit",
+		--"matchparen",
 		-- "netrwPlugin",
 		"tarPlugin",
 		"tohtml",
@@ -132,12 +132,11 @@ wk.add(
 -- find
 wk.add(
 {
-    { "<leader>fM", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
+    { "<leader>fm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
     { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
     { "<leader>fc", "<cmd>Telescope colorscheme<cr>", desc = "Change Colorscheme" },
     { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
     { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Find Files (git-files)" },
-    { "<leader>fm", "<cmd>Telescope bookmarks list<cr>", desc = "Jump to Bookmark" },
     { "<leader>fn", "<cmd>enew<cr>", desc = "New File" },
     { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Open Recent File" },
     { "<leader>fw", "<cmd>Telescope live_grep_args<cr>", desc = "Grep Args" },
@@ -220,9 +219,6 @@ wk.add(
   }
   )
 
-
-
-
 wk.add(
 {
     { "<leader>cS", "<cmd>telescope lsp_dynamic_workspace_symbols", desc = "Goto Symbol (Workspace)" },
@@ -230,21 +226,6 @@ wk.add(
   }
 )
 
-
--- bookmarks
-local bm = require("bookmarks")
-
-wk.add(
-{
-
-    {"mm", bm.bookmark_toggle,    desc = "toggle bookmark"}, -- add or edit mark annotation at current line
-    {"mi", bm.bookmark_ann,       desc = "edit annotation"}, -- add or edit mark annotation at current line
-    {"mc", bm.bookmark_clean,     desc = "clean local marks"}, -- clean all marks in local buffer
-    {"mn", bm.bookmark_next,      desc = "next local mark"}, -- jump to next mark in local buffer
-    {"mp", bm.bookmark_prev,      desc = "previous local mark"}, -- jump to previous mark in local buffer
-    {"ml", bm.bookmark_list,      desc = "marks list"}, -- show marked file list in quickfix window
-}
-)
 
 -- highlight yanked text for 200ms using the "Visual" highlight group
 
