@@ -236,9 +236,9 @@ au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=2
 augroup END
 ]]
 
-vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'cpp',
-    callback = function()
-        vim.opt.commentstring = '// %s'
-    end
-})
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = 'cpp',
+--     callback = function()
+--         vim.opt.commentstring = '// %s'
+--     end
+-- })

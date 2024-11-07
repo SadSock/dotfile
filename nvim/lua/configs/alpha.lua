@@ -60,7 +60,9 @@ return function()
 			noremap = true,
 			silent = true,
 			nowait = true,
-		callback =	"<cmd>Telescope marks<cr>",
+			callback = function()
+				require("telescope.builtin").marks()
+			end,
 		}),
 		button("space f f", "󰈞 File find", leader, nil, {
 			noremap = true,
