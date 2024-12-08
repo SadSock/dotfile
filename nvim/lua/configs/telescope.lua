@@ -92,8 +92,5 @@ return function()
 
 	require("telescope").load_extension("fzf")
 	require("telescope").load_extension("live_grep_args")
-	-- require('telescope').load_extension('bookmarks')
-	-- require("telescope").load_extension("notify")
-	require("telescope").load_extension("project")
 	require("telescope").load_extension("aerial")
 end
