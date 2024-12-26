@@ -17,9 +17,12 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- disable command history list
-vim.keymap.set('n', 'q:', '')
-vim.keymap.set('n', 'q/', '')
-vim.keymap.set('n', 'q?', '')
+vim.keymap.set('n', 'q:', '<nop>', { noremap = true })
+
+-- 禁用 command window
+vim.keymap.set('n', 'q/', '<nop>', { noremap = true })
+vim.keymap.set('n', 'q?', '<nop>', { noremap = true })
+
 
 -- show line number
 vim.wo.number = true
@@ -236,9 +239,19 @@ au TextYankPost * silent! lua vim.highlight.on_yank({higroup="Visual", timeout=2
 augroup END
 ]]
 
--- vim.api.nvim_create_autocmd('FileType', {
---     pattern = 'cpp',
---     callback = function()
---         vim.opt.commentstring = '// %s'
---     end
--- })
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'cpp',
+    callback = function()
+        vim.opt.commentstring = '// %s'
+    end
+})
+
+
+-- 在 Neovim 中设置文件类型映射
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+  pattern = "*.maca",
+  callback = function()
+    vim.bo.filetype = "cpp"
+  end
+})
