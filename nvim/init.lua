@@ -255,3 +255,10 @@ vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     vim.bo.filetype = "cpp"
   end
 })
+
+vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
+  pattern = "*.inc",
+  callback = function()
+    vim.bo.filetype = "cpp"
+  end
+})
