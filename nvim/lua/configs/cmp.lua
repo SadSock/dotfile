@@ -58,36 +58,35 @@ return function()
       async_budget = 1,
       max_view_entries = 120,
     },
-
     mapping = {
-
-      -- ... Your other configuration ...
-
-      ['<C-Space>'] = cmp.mapping.confirm {
-	behavior = cmp.ConfirmBehavior.Insert,
+      ['<Up>'] = cmp.mapping.select_prev_item({behavior = cmp.SelectBehavior.Select}),
+      ['<Down>'] = cmp.mapping.select_next_item({behavior = cmp.SelectBehavior.Select}),
+      ['<C-p>'] = cmp.mapping.select_prev_item(),
+      ['<C-n>'] = cmp.mapping.select_next_item(),
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.close(),
+      ['<CR>'] = cmp.mapping.confirm {
+	behavior = cmp.ConfirmBehavior.Replace,
 	select = true,
       },
-
       ['<Tab>'] = function(fallback)
-	if not cmp.select_next_item() then
-	  if vim.bo.buftype ~= 'prompt' and has_words_before() then
-	    cmp.complete()
-	  else
-	    fallback()
-	  end
+	if cmp.visible() then
+	  cmp.select_next_item()
+	else
+	  fallback()
 	end
       end,
-
       ['<S-Tab>'] = function(fallback)
-	if not cmp.select_prev_item() then
-	  if vim.bo.buftype ~= 'prompt' and has_words_before() then
-	    cmp.complete()
-	  else
-	    fallback()
-	  end
+	if cmp.visible() then
+	  cmp.select_prev_item()
+	else
+	  fallback()
 	end
       end,
     },
+
 
     snippet = {
       --    expand = function(args)
