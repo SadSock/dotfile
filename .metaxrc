@@ -1,39 +1,7 @@
 export TERM=xterm-256color
 export COLORTERM=truecolor
+export PATH=/home/xwu/.local/bin:$PATH
 
-
-ihis(){
-his=$(history | awk '{$1=""; print $0}' | sed '/^ cd/d' |  sort | uniq | fzf)
-echo $his
-}
-
-ifd(){
-
-if [ $# -eq 0 ]; then
-      file=$(fd --type f  -I -a --full-path . $HOME| fzf  --preview  'echo {}'  --preview-window='down:3:wrap')
-    elif [ $# -eq 1 ]; then
-
-      file=$(fd --type f  -I -a --full-path $1 $HOME| fzf  --preview  'echo {}'  --preview-window='down:3:wrap')
-    elif [ $# -eq 2 ]; then
-      file=$(fd --type f  -I -a --full-path $1 $2 | fzf  --preview  'echo {}'  --preview-window='down:3:wrap')
-    fi
-
-if [ -n $file ]; then
-  echo $file
-fi
-}
-
-icd(){
-
-if [ $# -eq 0 ]; then
-  dir=$(fd --type d  -I -a --full-path . $HOME| fzf)
-    elif [ $# -eq 1 ]; then
-  dir=$(fd --type d  -I -a --full-path . $1| fzf)
-    fi
-if [ -n $dir ]; then
-  cd $dir
-fi
-}
 
 eval "$(fzf --bash)"
 

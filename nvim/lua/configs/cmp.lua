@@ -98,12 +98,10 @@ return function()
 	{ name = "nvim_lsp", max_item_count = 350 },
 	{ name = "nvim_lua" },
 	{ name = "path" },
-	{ name = "buffer" },
+	-- { name = "buffer" },
       },
       experimental = {
-	ghost_text = {
-	  hl_group = "Whitespace",
-	},
+	ghost_text = false,
       },
     })
   end

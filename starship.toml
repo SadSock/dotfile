@@ -1,8 +1,8 @@
 format = """
 $username\
-$os\
 $localip\
 $directory\
+$os\
 $git_branch\
 $git_state\
 $git_status\
@@ -14,20 +14,20 @@ $character"""
 command_timeout=2000
 
 [username]
-format = '[$user]($style) on '
+format = '[$user]($style)@'
 
 [os]
-format = "[($name)]($style)"
+format = "[($name)]($style) "
 style = "bold blue"
 disabled = false
 
 [localip]
 ssh_only = false
-format = '\([$localipv4](bold red)\) '
+format = '[$localipv4](bold red):'
 disabled = false
 
 [directory]
-style = "blue"
+style = "bright-blue"
 
 [character]
 success_symbol = "[❯](purple)"
