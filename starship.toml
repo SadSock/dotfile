@@ -28,6 +28,8 @@ disabled = false
 
 [directory]
 style = "bright-blue"
+truncation_length = 0
+truncate_to_repo = false
 
 [character]
 success_symbol = "[❯](purple)"
