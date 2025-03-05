@@ -1,8 +1,31 @@
-export TERM=xterm-256color
-export COLORTERM=truecolor
-export PATH=/home/xwu/.local/bin:$PATH
+source /home/xwu/dotfile/ble.sh/out/ble.sh
+
+ble-import -d integration/fzf-key-bindings
+
+bleopt color_scheme=catppuccin_mocha
+
+ble-face -s syntax_error 'fg=#f38ba8'              # Red background, Crust foreground for better contrast
+ble-face -s syntax_history_expansion 'fg=#b4befe'      # Lavender
+ble-face -s argument_option 'fg=#f2cdcd'               # Flamingo
+ble-face -s auto_complete 'fg=#45475a'                 # Surface1
+ble-face -s cmdinfo_cd_cdpath 'fg=#89b4fa,bg=#11111b'  # Blue, Crust
+
+# Disable EOF marker like "[ble: EOF]"
+bleopt prompt_eol_mark=''
+
+# Disable error exit marker like "[ble: exit %d]"
+bleopt exec_errexit_mark=
+
+# Disable elapsed-time marker like "[ble: elapsed 1.203s (CPU 0.4%)]"
+bleopt exec_elapsed_mark=
+
+# Disable exit marker like "[ble: exit]"
+bleopt exec_exit_mark=
+
+# Disable some other markers like "[ble: ...]"
+bleopt edit_marker=
+bleopt edit_marker_error=
 
 
-eval "$(fzf --bash)"
-
-eval -- "$(starship init bash --print-full-init)"
+# default
+bleopt complete_source_sabbrev_ignore=*
