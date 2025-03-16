@@ -1,0 +1,9 @@
+# Font
+font-family = "Lucida Console"
+font-size = "11"
+
+# Theme
+theme = Homebrew
+
+shell-integration = bash
+
