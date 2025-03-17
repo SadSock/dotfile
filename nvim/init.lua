@@ -236,6 +236,12 @@ vim.api.nvim_create_autocmd('FileType', {
     end
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'cuda',
+    callback = function()
+        vim.opt.commentstring = '// %s'
+    end
+})
 
 -- 在 Neovim 中设置文件类型映射
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
