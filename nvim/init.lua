@@ -55,6 +55,7 @@ require("configs.trim")()
 require("configs.lsp")()
 require("configs.diffview")()
 require("configs.git")()
+require("configs.spectre")()
 require("configs.indent")()
 require("configs.telescope")()
 require("configs.cmp")()
@@ -132,6 +133,7 @@ wk.add(
 wk.add(
 {
     { "<leader>pd", "<cmd>DiffviewOpen<cr>", desc = "Diff View" },
+    { "<leader>ps", function() require("spectre").toggle() end, desc = "Spectre" },
 }
 )
 
