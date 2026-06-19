@@ -23,7 +23,7 @@ return {
   gh("SmiteshP/nvim-navic"),
   gh("nvim-tree/nvim-web-devicons"),
   gh("navarasu/onedark.nvim"),
-  gh("nvim-pack/nvim-spectre"),
+  gh("MagicDuck/grug-far.nvim"),
   gh("nvim-lua/plenary.nvim"),
   gh("nvim-telescope/telescope-live-grep-args.nvim"),
   gh("nvim-telescope/telescope.nvim"),

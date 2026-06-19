@@ -55,7 +55,7 @@ require("configs.trim")()
 require("configs.lsp")()
 require("configs.diffview")()
 require("configs.git")()
-require("configs.spectre")()
+require("configs.grug_far")()
 require("configs.indent")()
 require("configs.telescope")()
 require("configs.cmp")()
@@ -107,6 +107,12 @@ vim.keymap.set("n", "<leader>?", function()
   wk.show({ global = false })
 end, { desc = "Buffer Local Keymaps (which-key)" })
 
+local function toggle_grug_far()
+  require("grug-far").toggle_instance({ instanceName = "main" })
+end
+
+vim.keymap.set("n", "<leader>pg", toggle_grug_far, { desc = "Grug Far" })
+
 wk.add(
 {
     {
@@ -133,7 +139,7 @@ wk.add(
 wk.add(
 {
     { "<leader>pd", "<cmd>DiffviewOpen<cr>", desc = "Diff View" },
-    { "<leader>ps", function() require("spectre").toggle() end, desc = "Spectre" },
+    { "<leader>pg", desc = "Grug Far" },
 }
 )
 
